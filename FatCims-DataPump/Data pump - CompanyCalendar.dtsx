@@ -1,0 +1,1993 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="12:00:00 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName=""
+  DTS:CreatorName=""
+  DTS:DTSID="{0307F849-8910-42E3-B59B-76404B0BE3F4}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="14.0.3006.16"
+  DTS:LocaleID="2057"
+  DTS:ObjectName="Data pump - CompanyCalendar"
+  DTS:PackageType="5"
+  DTS:VersionBuild="91"
+  DTS:VersionGUID="{AF9CEE58-BEBC-4584-A06B-F84987CC7230}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:PackageParameters>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="3"
+      DTS:Description="MasterPackageLoadID"
+      DTS:DTSID="{D126A302-1ECA-416E-8E7C-BCD8A161476F}"
+      DTS:ObjectName="LoadID"
+      DTS:Required="True">
+      <DTS:Property
+        DTS:DataType="3"
+        DTS:Name="ParameterValue">0</DTS:Property>
+    </DTS:PackageParameter>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="2"
+      DTS:DTSID="{5B252935-CD13-4FC1-A6D9-13FD7B72AA73}"
+      DTS:ObjectName="NumberOfDaysToLoad">
+      <DTS:Property
+        DTS:DataType="2"
+        DTS:Name="ParameterValue">1</DTS:Property>
+    </DTS:PackageParameter>
+  </DTS:PackageParameters>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{EF16C2EB-D386-4670-8C0B-3941FF13E68A}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="DeletedRows">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{5FB48672-2E97-4BFA-B722-C38CE7968872}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="ErrorRows">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{84E3C1E8-E1E4-4A01-8436-F18E74943E36}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="&quot;Errors were encountered in package: &quot; + @[System::PackageName] + &quot; (&quot; + @[User::PackageDescription]  + &quot;).  See logging.DataError for details.  PackageExecutionID: &quot; +  (DT_STR, 10,1252)@[User::PackageExecutionID]"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="ErrorText">
+      <DTS:VariableValue
+        DTS:DataType="8">Errors were encountered in package: Data pump - CompanyCalendar (Load MyTable).  See logging.DataError for details.  PackageExecutionID: 0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{33A75343-3087-4392-9820-608FCA9C6A81}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="InsertedRows">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{B5DFFADA-442E-46C9-8720-02BDCB18880D}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="PackageDescription">
+      <DTS:VariableValue
+        DTS:DataType="8">Load MyTable</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{5868ED2E-83BA-46C9-A4C5-A614A213DE8A}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="PackageExecutionID">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{0426EE4F-F551-4BF8-859A-E2ABE43F369B}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="&quot;SELECT &#xA;IN_DATE,&#xA;UP_DATE,&#xA;SKP_OPEN,&#xA;WK_CODE,&#xA;PERIOD_START,&#xA;PERIOD_END,&#xA;SUN_PERIOD,&#xA;SELL_SEASON,&#xA;YR_START,&#xA;LY_WK_CODE,&#xA;FACTOR,&#xA;WK_NUM,&#xA;WK_ID&#xA;FROM  COMPANY_CALENDAR&#xA;WHERE UP_DATE &gt; TRUNC(sysdate - &quot; + (DT_WSTR,5)@[$Package::NumberOfDaysToLoad]  + &quot;) or IN_DATE &gt; TRUNC(sysdate - &quot;+ (DT_WSTR,5)@[$Package::NumberOfDaysToLoad]  +&quot;)&quot;"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="SQLSource">
+      <DTS:VariableValue
+        DTS:DataType="8">SELECT 
+IN_DATE,
+UP_DATE,
+SKP_OPEN,
+WK_CODE,
+PERIOD_START,
+PERIOD_END,
+SUN_PERIOD,
+SELL_SEASON,
+YR_START,
+LY_WK_CODE,
+FACTOR,
+WK_NUM,
+WK_ID
+FROM  COMPANY_CALENDAR
+WHERE UP_DATE &gt; TRUNC(sysdate - 1) or IN_DATE &gt; TRUNC(sysdate - 1)</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{60C8B4D0-E1D4-4AB5-8FE7-0C8EC255D464}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="UpdatedRows">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\SEQ Package Body"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{E4DA3E21-D345-4D17-A8AB-9FBD8E6C80B1}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SEQ Package Body">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\SEQ Package Body\Process CompanyCalendar"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{0E10B8DA-A82A-4648-AF04-DA2FBE752434}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Process CompanyCalendar"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\SEQ Package Body\Process CompanyCalendar\Get Data"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+                  description="OLE DB Source"
+                  name="Get Data"
+                  usesDispositions="true"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset"></property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT 
+IN_DATE,
+UP_DATE,
+SKP_OPEN,
+WK_CODE,
+PERIOD_START,
+PERIOD_END,
+SUN_PERIOD,
+SELL_SEASON,
+YR_START,
+LY_WK_CODE,
+FACTOR,
+WK_NUM,
+WK_ID
+FROM  COMPANY_CALENDAR
+where up_date &gt; TRUNC(sysdate -1) or in_date &gt; TRUNC(sysdate -1)</property>
+                    <property
+                      dataType="System.String"
+                      description="The variable that contains the SQL command to be executed."
+                      name="SqlCommandVariable">User::SQLSource</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">true</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.String"
+                      description="The mappings between the parameters in the SQL command and variables."
+                      name="ParameterMapping"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Connections[OleDbConnection]"
+                      connectionManagerID="{838FC444-B8A0-495A-8598-BCD4276DEEBF}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[CIMS]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output]"
+                      name="OLE DB Source Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].Columns[IN_DATE]"
+                          dataType="dbTimeStamp"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].ExternalColumns[IN_DATE]"
+                          lineageId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].Columns[IN_DATE]"
+                          name="IN_DATE"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].Columns[UP_DATE]"
+                          dataType="dbTimeStamp"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].ExternalColumns[UP_DATE]"
+                          lineageId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].Columns[UP_DATE]"
+                          name="UP_DATE"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].Columns[SKP_OPEN]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].ExternalColumns[SKP_OPEN]"
+                          length="1"
+                          lineageId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].Columns[SKP_OPEN]"
+                          name="SKP_OPEN"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].Columns[WK_CODE]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].ExternalColumns[WK_CODE]"
+                          length="4"
+                          lineageId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].Columns[WK_CODE]"
+                          name="WK_CODE"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].Columns[PERIOD_START]"
+                          dataType="dbTimeStamp"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].ExternalColumns[PERIOD_START]"
+                          lineageId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].Columns[PERIOD_START]"
+                          name="PERIOD_START"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].Columns[PERIOD_END]"
+                          dataType="dbTimeStamp"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].ExternalColumns[PERIOD_END]"
+                          lineageId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].Columns[PERIOD_END]"
+                          name="PERIOD_END"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].Columns[SUN_PERIOD]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].ExternalColumns[SUN_PERIOD]"
+                          length="4"
+                          lineageId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].Columns[SUN_PERIOD]"
+                          name="SUN_PERIOD"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].Columns[SELL_SEASON]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].ExternalColumns[SELL_SEASON]"
+                          length="6"
+                          lineageId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].Columns[SELL_SEASON]"
+                          name="SELL_SEASON"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].Columns[YR_START]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].ExternalColumns[YR_START]"
+                          length="1"
+                          lineageId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].Columns[YR_START]"
+                          name="YR_START"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].Columns[LY_WK_CODE]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].ExternalColumns[LY_WK_CODE]"
+                          length="4"
+                          lineageId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].Columns[LY_WK_CODE]"
+                          name="LY_WK_CODE"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].Columns[FACTOR]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].ExternalColumns[FACTOR]"
+                          lineageId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].Columns[FACTOR]"
+                          name="FACTOR"
+                          precision="5"
+                          scale="2"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].Columns[WK_NUM]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].ExternalColumns[WK_NUM]"
+                          lineageId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].Columns[WK_NUM]"
+                          name="WK_NUM"
+                          precision="9"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].Columns[WK_ID]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].ExternalColumns[WK_ID]"
+                          lineageId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].Columns[WK_ID]"
+                          name="WK_ID"
+                          precision="9"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].ExternalColumns[IN_DATE]"
+                          dataType="dbTimeStamp"
+                          name="IN_DATE" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].ExternalColumns[UP_DATE]"
+                          dataType="dbTimeStamp"
+                          name="UP_DATE" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].ExternalColumns[SKP_OPEN]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          name="SKP_OPEN" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].ExternalColumns[WK_CODE]"
+                          codePage="1252"
+                          dataType="str"
+                          length="4"
+                          name="WK_CODE" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].ExternalColumns[PERIOD_START]"
+                          dataType="dbTimeStamp"
+                          name="PERIOD_START" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].ExternalColumns[PERIOD_END]"
+                          dataType="dbTimeStamp"
+                          name="PERIOD_END" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].ExternalColumns[SUN_PERIOD]"
+                          codePage="1252"
+                          dataType="str"
+                          length="4"
+                          name="SUN_PERIOD" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].ExternalColumns[SELL_SEASON]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          name="SELL_SEASON" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].ExternalColumns[YR_START]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          name="YR_START" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].ExternalColumns[LY_WK_CODE]"
+                          codePage="1252"
+                          dataType="str"
+                          length="4"
+                          name="LY_WK_CODE" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].ExternalColumns[FACTOR]"
+                          dataType="numeric"
+                          name="FACTOR"
+                          precision="5"
+                          scale="2" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].ExternalColumns[WK_NUM]"
+                          dataType="numeric"
+                          name="WK_NUM"
+                          precision="9" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].ExternalColumns[WK_ID]"
+                          dataType="numeric"
+                          name="WK_ID"
+                          precision="9" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Error Output]"
+                      isErrorOut="true"
+                      name="OLE DB Source Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Error Output].Columns[IN_DATE]"
+                          dataType="dbTimeStamp"
+                          lineageId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Error Output].Columns[IN_DATE]"
+                          name="IN_DATE" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Error Output].Columns[UP_DATE]"
+                          dataType="dbTimeStamp"
+                          lineageId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Error Output].Columns[UP_DATE]"
+                          name="UP_DATE" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Error Output].Columns[SKP_OPEN]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          lineageId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Error Output].Columns[SKP_OPEN]"
+                          name="SKP_OPEN" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Error Output].Columns[WK_CODE]"
+                          codePage="1252"
+                          dataType="str"
+                          length="4"
+                          lineageId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Error Output].Columns[WK_CODE]"
+                          name="WK_CODE" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Error Output].Columns[PERIOD_START]"
+                          dataType="dbTimeStamp"
+                          lineageId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Error Output].Columns[PERIOD_START]"
+                          name="PERIOD_START" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Error Output].Columns[PERIOD_END]"
+                          dataType="dbTimeStamp"
+                          lineageId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Error Output].Columns[PERIOD_END]"
+                          name="PERIOD_END" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Error Output].Columns[SUN_PERIOD]"
+                          codePage="1252"
+                          dataType="str"
+                          length="4"
+                          lineageId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Error Output].Columns[SUN_PERIOD]"
+                          name="SUN_PERIOD" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Error Output].Columns[SELL_SEASON]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          lineageId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Error Output].Columns[SELL_SEASON]"
+                          name="SELL_SEASON" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Error Output].Columns[YR_START]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          lineageId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Error Output].Columns[YR_START]"
+                          name="YR_START" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Error Output].Columns[LY_WK_CODE]"
+                          codePage="1252"
+                          dataType="str"
+                          length="4"
+                          lineageId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Error Output].Columns[LY_WK_CODE]"
+                          name="LY_WK_CODE" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Error Output].Columns[FACTOR]"
+                          dataType="numeric"
+                          lineageId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Error Output].Columns[FACTOR]"
+                          name="FACTOR"
+                          precision="5"
+                          scale="2" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Error Output].Columns[WK_NUM]"
+                          dataType="numeric"
+                          lineageId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Error Output].Columns[WK_NUM]"
+                          name="WK_NUM"
+                          precision="9" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Error Output].Columns[WK_ID]"
+                          dataType="numeric"
+                          lineageId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Error Output].Columns[WK_ID]"
+                          name="WK_ID"
+                          precision="9" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\SEQ Package Body\Process CompanyCalendar\Insert Rows"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  description="OLE DB Destination"
+                  name="Insert Rows"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[Cims].[CompanyCalendar]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\SEQ Package Body\Process CompanyCalendar\Insert Rows.Connections[OleDbConnection]"
+                      connectionManagerID="{915CBEE3-A847-43BD-A895-44946E73BA9B}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[FatCims]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\SEQ Package Body\Process CompanyCalendar\Insert Rows.Inputs[OLE DB Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Insert Rows.Inputs[OLE DB Destination Input].Columns[IN_DATE]"
+                          cachedDataType="dbTimeStamp"
+                          cachedName="IN_DATE"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process CompanyCalendar\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[IN_DATE]"
+                          lineageId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].Columns[IN_DATE]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Insert Rows.Inputs[OLE DB Destination Input].Columns[UP_DATE]"
+                          cachedDataType="dbTimeStamp"
+                          cachedName="UP_DATE"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process CompanyCalendar\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[UP_DATE]"
+                          lineageId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].Columns[UP_DATE]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Insert Rows.Inputs[OLE DB Destination Input].Columns[SKP_OPEN]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="1"
+                          cachedName="SKP_OPEN"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process CompanyCalendar\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[SKP_OPEN]"
+                          lineageId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].Columns[SKP_OPEN]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Insert Rows.Inputs[OLE DB Destination Input].Columns[WK_CODE]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="4"
+                          cachedName="WK_CODE"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process CompanyCalendar\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[WK_CODE]"
+                          lineageId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].Columns[WK_CODE]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Insert Rows.Inputs[OLE DB Destination Input].Columns[PERIOD_START]"
+                          cachedDataType="dbTimeStamp"
+                          cachedName="PERIOD_START"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process CompanyCalendar\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[PERIOD_START]"
+                          lineageId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].Columns[PERIOD_START]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Insert Rows.Inputs[OLE DB Destination Input].Columns[PERIOD_END]"
+                          cachedDataType="dbTimeStamp"
+                          cachedName="PERIOD_END"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process CompanyCalendar\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[PERIOD_END]"
+                          lineageId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].Columns[PERIOD_END]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Insert Rows.Inputs[OLE DB Destination Input].Columns[SUN_PERIOD]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="4"
+                          cachedName="SUN_PERIOD"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process CompanyCalendar\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[SUN_PERIOD]"
+                          lineageId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].Columns[SUN_PERIOD]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Insert Rows.Inputs[OLE DB Destination Input].Columns[SELL_SEASON]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="6"
+                          cachedName="SELL_SEASON"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process CompanyCalendar\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[SELL_SEASON]"
+                          lineageId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].Columns[SELL_SEASON]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Insert Rows.Inputs[OLE DB Destination Input].Columns[YR_START]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="1"
+                          cachedName="YR_START"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process CompanyCalendar\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[YR_START]"
+                          lineageId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].Columns[YR_START]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Insert Rows.Inputs[OLE DB Destination Input].Columns[LY_WK_CODE]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="4"
+                          cachedName="LY_WK_CODE"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process CompanyCalendar\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[LY_WK_CODE]"
+                          lineageId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].Columns[LY_WK_CODE]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Insert Rows.Inputs[OLE DB Destination Input].Columns[FACTOR]"
+                          cachedDataType="numeric"
+                          cachedName="FACTOR"
+                          cachedPrecision="5"
+                          cachedScale="2"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process CompanyCalendar\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[FACTOR]"
+                          lineageId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].Columns[FACTOR]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Insert Rows.Inputs[OLE DB Destination Input].Columns[WK_NUM]"
+                          cachedDataType="numeric"
+                          cachedName="WK_NUM"
+                          cachedPrecision="9"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process CompanyCalendar\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[WK_NUM]"
+                          lineageId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].Columns[WK_NUM]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Insert Rows.Inputs[OLE DB Destination Input].Columns[WK_ID]"
+                          cachedDataType="numeric"
+                          cachedName="WK_ID"
+                          cachedPrecision="9"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process CompanyCalendar\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[WK_ID]"
+                          lineageId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].Columns[WK_ID]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[IN_DATE]"
+                          dataType="dbTimeStamp"
+                          name="IN_DATE" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[UP_DATE]"
+                          dataType="dbTimeStamp"
+                          name="UP_DATE" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[CompanyCalendarId]"
+                          dataType="i4"
+                          name="CompanyCalendarId" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[SKP_OPEN]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          name="SKP_OPEN" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[WK_CODE]"
+                          codePage="1252"
+                          dataType="str"
+                          length="4"
+                          name="WK_CODE" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[PERIOD_START]"
+                          dataType="dbTimeStamp"
+                          name="PERIOD_START" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[PERIOD_END]"
+                          dataType="dbTimeStamp"
+                          name="PERIOD_END" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[SUN_PERIOD]"
+                          codePage="1252"
+                          dataType="str"
+                          length="4"
+                          name="SUN_PERIOD" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[SELL_SEASON]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          name="SELL_SEASON" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[YR_START]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          name="YR_START" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[LY_WK_CODE]"
+                          codePage="1252"
+                          dataType="str"
+                          length="4"
+                          name="LY_WK_CODE" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[FACTOR]"
+                          dataType="numeric"
+                          name="FACTOR"
+                          precision="5"
+                          scale="2" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[WK_NUM]"
+                          dataType="numeric"
+                          name="WK_NUM"
+                          precision="9" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[WK_ID]"
+                          dataType="numeric"
+                          name="WK_ID"
+                          precision="9" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\SEQ Package Body\Process CompanyCalendar\Insert Rows.Outputs[OLE DB Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Destination Error Output"
+                      synchronousInputId="Package\SEQ Package Body\Process CompanyCalendar\Insert Rows.Inputs[OLE DB Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Insert Rows.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\SEQ Package Body\Process CompanyCalendar\Insert Rows.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Insert Rows.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\SEQ Package Body\Process CompanyCalendar\Insert Rows.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\SEQ Package Body\Process CompanyCalendar\Inserted Row Count"
+                  componentClassID="Microsoft.RowCount"
+                  contactInfo="Row Count;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                  description="Counts rows as they pass through a data flow. For example, use the number of rows processed to determine whether or not to perform cleanup operations, or update text in an e-mail message to communicate processing status."
+                  name="Inserted Row Count">
+                  <properties>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable to hold the row count."
+                      name="VariableName">User::InsertedRows</property>
+                  </properties>
+                  <inputs>
+                    <input
+                      refId="Package\SEQ Package Body\Process CompanyCalendar\Inserted Row Count.Inputs[Row Count Input 1]"
+                      hasSideEffects="true"
+                      name="Row Count Input 1">
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\SEQ Package Body\Process CompanyCalendar\Inserted Row Count.Outputs[Row Count Output 1]"
+                      name="Row Count Output 1"
+                      synchronousInputId="Package\SEQ Package Body\Process CompanyCalendar\Inserted Row Count.Inputs[Row Count Input 1]">
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\SEQ Package Body\Process CompanyCalendar\Lookup"
+                  componentClassID="Microsoft.Lookup"
+                  contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+                  description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+                  name="Lookup"
+                  usesDispositions="true"
+                  version="6">
+                  <properties>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the SQL statement that generates the lookup table."
+                      expressionType="Notify"
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [Cims].[CompanyCalendar]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                      expressionType="Notify"
+                      name="SqlCommandParam"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [Cims].[CompanyCalendar]) [refTable]
+where [refTable].[WK_CODE] = ?</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the type of connection used to access the reference dataset."
+                      name="ConnectionType"
+                      typeConverter="LookupConnectionType">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the cache type of the lookup table."
+                      name="CacheType"
+                      typeConverter="CacheType">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                      name="NoMatchBehavior"
+                      typeConverter="LookupNoMatchBehavior">1</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                      name="NoMatchCachePercentage">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                      name="MaxMemoryUsage">25</property>
+                    <property
+                      dataType="System.Int64"
+                      description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                      name="MaxMemoryUsage64">25</property>
+                    <property
+                      dataType="System.String"
+                      description="Indicates whether to reference metadata in an XML format."
+                      name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="CompanyCalendarId" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="IN_DATE" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="UP_DATE" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="SKP_OPEN" dataType="DT_STR" length="1" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="WK_CODE" dataType="DT_STR" length="4" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="PERIOD_START" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="PERIOD_END" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="SUN_PERIOD" dataType="DT_STR" length="4" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="SELL_SEASON" dataType="DT_STR" length="6" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="YR_START" dataType="DT_STR" length="1" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="LY_WK_CODE" dataType="DT_STR" length="4" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="FACTOR" dataType="DT_NUMERIC" length="0" precision="5" scale="2" codePage="0"/&gt;&lt;referenceColumn name="WK_NUM" dataType="DT_NUMERIC" length="0" precision="9" scale="0" codePage="0"/&gt;&lt;referenceColumn name="WK_ID" dataType="DT_NUMERIC" length="0" precision="9" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                      name="ParameterMap">#{Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].Columns[WK_CODE]};</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                      name="TreatDuplicateKeysAsError">false</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\SEQ Package Body\Process CompanyCalendar\Lookup.Connections[OleDbConnection]"
+                      connectionManagerID="{915CBEE3-A847-43BD-A895-44946E73BA9B}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[FatCims]"
+                      description="Connection manager used to access lookup data."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\SEQ Package Body\Process CompanyCalendar\Lookup.Inputs[Lookup Input]"
+                      name="Lookup Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Lookup.Inputs[Lookup Input].Columns[WK_CODE]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="4"
+                          cachedName="WK_CODE"
+                          lineageId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].Columns[WK_CODE]">
+                          <properties>
+                            <property
+                              dataType="System.String"
+                              description="Specifies the column in the reference table that a column joins."
+                              name="JoinToReferenceColumn">WK_CODE</property>
+                            <property
+                              dataType="System.Null"
+                              description="Specifies the column in the reference table from which a column is copied."
+                              name="CopyFromReferenceColumn" />
+                          </properties>
+                        </inputColumn>
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\SEQ Package Body\Process CompanyCalendar\Lookup.Outputs[Lookup Match Output]"
+                      errorOrTruncationOperation="Lookup"
+                      exclusionGroup="1"
+                      name="Lookup Match Output"
+                      synchronousInputId="Package\SEQ Package Body\Process CompanyCalendar\Lookup.Inputs[Lookup Input]">
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\SEQ Package Body\Process CompanyCalendar\Lookup.Outputs[Lookup No Match Output]"
+                      description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                      exclusionGroup="1"
+                      name="Lookup No Match Output"
+                      synchronousInputId="Package\SEQ Package Body\Process CompanyCalendar\Lookup.Inputs[Lookup Input]">
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\SEQ Package Body\Process CompanyCalendar\Lookup.Outputs[Lookup Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Lookup Error Output"
+                      synchronousInputId="Package\SEQ Package Body\Process CompanyCalendar\Lookup.Inputs[Lookup Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Lookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\SEQ Package Body\Process CompanyCalendar\Lookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Lookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\SEQ Package Body\Process CompanyCalendar\Lookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\SEQ Package Body\Process CompanyCalendar\Update Rows - load Staging"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  description="OLE DB Destination"
+                  name="Update Rows - load Staging"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[Staging].[CompanyCalendar]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">UPDATE gi
+SET 
+gi.IN_DATE = gi2.IN_DATE,
+gi.UP_DATE = gi2.UP_DATE,
+gi.GTRANS_NUM = gi2.GTRANS_NUM,
+gi.GITEM_NUM = gi2.GITEM_NUM,
+gi.GTRANS_SORT = gi2.GTRANS_SORT,
+gi.SOR_NUM = gi2.SOR_NUM,
+gi.GSOURCE_BIN = gi2.GSOURCE_BIN,
+gi.GDEST_BIN = gi2.GDEST_BIN,
+gi.ORIG_DSP_NUM = gi2.ORIG_DSP_NUM,
+gi.SITEM_NUM = gi2.SITEM_NUM,
+gi.SCR_SOR_NUM = gi2.SCR_SOR_NUM,
+gi.SCR_ITEM_NUM = gi2.SCR_ITEM_NUM,
+gi.DOC_NUM = gi2.DOC_NUM,
+gi.DITEM_NUM = gi2.DITEM_NUM,
+gi.GEN_STATE = gi2.GEN_STATE,
+gi.RITEM_NUM = gi2.RITEM_NUM,
+gi.RAL_NUM = gi2.RAL_NUM,
+gi.SEASON = gi2.SEASON,
+gi.STY_NUM = gi2.STY_NUM,
+gi.STY_QUAL = gi2.STY_QUAL,
+gi.STY_SIZE = gi2.STY_SIZE,
+gi.BF_MAT_CHAR_VAL = gi2.BF_MAT_CHAR_VAL,
+gi.GTRANS_FPRICE = gi2.GTRANS_FPRICE,
+gi.GTRANS_LPRICE = gi2.GTRANS_LPRICE,
+gi.GITEM_STATE = gi2.GITEM_STATE,
+gi.DSP_STATE = gi2.DSP_STATE,
+gi.QTY1 = gi2.QTY1,
+gi.QTY2 = gi2.QTY2,
+gi.QTY3 = gi2.QTY3,
+gi.QTY4 = gi2.QTY4,
+gi.QTY5 = gi2.QTY5,
+gi.QTY6 = gi2.QTY6,
+gi.QTY7 = gi2.QTY7,
+gi.QTY8 = gi2.QTY8,
+gi.QTY9 = gi2.QTY9,
+gi.QTY10 = gi2.QTY10,
+gi.QTY11 = gi2.QTY11,
+gi.QTY12 = gi2.QTY12,
+gi.TOT_ITEM_QTY = gi2.TOT_ITEM_QTY,
+gi.TOT_ITEM_AMOUNT = gi2.TOT_ITEM_AMOUNT,
+gi.TOT_ITEM_VAT = gi2.TOT_ITEM_VAT,
+gi.VAT_CODE = gi2.VAT_CODE,
+gi.GITEM_RANK = gi2.GITEM_RANK,
+gi.CARTON_BARCODE = gi2.CARTON_BARCODE,
+gi.MANUAL_QTY = gi2.MANUAL_QTY,
+gi.RET_TYPE = gi2.RET_TYPE,
+gi.VAT_RATE = gi2.VAT_RATE,
+gi.PICKER_ID = gi2.PICKER_ID,
+gi.CAGE_NUM = gi2.CAGE_NUM,
+gi.PICK_DATE = gi2.PICK_DATE,
+gi.MIN_PICK_DATE = gi2.MIN_PICK_DATE
+FROM Cims.GtransItems gi
+INNER JOIN Staging.GtransItems gi2 ON gi2.GTRANS_NUM = gi.GTRANS_NUM AND gi2.GITEM_NUM = gi.GITEM_NUM</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\SEQ Package Body\Process CompanyCalendar\Update Rows - load Staging.Connections[OleDbConnection]"
+                      connectionManagerID="{915CBEE3-A847-43BD-A895-44946E73BA9B}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[FatCims]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\SEQ Package Body\Process CompanyCalendar\Update Rows - load Staging.Inputs[OLE DB Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Update Rows - load Staging.Inputs[OLE DB Destination Input].Columns[IN_DATE]"
+                          cachedDataType="dbTimeStamp"
+                          cachedName="IN_DATE"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process CompanyCalendar\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[IN_DATE]"
+                          lineageId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].Columns[IN_DATE]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Update Rows - load Staging.Inputs[OLE DB Destination Input].Columns[UP_DATE]"
+                          cachedDataType="dbTimeStamp"
+                          cachedName="UP_DATE"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process CompanyCalendar\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[UP_DATE]"
+                          lineageId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].Columns[UP_DATE]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Update Rows - load Staging.Inputs[OLE DB Destination Input].Columns[SKP_OPEN]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="1"
+                          cachedName="SKP_OPEN"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process CompanyCalendar\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[SKP_OPEN]"
+                          lineageId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].Columns[SKP_OPEN]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Update Rows - load Staging.Inputs[OLE DB Destination Input].Columns[WK_CODE]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="4"
+                          cachedName="WK_CODE"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process CompanyCalendar\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[WK_CODE]"
+                          lineageId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].Columns[WK_CODE]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Update Rows - load Staging.Inputs[OLE DB Destination Input].Columns[PERIOD_START]"
+                          cachedDataType="dbTimeStamp"
+                          cachedName="PERIOD_START"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process CompanyCalendar\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[PERIOD_START]"
+                          lineageId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].Columns[PERIOD_START]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Update Rows - load Staging.Inputs[OLE DB Destination Input].Columns[PERIOD_END]"
+                          cachedDataType="dbTimeStamp"
+                          cachedName="PERIOD_END"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process CompanyCalendar\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[PERIOD_END]"
+                          lineageId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].Columns[PERIOD_END]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Update Rows - load Staging.Inputs[OLE DB Destination Input].Columns[SUN_PERIOD]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="4"
+                          cachedName="SUN_PERIOD"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process CompanyCalendar\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[SUN_PERIOD]"
+                          lineageId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].Columns[SUN_PERIOD]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Update Rows - load Staging.Inputs[OLE DB Destination Input].Columns[SELL_SEASON]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="6"
+                          cachedName="SELL_SEASON"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process CompanyCalendar\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[SELL_SEASON]"
+                          lineageId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].Columns[SELL_SEASON]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Update Rows - load Staging.Inputs[OLE DB Destination Input].Columns[YR_START]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="1"
+                          cachedName="YR_START"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process CompanyCalendar\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[YR_START]"
+                          lineageId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].Columns[YR_START]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Update Rows - load Staging.Inputs[OLE DB Destination Input].Columns[LY_WK_CODE]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="4"
+                          cachedName="LY_WK_CODE"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process CompanyCalendar\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[LY_WK_CODE]"
+                          lineageId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].Columns[LY_WK_CODE]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Update Rows - load Staging.Inputs[OLE DB Destination Input].Columns[FACTOR]"
+                          cachedDataType="numeric"
+                          cachedName="FACTOR"
+                          cachedPrecision="5"
+                          cachedScale="2"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process CompanyCalendar\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[FACTOR]"
+                          lineageId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].Columns[FACTOR]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Update Rows - load Staging.Inputs[OLE DB Destination Input].Columns[WK_NUM]"
+                          cachedDataType="numeric"
+                          cachedName="WK_NUM"
+                          cachedPrecision="9"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process CompanyCalendar\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[WK_NUM]"
+                          lineageId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].Columns[WK_NUM]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Update Rows - load Staging.Inputs[OLE DB Destination Input].Columns[WK_ID]"
+                          cachedDataType="numeric"
+                          cachedName="WK_ID"
+                          cachedPrecision="9"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process CompanyCalendar\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[WK_ID]"
+                          lineageId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output].Columns[WK_ID]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[IN_DATE]"
+                          dataType="dbTimeStamp"
+                          name="IN_DATE" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[UP_DATE]"
+                          dataType="dbTimeStamp"
+                          name="UP_DATE" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[CompanyCalendarId]"
+                          dataType="i4"
+                          name="CompanyCalendarId" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[SKP_OPEN]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          name="SKP_OPEN" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[WK_CODE]"
+                          codePage="1252"
+                          dataType="str"
+                          length="4"
+                          name="WK_CODE" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[PERIOD_START]"
+                          dataType="dbTimeStamp"
+                          name="PERIOD_START" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[PERIOD_END]"
+                          dataType="dbTimeStamp"
+                          name="PERIOD_END" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[SUN_PERIOD]"
+                          codePage="1252"
+                          dataType="str"
+                          length="4"
+                          name="SUN_PERIOD" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[SELL_SEASON]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          name="SELL_SEASON" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[YR_START]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          name="YR_START" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[LY_WK_CODE]"
+                          codePage="1252"
+                          dataType="str"
+                          length="4"
+                          name="LY_WK_CODE" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[FACTOR]"
+                          dataType="numeric"
+                          name="FACTOR"
+                          precision="5"
+                          scale="2" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[WK_NUM]"
+                          dataType="numeric"
+                          name="WK_NUM"
+                          precision="9" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[WK_ID]"
+                          dataType="numeric"
+                          name="WK_ID"
+                          precision="9" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\SEQ Package Body\Process CompanyCalendar\Update Rows - load Staging.Outputs[OLE DB Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Destination Error Output"
+                      synchronousInputId="Package\SEQ Package Body\Process CompanyCalendar\Update Rows - load Staging.Inputs[OLE DB Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Update Rows - load Staging.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\SEQ Package Body\Process CompanyCalendar\Update Rows - load Staging.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process CompanyCalendar\Update Rows - load Staging.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\SEQ Package Body\Process CompanyCalendar\Update Rows - load Staging.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\SEQ Package Body\Process CompanyCalendar\Updates Row Count"
+                  componentClassID="Microsoft.RowCount"
+                  contactInfo="Row Count;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                  description="Counts rows as they pass through a data flow. For example, use the number of rows processed to determine whether or not to perform cleanup operations, or update text in an e-mail message to communicate processing status."
+                  name="Updates Row Count">
+                  <properties>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable to hold the row count."
+                      name="VariableName">User::UpdatedRows</property>
+                  </properties>
+                  <inputs>
+                    <input
+                      refId="Package\SEQ Package Body\Process CompanyCalendar\Updates Row Count.Inputs[Row Count Input 1]"
+                      hasSideEffects="true"
+                      name="Row Count Input 1">
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\SEQ Package Body\Process CompanyCalendar\Updates Row Count.Outputs[Row Count Output 1]"
+                      name="Row Count Output 1"
+                      synchronousInputId="Package\SEQ Package Body\Process CompanyCalendar\Updates Row Count.Inputs[Row Count Input 1]">
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\SEQ Package Body\Process CompanyCalendar.Paths[Lookup Match Output]"
+                  endId="Package\SEQ Package Body\Process CompanyCalendar\Updates Row Count.Inputs[Row Count Input 1]"
+                  name="Lookup Match Output"
+                  startId="Package\SEQ Package Body\Process CompanyCalendar\Lookup.Outputs[Lookup Match Output]" />
+                <path
+                  refId="Package\SEQ Package Body\Process CompanyCalendar.Paths[Lookup No Match Output]"
+                  endId="Package\SEQ Package Body\Process CompanyCalendar\Inserted Row Count.Inputs[Row Count Input 1]"
+                  name="Lookup No Match Output"
+                  startId="Package\SEQ Package Body\Process CompanyCalendar\Lookup.Outputs[Lookup No Match Output]" />
+                <path
+                  refId="Package\SEQ Package Body\Process CompanyCalendar.Paths[OLE DB Source Output]"
+                  endId="Package\SEQ Package Body\Process CompanyCalendar\Lookup.Inputs[Lookup Input]"
+                  name="OLE DB Source Output"
+                  startId="Package\SEQ Package Body\Process CompanyCalendar\Get Data.Outputs[OLE DB Source Output]" />
+                <path
+                  refId="Package\SEQ Package Body\Process CompanyCalendar.Paths[Row Count Output 1]"
+                  endId="Package\SEQ Package Body\Process CompanyCalendar\Insert Rows.Inputs[OLE DB Destination Input]"
+                  name="Row Count Output 1"
+                  startId="Package\SEQ Package Body\Process CompanyCalendar\Inserted Row Count.Outputs[Row Count Output 1]" />
+                <path
+                  refId="Package\SEQ Package Body\Process CompanyCalendar.Paths[Row Count Output 11]"
+                  endId="Package\SEQ Package Body\Process CompanyCalendar\Update Rows - load Staging.Inputs[OLE DB Destination Input]"
+                  name="Row Count Output 1"
+                  startId="Package\SEQ Package Body\Process CompanyCalendar\Updates Row Count.Outputs[Row Count Output 1]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\SEQ Package Body\Truncate Staging"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Truncates Staging.GtransItems"
+          DTS:DTSID="{C28AF393-D777-4ADA-BE8A-48B757A859A5}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Truncate Staging"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{915CBEE3-A847-43BD-A895-44946E73BA9B}"
+              SQLTask:SqlStatementSource="Truncate Table Staging.CompanyCalendar" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\SEQ Package Body\Update Existing Records"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{2FCD362D-5F81-41B9-B90F-086B14A77B16}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Update Existing Records"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{915CBEE3-A847-43BD-A895-44946E73BA9B}"
+              SQLTask:SqlStatementSource="UPDATE cc&#xA;SET cc.IN_DATE = cc2.IN_DATE,&#xA;    cc.UP_DATE = cc2.UP_DATE,&#xA;    cc.SKP_OPEN = cc2.SKP_OPEN,&#xA;    cc.WK_CODE = cc2.WK_CODE,&#xA;    cc.PERIOD_START = cc2.PERIOD_START,&#xA;    cc.PERIOD_END = cc2.PERIOD_END,&#xA;    cc.SUN_PERIOD = cc2.SUN_PERIOD,&#xA;    cc.SELL_SEASON = cc2.SELL_SEASON,&#xA;    cc.YR_START = cc2.YR_START,&#xA;    cc.LY_WK_CODE = cc2.LY_WK_CODE,&#xA;    cc.FACTOR = cc2.FACTOR,&#xA;    cc.WK_NUM = cc2.WK_NUM,&#xA;    cc.WK_ID = cc2.WK_ID&#xA;FROM Cims.CompanyCalendar cc&#xA;INNER JOIN Staging.CompanyCalendar cc2 ON cc2.WK_CODE = cc.WK_CODE;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\SEQ Package Body.PrecedenceConstraints[Constraint]"
+          DTS:CreationName=""
+          DTS:DTSID="{F7A1125F-F067-4EBA-8B5F-82BD611E7EB0}"
+          DTS:From="Package\SEQ Package Body\Process CompanyCalendar"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint"
+          DTS:To="Package\SEQ Package Body\Update Existing Records" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\SEQ Package Body.PrecedenceConstraints[Constraint 1]"
+          DTS:CreationName=""
+          DTS:DTSID="{E7752108-1F1E-43A9-9340-2C406471F8BC}"
+          DTS:From="Package\SEQ Package Body\Truncate Staging"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 1"
+          DTS:To="Package\SEQ Package Body\Process CompanyCalendar" />
+      </DTS:PrecedenceConstraints>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SQL Log Package Complete"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{2716A880-A3E5-4D43-8C5C-1A330C64E2C9}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL Log Package Complete"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 CTP2.1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{5527293B-F206-4C37-97DF-7AC6BC5D5D95}"
+          SQLTask:SqlStatementSource="EXEC logging.PackageExecutionLogUpdate ?, ?, ?, ?, ?, ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="User::PackageExecutionID"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="1"
+            SQLTask:DtsVariableName="User::InsertedRows"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="2"
+            SQLTask:DtsVariableName="User::UpdatedRows"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="3"
+            SQLTask:DtsVariableName="User::DeletedRows"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="4"
+            SQLTask:DtsVariableName="User::ErrorRows"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="5"
+            SQLTask:DtsVariableName="$Project::ExectutionStatusComplete"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SQL Log Package Start"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{06594745-9949-40AE-94B4-4DD92463B136}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL Log Package Start"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 CTP2.1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{5527293B-F206-4C37-97DF-7AC6BC5D5D95}"
+          SQLTask:SqlStatementSource="EXEC logging.PackageExecutionLogInsert ?,?, ?, ? OUTPUT" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="1"
+            SQLTask:DtsVariableName="System::PackageName"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="2"
+            SQLTask:DtsVariableName="User::PackageDescription"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="3"
+            SQLTask:DtsVariableName="User::PackageExecutionID"
+            SQLTask:ParameterDirection="Output"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="$Package::LoadID"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{D9031639-F45E-48B0-AAEA-65925779BFC5}"
+      DTS:From="Package\SQL Log Package Start"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\SEQ Package Body" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{581B6D41-D188-41BB-B1A5-B092BEE2599A}"
+      DTS:From="Package\SEQ Package Body"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\SQL Log Package Complete" />
+  </DTS:PrecedenceConstraints>
+  <DTS:EventHandlers>
+    <DTS:EventHandler
+      DTS:refId="Package.EventHandlers[OnError]"
+      DTS:CreationName="OnError"
+      DTS:DTSID="{AADFDA98-45F0-4F28-B384-8800BE105A5D}"
+      DTS:EventID="702871272"
+      DTS:EventName="OnError"
+      DTS:LocaleID="-1">
+      <DTS:Variables>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:Description="The propagate property of the event"
+          DTS:DTSID="{66973A39-CB6D-464A-BCAE-6F30D83603C9}"
+          DTS:IncludeInDebugDump="6789"
+          DTS:Namespace="System"
+          DTS:ObjectName="Propagate">
+          <DTS:VariableValue
+            DTS:DataType="11">-1</DTS:VariableValue>
+        </DTS:Variable>
+      </DTS:Variables>
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package.EventHandlers[OnError]\SQL Log Package Complete"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{CE219D2E-E242-44DA-A56E-897691D485E7}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="SQL Log Package Complete"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 CTP2.1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{5527293B-F206-4C37-97DF-7AC6BC5D5D95}"
+              SQLTask:SqlStatementSource="EXEC logging.PackageExecutionLogUpdate ?, ?, ?, ?, ?, ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="User::PackageExecutionID"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="1"
+                SQLTask:DtsVariableName="User::InsertedRows"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="2"
+                SQLTask:DtsVariableName="User::UpdatedRows"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="3"
+                SQLTask:DtsVariableName="User::DeletedRows"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="4"
+                SQLTask:DtsVariableName="User::ErrorRows"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="5"
+                SQLTask:DtsVariableName="$Project::ExectutionStatusFailure"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="-1" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:EventHandler>
+  </DTS:EventHandlers>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="203,42"
+          Id="Package\SEQ Package Body\Process CompanyCalendar"
+          TopLeft="47.1666666666666,89.8333333333334" />
+        <NodeLayout
+          Size="164,42"
+          Id="Package\SEQ Package Body\Truncate Staging"
+          TopLeft="59.6666666666666,14.8333333333333" />
+        <NodeLayout
+          Size="193,42"
+          Id="Package\SEQ Package Body\Update Existing Records"
+          TopLeft="37.3333333333334,173.833333333333" />
+        <EdgeLayout
+          Id="Package\SEQ Package Body.PrecedenceConstraints[Constraint]"
+          TopLeft="148.666666666667,131.833333333333">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-14.8333333333332,41.9999999999996"
+              Start="0,0"
+              End="-14.8333333333332,34.4999999999996">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,16.9999999999998" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,16.9999999999998"
+                    Point2="0,20.9999999999998"
+                    Point3="-4,20.9999999999998" />
+                  <mssgle:LineSegment
+                    End="-10.8333333333332,20.9999999999998" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-10.8333333333332,20.9999999999998"
+                    Point2="-14.8333333333332,20.9999999999998"
+                    Point3="-14.8333333333332,24.9999999999998" />
+                  <mssgle:LineSegment
+                    End="-14.8333333333332,34.4999999999996" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\SEQ Package Body.PrecedenceConstraints[Constraint 1]"
+          TopLeft="145.041666666667,56.8333333333333">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,33.0000000000001"
+              Start="0,0"
+              End="0,25.5000000000001">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,25.5000000000001" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="319,270"
+          Size="319,312"
+          Id="Package\SEQ Package Body"
+          TopLeft="249.583333333333,115.666666666667" />
+        <NodeLayout
+          Size="208,42"
+          Id="Package\SQL Log Package Complete"
+          TopLeft="299.5,466.666666666667" />
+        <NodeLayout
+          Size="186,42"
+          Id="Package\SQL Log Package Start"
+          TopLeft="308.916666666667,33.5833333333333" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="405.5,75.5833333333333">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,40.0833333333337"
+              Start="0,0"
+              End="0,32.5833333333337">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,32.5833333333337" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="406.291666666667,428.166666666667">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,38.5000000000001"
+              Start="0,0"
+              End="0,31.0000000000001">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,31.0000000000001" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <DtsEventHandler
+    design-time-name="Package.EventHandlers[OnError]">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="208,42"
+          Id="Package.EventHandlers[OnError]\SQL Log Package Complete"
+          TopLeft="118,60" />
+      </GraphLayout>
+    </LayoutInfo>
+  </DtsEventHandler>
+  <TaskHost
+    design-time-name="Package\SEQ Package Body\Process CompanyCalendar">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="173,42"
+          Id="Package\SEQ Package Body\Process CompanyCalendar\Inserted Row Count"
+          TopLeft="5.50000000000003,209.5" />
+        <NodeLayout
+          Size="113,42"
+          Id="Package\SEQ Package Body\Process CompanyCalendar\Lookup"
+          TopLeft="268.5,107.5" />
+        <NodeLayout
+          Size="210,42"
+          Id="Package\SEQ Package Body\Process CompanyCalendar\Update Rows - load Staging"
+          TopLeft="393.940476190476,274.369047619047" />
+        <NodeLayout
+          Size="135,42"
+          Id="Package\SEQ Package Body\Process CompanyCalendar\Insert Rows"
+          TopLeft="24.5000000000001,311.5" />
+        <NodeLayout
+          Size="120,42"
+          Id="Package\SEQ Package Body\Process CompanyCalendar\Get Data"
+          TopLeft="264.75,5.5" />
+        <NodeLayout
+          Size="172,42"
+          Id="Package\SEQ Package Body\Process CompanyCalendar\Updates Row Count"
+          TopLeft="419.833333333333,185.333333333333" />
+        <EdgeLayout
+          Id="Package\SEQ Package Body\Process CompanyCalendar.Paths[Row Count Output 11]"
+          TopLeft="502.386904761904,227.333333333333">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,47.035714285714"
+              Start="0,0"
+              End="0,39.535714285714">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,39.535714285714" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\SEQ Package Body\Process CompanyCalendar.Paths[Row Count Output 1]"
+          TopLeft="92,251.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\SEQ Package Body\Process CompanyCalendar.Paths[OLE DB Source Output]"
+          TopLeft="325,47.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\SEQ Package Body\Process CompanyCalendar.Paths[Lookup No Match Output]"
+          TopLeft="307.5,149.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-215.5,60"
+              Start="0,0"
+              End="-215.5,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,20.5026178010471" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,20.5026178010471"
+                    Point2="0,24.5026178010471"
+                    Point3="-4,24.5026178010471" />
+                  <mssgle:LineSegment
+                    End="-211.5,24.5026178010471" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-211.5,24.5026178010471"
+                    Point2="-215.5,24.5026178010471"
+                    Point3="-215.5,28.5026178010471" />
+                  <mssgle:LineSegment
+                    End="-215.5,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-163.55638671875,29.5026178010471,111.6127734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\SEQ Package Body\Process CompanyCalendar.Paths[Lookup Match Output]"
+          TopLeft="342.5,149.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="163.333333333333,35.8333333333333"
+              Start="0,0"
+              End="163.333333333333,28.3333333333333">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,10.6335078534031" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,10.6335078534031"
+                    Point2="0,14.6335078534031"
+                    Point3="4,14.6335078534031" />
+                  <mssgle:LineSegment
+                    End="159.333333333333,14.6335078534031" />
+                  <mssgle:CubicBezierSegment
+                    Point1="159.333333333333,14.6335078534031"
+                    Point2="163.333333333333,14.6335078534031"
+                    Point3="163.333333333333,18.6335078534031" />
+                  <mssgle:LineSegment
+                    End="163.333333333333,28.3333333333333" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="33.4752799479167,19.6335078534031,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\SEQ Package Body\Process CompanyCalendar\Lookup">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[Cims].[CompanyCalendar]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\SEQ Package Body\Process CompanyCalendar\Update Rows - load Staging">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\SEQ Package Body\Process CompanyCalendar\Insert Rows">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\SEQ Package Body\Process CompanyCalendar\Get Data">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

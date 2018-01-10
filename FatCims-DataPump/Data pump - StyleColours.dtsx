@@ -1,0 +1,1239 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="12:00:00 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName=""
+  DTS:CreatorName=""
+  DTS:DTSID="{34D17459-B315-4A26-889C-39D4B30CD9EE}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="14.0.3006.16"
+  DTS:LocaleID="2057"
+  DTS:ObjectName="Data pump - StyleColours"
+  DTS:PackageType="5"
+  DTS:VersionBuild="95"
+  DTS:VersionGUID="{CA7091AC-5D3D-46EA-BE66-7503B2158732}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:PackageParameters>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="3"
+      DTS:Description="MasterPackageLoadID"
+      DTS:DTSID="{4A735B68-351A-415B-AB3E-430504AAD7FE}"
+      DTS:ObjectName="LoadID"
+      DTS:Required="True">
+      <DTS:Property
+        DTS:DataType="3"
+        DTS:Name="ParameterValue">0</DTS:Property>
+    </DTS:PackageParameter>
+  </DTS:PackageParameters>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{FB173FFF-29D5-4955-81C8-CC810A3141FC}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="DeletedRows">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{7D0AEFD6-6237-43C9-A446-790F1178AE79}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="ErrorRows">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{66D13ED9-1476-49DD-8AB8-E40CECBE7CAB}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="&quot;Errors were encountered in package: &quot; + @[System::PackageName] + &quot; (&quot; + @[User::PackageDescription]  + &quot;).  See logging.DataError for details.  PackageExecutionID: &quot; +  (DT_STR, 10,1252)@[User::PackageExecutionID]"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="ErrorText">
+      <DTS:VariableValue
+        DTS:DataType="8">Errors were encountered in package: Data pump - StyleColours (Load MyTable).  See logging.DataError for details.  PackageExecutionID: 0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{FA1178C0-4135-4700-A5E1-6CFB7A555B48}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="InsertedRows">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{4BEDAD36-E22C-46E9-83EF-F74953B51328}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="PackageDescription">
+      <DTS:VariableValue
+        DTS:DataType="8">Load MyTable</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{6C36AD49-EF84-4965-A70F-E3849BFAB4E2}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="PackageExecutionID">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{8CB15281-B2B4-4D70-818C-03EDBF481A9F}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="UpdatedRows">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\SEQ Package Body"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{317374E9-49C4-416D-9C3A-A94D0A2B2AE5}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SEQ Package Body">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\SEQ Package Body\Process StyleColours"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{0066EC83-2440-4679-A55A-E18187943E01}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Process StyleColours"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\SEQ Package Body\Process StyleColours\Get Data"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+                  description="OLE DB Source"
+                  name="Get Data"
+                  usesDispositions="true"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset"></property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select 
+IN_DATE,
+STY_ID,
+SEASON,
+STY_NUM,
+STY_QUAL,
+SAMP_NUM,
+BF_MAT_CHAR_VAL,
+MCHAR_NUM,
+MAT_NUM,
+ACTIVE,
+COLOUR_SEASON,
+FIRST_RECEIVED
+FROM Style_Colours</property>
+                    <property
+                      dataType="System.String"
+                      description="The variable that contains the SQL command to be executed."
+                      name="SqlCommandVariable"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">true</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">2</property>
+                    <property
+                      dataType="System.String"
+                      description="The mappings between the parameters in the SQL command and variables."
+                      name="ParameterMapping"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\SEQ Package Body\Process StyleColours\Get Data.Connections[OleDbConnection]"
+                      connectionManagerID="{838FC444-B8A0-495A-8598-BCD4276DEEBF}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[CIMS]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Output]"
+                      name="OLE DB Source Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Output].Columns[IN_DATE]"
+                          dataType="dbTimeStamp"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Output].ExternalColumns[IN_DATE]"
+                          lineageId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Output].Columns[IN_DATE]"
+                          name="IN_DATE"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Output].Columns[SEASON]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Output].ExternalColumns[SEASON]"
+                          length="4"
+                          lineageId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Output].Columns[SEASON]"
+                          name="SEASON"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Output].Columns[STY_NUM]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Output].ExternalColumns[STY_NUM]"
+                          length="4"
+                          lineageId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Output].Columns[STY_NUM]"
+                          name="STY_NUM"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Output].Columns[STY_QUAL]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Output].ExternalColumns[STY_QUAL]"
+                          length="7"
+                          lineageId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Output].Columns[STY_QUAL]"
+                          name="STY_QUAL"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Output].Columns[BF_MAT_CHAR_VAL]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Output].ExternalColumns[BF_MAT_CHAR_VAL]"
+                          length="15"
+                          lineageId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Output].Columns[BF_MAT_CHAR_VAL]"
+                          name="BF_MAT_CHAR_VAL"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Output].Columns[STY_ID]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Output].ExternalColumns[STY_ID]"
+                          lineageId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Output].Columns[STY_ID]"
+                          name="STY_ID"
+                          precision="9"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Output].Columns[SAMP_NUM]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Output].ExternalColumns[SAMP_NUM]"
+                          lineageId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Output].Columns[SAMP_NUM]"
+                          name="SAMP_NUM"
+                          precision="5"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Output].Columns[MCHAR_NUM]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Output].ExternalColumns[MCHAR_NUM]"
+                          lineageId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Output].Columns[MCHAR_NUM]"
+                          name="MCHAR_NUM"
+                          precision="8"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Output].Columns[MAT_NUM]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Output].ExternalColumns[MAT_NUM]"
+                          length="6"
+                          lineageId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Output].Columns[MAT_NUM]"
+                          name="MAT_NUM"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Output].Columns[ACTIVE]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Output].ExternalColumns[ACTIVE]"
+                          length="1"
+                          lineageId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Output].Columns[ACTIVE]"
+                          name="ACTIVE"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Output].Columns[COLOUR_SEASON]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Output].ExternalColumns[COLOUR_SEASON]"
+                          length="4"
+                          lineageId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Output].Columns[COLOUR_SEASON]"
+                          name="COLOUR_SEASON"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Output].Columns[FIRST_RECEIVED]"
+                          dataType="dbTimeStamp"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Output].ExternalColumns[FIRST_RECEIVED]"
+                          lineageId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Output].Columns[FIRST_RECEIVED]"
+                          name="FIRST_RECEIVED"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Output].ExternalColumns[IN_DATE]"
+                          dataType="dbTimeStamp"
+                          name="IN_DATE" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Output].ExternalColumns[SEASON]"
+                          codePage="1252"
+                          dataType="str"
+                          length="4"
+                          name="SEASON" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Output].ExternalColumns[STY_NUM]"
+                          codePage="1252"
+                          dataType="str"
+                          length="4"
+                          name="STY_NUM" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Output].ExternalColumns[STY_QUAL]"
+                          codePage="1252"
+                          dataType="str"
+                          length="7"
+                          name="STY_QUAL" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Output].ExternalColumns[BF_MAT_CHAR_VAL]"
+                          codePage="1252"
+                          dataType="str"
+                          length="15"
+                          name="BF_MAT_CHAR_VAL" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Output].ExternalColumns[STY_ID]"
+                          dataType="numeric"
+                          name="STY_ID"
+                          precision="9" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Output].ExternalColumns[SAMP_NUM]"
+                          dataType="numeric"
+                          name="SAMP_NUM"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Output].ExternalColumns[MCHAR_NUM]"
+                          dataType="numeric"
+                          name="MCHAR_NUM"
+                          precision="8" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Output].ExternalColumns[MAT_NUM]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          name="MAT_NUM" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Output].ExternalColumns[ACTIVE]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          name="ACTIVE" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Output].ExternalColumns[COLOUR_SEASON]"
+                          codePage="1252"
+                          dataType="str"
+                          length="4"
+                          name="COLOUR_SEASON" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Output].ExternalColumns[FIRST_RECEIVED]"
+                          dataType="dbTimeStamp"
+                          name="FIRST_RECEIVED" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Error Output]"
+                      isErrorOut="true"
+                      name="OLE DB Source Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Error Output].Columns[IN_DATE]"
+                          dataType="dbTimeStamp"
+                          lineageId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Error Output].Columns[IN_DATE]"
+                          name="IN_DATE" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Error Output].Columns[STY_ID]"
+                          dataType="numeric"
+                          lineageId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Error Output].Columns[STY_ID]"
+                          name="STY_ID"
+                          precision="9" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Error Output].Columns[SEASON]"
+                          codePage="1252"
+                          dataType="str"
+                          length="4"
+                          lineageId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Error Output].Columns[SEASON]"
+                          name="SEASON" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Error Output].Columns[STY_NUM]"
+                          codePage="1252"
+                          dataType="str"
+                          length="4"
+                          lineageId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Error Output].Columns[STY_NUM]"
+                          name="STY_NUM" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Error Output].Columns[STY_QUAL]"
+                          codePage="1252"
+                          dataType="str"
+                          length="7"
+                          lineageId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Error Output].Columns[STY_QUAL]"
+                          name="STY_QUAL" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Error Output].Columns[SAMP_NUM]"
+                          dataType="numeric"
+                          lineageId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Error Output].Columns[SAMP_NUM]"
+                          name="SAMP_NUM"
+                          precision="5" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Error Output].Columns[BF_MAT_CHAR_VAL]"
+                          codePage="1252"
+                          dataType="str"
+                          length="15"
+                          lineageId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Error Output].Columns[BF_MAT_CHAR_VAL]"
+                          name="BF_MAT_CHAR_VAL" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Error Output].Columns[MCHAR_NUM]"
+                          dataType="numeric"
+                          lineageId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Error Output].Columns[MCHAR_NUM]"
+                          name="MCHAR_NUM"
+                          precision="8" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Error Output].Columns[MAT_NUM]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          lineageId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Error Output].Columns[MAT_NUM]"
+                          name="MAT_NUM" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Error Output].Columns[ACTIVE]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          lineageId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Error Output].Columns[ACTIVE]"
+                          name="ACTIVE" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Error Output].Columns[COLOUR_SEASON]"
+                          codePage="1252"
+                          dataType="str"
+                          length="4"
+                          lineageId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Error Output].Columns[COLOUR_SEASON]"
+                          name="COLOUR_SEASON" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Error Output].Columns[FIRST_RECEIVED]"
+                          dataType="dbTimeStamp"
+                          lineageId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Error Output].Columns[FIRST_RECEIVED]"
+                          name="FIRST_RECEIVED" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\SEQ Package Body\Process StyleColours\Insert Rows"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  description="OLE DB Destination"
+                  name="Insert Rows"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[Cims].[StyleColours]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\SEQ Package Body\Process StyleColours\Insert Rows.Connections[OleDbConnection]"
+                      connectionManagerID="{915CBEE3-A847-43BD-A895-44946E73BA9B}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[FatCims]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\SEQ Package Body\Process StyleColours\Insert Rows.Inputs[OLE DB Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process StyleColours\Insert Rows.Inputs[OLE DB Destination Input].Columns[IN_DATE]"
+                          cachedDataType="dbTimeStamp"
+                          cachedName="IN_DATE"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyleColours\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[IN_DATE]"
+                          lineageId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Output].Columns[IN_DATE]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process StyleColours\Insert Rows.Inputs[OLE DB Destination Input].Columns[SEASON]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="4"
+                          cachedName="SEASON"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyleColours\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[SEASON]"
+                          lineageId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Output].Columns[SEASON]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process StyleColours\Insert Rows.Inputs[OLE DB Destination Input].Columns[STY_NUM]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="4"
+                          cachedName="STY_NUM"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyleColours\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[STY_NUM]"
+                          lineageId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Output].Columns[STY_NUM]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process StyleColours\Insert Rows.Inputs[OLE DB Destination Input].Columns[STY_QUAL]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="7"
+                          cachedName="STY_QUAL"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyleColours\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[STY_QUAL]"
+                          lineageId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Output].Columns[STY_QUAL]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process StyleColours\Insert Rows.Inputs[OLE DB Destination Input].Columns[BF_MAT_CHAR_VAL]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="15"
+                          cachedName="BF_MAT_CHAR_VAL"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyleColours\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[BF_MAT_CHAR_VAL]"
+                          lineageId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Output].Columns[BF_MAT_CHAR_VAL]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process StyleColours\Insert Rows.Inputs[OLE DB Destination Input].Columns[STY_ID]"
+                          cachedDataType="numeric"
+                          cachedName="STY_ID"
+                          cachedPrecision="9"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyleColours\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[STY_ID]"
+                          lineageId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Output].Columns[STY_ID]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process StyleColours\Insert Rows.Inputs[OLE DB Destination Input].Columns[SAMP_NUM]"
+                          cachedDataType="numeric"
+                          cachedName="SAMP_NUM"
+                          cachedPrecision="5"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyleColours\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[SAMP_NUM]"
+                          lineageId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Output].Columns[SAMP_NUM]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process StyleColours\Insert Rows.Inputs[OLE DB Destination Input].Columns[MCHAR_NUM]"
+                          cachedDataType="numeric"
+                          cachedName="MCHAR_NUM"
+                          cachedPrecision="8"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyleColours\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[MCHAR_NUM]"
+                          lineageId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Output].Columns[MCHAR_NUM]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process StyleColours\Insert Rows.Inputs[OLE DB Destination Input].Columns[MAT_NUM]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="6"
+                          cachedName="MAT_NUM"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyleColours\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[MAT_NUM]"
+                          lineageId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Output].Columns[MAT_NUM]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process StyleColours\Insert Rows.Inputs[OLE DB Destination Input].Columns[ACTIVE]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="1"
+                          cachedName="ACTIVE"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyleColours\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[ACTIVE]"
+                          lineageId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Output].Columns[ACTIVE]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process StyleColours\Insert Rows.Inputs[OLE DB Destination Input].Columns[COLOUR_SEASON]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="4"
+                          cachedName="COLOUR_SEASON"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyleColours\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[COLOUR_SEASON]"
+                          lineageId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Output].Columns[COLOUR_SEASON]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process StyleColours\Insert Rows.Inputs[OLE DB Destination Input].Columns[FIRST_RECEIVED]"
+                          cachedDataType="dbTimeStamp"
+                          cachedName="FIRST_RECEIVED"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyleColours\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[FIRST_RECEIVED]"
+                          lineageId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Output].Columns[FIRST_RECEIVED]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyleColours\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[IN_DATE]"
+                          dataType="dbTimeStamp"
+                          name="IN_DATE" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyleColours\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[SEASON]"
+                          codePage="1252"
+                          dataType="str"
+                          length="4"
+                          name="SEASON" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyleColours\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[STY_NUM]"
+                          codePage="1252"
+                          dataType="str"
+                          length="4"
+                          name="STY_NUM" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyleColours\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[STY_QUAL]"
+                          codePage="1252"
+                          dataType="str"
+                          length="7"
+                          name="STY_QUAL" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyleColours\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[BF_MAT_CHAR_VAL]"
+                          codePage="1252"
+                          dataType="str"
+                          length="15"
+                          name="BF_MAT_CHAR_VAL" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyleColours\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[STY_ID]"
+                          dataType="numeric"
+                          name="STY_ID"
+                          precision="9" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyleColours\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[SAMP_NUM]"
+                          dataType="numeric"
+                          name="SAMP_NUM"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyleColours\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[MCHAR_NUM]"
+                          dataType="numeric"
+                          name="MCHAR_NUM"
+                          precision="8" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyleColours\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[MAT_NUM]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          name="MAT_NUM" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyleColours\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[ACTIVE]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          name="ACTIVE" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyleColours\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[COLOUR_SEASON]"
+                          codePage="1252"
+                          dataType="str"
+                          length="4"
+                          name="COLOUR_SEASON" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyleColours\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[FIRST_RECEIVED]"
+                          dataType="dbTimeStamp"
+                          name="FIRST_RECEIVED" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\SEQ Package Body\Process StyleColours\Insert Rows.Outputs[OLE DB Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Destination Error Output"
+                      synchronousInputId="Package\SEQ Package Body\Process StyleColours\Insert Rows.Inputs[OLE DB Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process StyleColours\Insert Rows.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\SEQ Package Body\Process StyleColours\Insert Rows.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process StyleColours\Insert Rows.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\SEQ Package Body\Process StyleColours\Insert Rows.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\SEQ Package Body\Process StyleColours\Inserted Row Count"
+                  componentClassID="Microsoft.RowCount"
+                  contactInfo="Row Count;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                  description="Counts rows as they pass through a data flow. For example, use the number of rows processed to determine whether or not to perform cleanup operations, or update text in an e-mail message to communicate processing status."
+                  name="Inserted Row Count">
+                  <properties>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable to hold the row count."
+                      name="VariableName">User::InsertedRows</property>
+                  </properties>
+                  <inputs>
+                    <input
+                      refId="Package\SEQ Package Body\Process StyleColours\Inserted Row Count.Inputs[Row Count Input 1]"
+                      hasSideEffects="true"
+                      name="Row Count Input 1">
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\SEQ Package Body\Process StyleColours\Inserted Row Count.Outputs[Row Count Output 1]"
+                      name="Row Count Output 1"
+                      synchronousInputId="Package\SEQ Package Body\Process StyleColours\Inserted Row Count.Inputs[Row Count Input 1]">
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\SEQ Package Body\Process StyleColours.Paths[OLE DB Source Output]"
+                  endId="Package\SEQ Package Body\Process StyleColours\Inserted Row Count.Inputs[Row Count Input 1]"
+                  name="OLE DB Source Output"
+                  startId="Package\SEQ Package Body\Process StyleColours\Get Data.Outputs[OLE DB Source Output]" />
+                <path
+                  refId="Package\SEQ Package Body\Process StyleColours.Paths[Row Count Output 1]"
+                  endId="Package\SEQ Package Body\Process StyleColours\Insert Rows.Inputs[OLE DB Destination Input]"
+                  name="Row Count Output 1"
+                  startId="Package\SEQ Package Body\Process StyleColours\Inserted Row Count.Outputs[Row Count Output 1]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\SEQ Package Body\Truncate Live Table"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Truncates Staging.GtransItems"
+          DTS:DTSID="{F1EE6E27-A920-42EA-8872-938BCACA5220}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Truncate Live Table"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{915CBEE3-A847-43BD-A895-44946E73BA9B}"
+              SQLTask:SqlStatementSource="Truncate Table cims.StyleColours" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\SEQ Package Body.PrecedenceConstraints[Constraint 1]"
+          DTS:CreationName=""
+          DTS:DTSID="{E9FFB36A-66F1-4274-9649-9F2BA7C1EC1B}"
+          DTS:From="Package\SEQ Package Body\Truncate Live Table"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 1"
+          DTS:To="Package\SEQ Package Body\Process StyleColours" />
+      </DTS:PrecedenceConstraints>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SQL Log Package Complete"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{BB861E4D-E63B-407B-A383-24256409692C}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL Log Package Complete"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 CTP2.1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{5527293B-F206-4C37-97DF-7AC6BC5D5D95}"
+          SQLTask:SqlStatementSource="EXEC logging.PackageExecutionLogUpdate ?, ?, ?, ?, ?, ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="User::PackageExecutionID"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="1"
+            SQLTask:DtsVariableName="User::InsertedRows"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="3"
+            SQLTask:DtsVariableName="User::DeletedRows"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="4"
+            SQLTask:DtsVariableName="User::ErrorRows"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="5"
+            SQLTask:DtsVariableName="$Project::ExectutionStatusComplete"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="2"
+            SQLTask:DtsVariableName="User::UpdatedRows"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SQL Log Package Start"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{17EC53A6-2A22-4204-83E4-2EA7CB37F636}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL Log Package Start"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 CTP2.1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{5527293B-F206-4C37-97DF-7AC6BC5D5D95}"
+          SQLTask:SqlStatementSource="EXEC logging.PackageExecutionLogInsert ?,?, ?, ? OUTPUT" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="1"
+            SQLTask:DtsVariableName="System::PackageName"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="2"
+            SQLTask:DtsVariableName="User::PackageDescription"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="3"
+            SQLTask:DtsVariableName="User::PackageExecutionID"
+            SQLTask:ParameterDirection="Output"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="$Package::LoadID"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{EDB605C4-A2F3-4C61-BF8F-B010147A9E89}"
+      DTS:From="Package\SQL Log Package Start"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\SEQ Package Body" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{5F57C1EA-4A2B-433E-9042-12EAA7BB6400}"
+      DTS:From="Package\SEQ Package Body"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\SQL Log Package Complete" />
+  </DTS:PrecedenceConstraints>
+  <DTS:EventHandlers>
+    <DTS:EventHandler
+      DTS:refId="Package.EventHandlers[OnError]"
+      DTS:CreationName="OnError"
+      DTS:DTSID="{BEBC84A3-761A-4CA9-91A4-0E85179BA0F2}"
+      DTS:EventID="702871272"
+      DTS:EventName="OnError"
+      DTS:LocaleID="-1">
+      <DTS:Variables>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:Description="The propagate property of the event"
+          DTS:DTSID="{F2DA019E-D4F6-4EC2-95F0-B04C429E5081}"
+          DTS:IncludeInDebugDump="6789"
+          DTS:Namespace="System"
+          DTS:ObjectName="Propagate">
+          <DTS:VariableValue
+            DTS:DataType="11">-1</DTS:VariableValue>
+        </DTS:Variable>
+      </DTS:Variables>
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package.EventHandlers[OnError]\SQL Log Package Complete"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{B0786ACC-0033-4A3A-963E-C916FDFA612F}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="SQL Log Package Complete"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 CTP2.1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{5527293B-F206-4C37-97DF-7AC6BC5D5D95}"
+              SQLTask:SqlStatementSource="EXEC logging.PackageExecutionLogUpdate ?, ?, ?, ?, ?, ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="User::PackageExecutionID"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="1"
+                SQLTask:DtsVariableName="User::InsertedRows"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="2"
+                SQLTask:DtsVariableName="User::UpdatedRows"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="3"
+                SQLTask:DtsVariableName="User::DeletedRows"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="4"
+                SQLTask:DtsVariableName="User::ErrorRows"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="5"
+                SQLTask:DtsVariableName="$Project::ExectutionStatusFailure"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="-1" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:EventHandler>
+  </DTS:EventHandlers>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="176,42"
+          Id="Package\SEQ Package Body\Process StyleColours"
+          TopLeft="59.6666666666666,88.3333333333334" />
+        <NodeLayout
+          Size="172,42"
+          Id="Package\SEQ Package Body\Truncate Live Table"
+          TopLeft="59.6666666666666,14.8333333333333" />
+        <EdgeLayout
+          Id="Package\SEQ Package Body.PrecedenceConstraints[Constraint 1]"
+          TopLeft="146.666666666667,56.8333333333333">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,31.5000000000001"
+              Start="0,0"
+              End="0,24.0000000000001">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,24.0000000000001" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="348,270"
+          Size="348,312"
+          Id="Package\SEQ Package Body"
+          TopLeft="249.583333333333,115.666666666667" />
+        <NodeLayout
+          Size="208,42"
+          Id="Package\SQL Log Package Complete"
+          TopLeft="299.5,466.666666666667" />
+        <NodeLayout
+          Size="186,42"
+          Id="Package\SQL Log Package Start"
+          TopLeft="308.916666666667,33.5833333333333" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="401.916666666667,75.5833333333333">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="21.916666666666,40.0833333333337"
+              Start="0,0"
+              End="21.916666666666,32.5833333333337">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,16.0416666666668" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,16.0416666666668"
+                    Point2="0,20.0416666666668"
+                    Point3="4,20.0416666666668" />
+                  <mssgle:LineSegment
+                    End="17.916666666666,20.0416666666668" />
+                  <mssgle:CubicBezierSegment
+                    Point1="17.916666666666,20.0416666666668"
+                    Point2="21.916666666666,20.0416666666668"
+                    Point3="21.916666666666,24.0416666666668" />
+                  <mssgle:LineSegment
+                    End="21.916666666666,32.5833333333337" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="423.833333333333,428.166666666667">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-20.333333333333,38.5000000000001"
+              Start="0,0"
+              End="-20.333333333333,31.0000000000001">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,15.25" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,15.25"
+                    Point2="0,19.25"
+                    Point3="-4,19.25" />
+                  <mssgle:LineSegment
+                    End="-16.333333333333,19.25" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-16.333333333333,19.25"
+                    Point2="-20.333333333333,19.25"
+                    Point3="-20.333333333333,23.25" />
+                  <mssgle:LineSegment
+                    End="-20.333333333333,31.0000000000001" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <DtsEventHandler
+    design-time-name="Package.EventHandlers[OnError]">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="208,42"
+          Id="Package.EventHandlers[OnError]\SQL Log Package Complete"
+          TopLeft="118,60" />
+      </GraphLayout>
+    </LayoutInfo>
+  </DtsEventHandler>
+  <TaskHost
+    design-time-name="Package\SEQ Package Body\Process StyleColours">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="135,42"
+          Id="Package\SEQ Package Body\Process StyleColours\Insert Rows"
+          TopLeft="265.428571428572,245.428571428571" />
+        <NodeLayout
+          Size="173,42"
+          Id="Package\SEQ Package Body\Process StyleColours\Inserted Row Count"
+          TopLeft="244.785714285714,141.642857142857" />
+        <NodeLayout
+          Size="120,42"
+          Id="Package\SEQ Package Body\Process StyleColours\Get Data"
+          TopLeft="264.392857142857,7.99999999999999" />
+        <EdgeLayout
+          Id="Package\SEQ Package Body\Process StyleColours.Paths[Row Count Output 1]"
+          TopLeft="332.107142857143,183.642857142857">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,61.785714285714"
+              Start="0,0"
+              End="0,54.285714285714">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,54.285714285714" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\SEQ Package Body\Process StyleColours.Paths[OLE DB Source Output]"
+          TopLeft="327.964285714286,50">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,91.6428571428571"
+              Start="0,0"
+              End="0,84.1428571428571">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,84.1428571428571" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\SEQ Package Body\Process StyleColours\Insert Rows">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\SEQ Package Body\Process StyleColours\Get Data">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

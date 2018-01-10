@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="CIMS"
+  DTS:DTSID="{838FC444-B8A0-495A-8598-BCD4276DEEBF}"
+  DTS:CreationName="OLEDB">
+  <DTS:PropertyExpression
+    DTS:Name="ConnectionString">@[$Project::CIMS_ConnectionString]</DTS:PropertyExpression>
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:ConnectionString="Data Source=CIMS65F;User ID=pro;Provider=MSDAORA.1;Persist Security Info=True;">
+      <DTS:Password
+        DTS:Name="Password"
+        Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAjrR0TAX2VUCsAENNsjkzzQAAAAACAAAAAAADZgAAwAAAABAAAACi3A8K3HmP03CNa5RiRlbRAAAAAASAAACgAAAAEAAAAD71FAzBeGeVKdw1jL6VTZ14AAAAt07KpLs9kEowkL/oDgHSTyCK0EjPOPRujxu8RZmZbbcB0cpCtZn8PQVmUKV1NA5forytHWRiKwL/zU+XhLr6T8ujSiN74x+3yLhWNUAjcoZ+HHMKO9uYZBlOSLlg90EQyzHVA9OFLovftdQwCTW0TChgvr6SbUiHFAAAAJaoOglacHoCgjwZzmb602C8CPi8</DTS:Password>
+    </DTS:ConnectionManager>
+  </DTS:ObjectData>
+</DTS:ConnectionManager>

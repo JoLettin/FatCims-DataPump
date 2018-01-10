@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="FatCims"
+  DTS:DTSID="{915CBEE3-A847-43BD-A895-44946E73BA9B}"
+  DTS:CreationName="OLEDB">
+  <DTS:PropertyExpression
+    DTS:Name="InitialCatalog">@[$Project::FatCimsDatabaseName]</DTS:PropertyExpression>
+  <DTS:PropertyExpression
+    DTS:Name="Password">@[$Project::FatCimsPassword]</DTS:PropertyExpression>
+  <DTS:PropertyExpression
+    DTS:Name="ServerName">@[$Project::FatCimsServerName]</DTS:PropertyExpression>
+  <DTS:PropertyExpression
+    DTS:Name="UserName">@[$Project::FatCimsUserName]</DTS:PropertyExpression>
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:ConnectionString="Data Source=.\sql16;User ID=SSISUser;Initial Catalog=FatCims;Provider=SQLNCLI11.1;Persist Security Info=True;Auto Translate=False;">
+      <DTS:Password
+        DTS:Name="Password"
+        Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAjrR0TAX2VUCsAENNsjkzzQAAAAACAAAAAAADZgAAwAAAABAAAABiII/oLKSHjpBCUHZFajLbAAAAAASAAACgAAAAEAAAAPgdWoMC5oYUy9OpsZ7mwUZwAAAAlLKDPnPw0Zq2Gly6gZKDY1QiS2yblnWA6zaRJVQBI+TG6aW5sWZCUZV9o94atgJnMgboCphQpgPhlU1wYkT7dOz4LksCu9ulOuBcKoDQQ1Ta2gLpfo3crBaq4piaEIY1Zwrf2vea2z4k/1dWW1MVXBQAAADBJior+xAmpkTj+2XcosDqLv1qGg==</DTS:Password>
+    </DTS:ConnectionManager>
+  </DTS:ObjectData>
+</DTS:ConnectionManager>

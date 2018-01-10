@@ -1,0 +1,2730 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="12:00:00 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName=""
+  DTS:CreatorName=""
+  DTS:DTSID="{85469D1F-0C5B-4AB8-8758-4F8CF70F2BBA}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="14.0.3006.16"
+  DTS:LocaleID="2057"
+  DTS:ObjectName="Data pump - Gtransitems"
+  DTS:PackageType="5"
+  DTS:VersionBuild="88"
+  DTS:VersionGUID="{6C38123C-8A61-4ABD-8056-F92D91476D6D}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:PackageParameters>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="3"
+      DTS:Description="MasterPackageLoadID"
+      DTS:DTSID="{9A64ACB8-87FE-48C0-AA13-CB0627363FC5}"
+      DTS:ObjectName="LoadID"
+      DTS:Required="True">
+      <DTS:Property
+        DTS:DataType="3"
+        DTS:Name="ParameterValue">0</DTS:Property>
+    </DTS:PackageParameter>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="2"
+      DTS:DTSID="{B062A823-BC75-4927-9185-720BEB975940}"
+      DTS:ObjectName="NumberOfDaysToLoad"
+      DTS:Required="True">
+      <DTS:Property
+        DTS:DataType="2"
+        DTS:Name="ParameterValue">1</DTS:Property>
+    </DTS:PackageParameter>
+  </DTS:PackageParameters>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{50523D73-1A97-452F-A43B-11CE54685376}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="DeletedRows">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{ECA5F7AC-C8B5-45D8-A352-432955A3B8BE}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="ErrorRows">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{AF94280D-BC2D-4B68-8AC0-6FA1A1BFF19F}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="&quot;Errors were encountered in package: &quot; + @[System::PackageName] + &quot; (&quot; + @[User::PackageDescription]  + &quot;).  See logging.DataError for details.  PackageExecutionID: &quot; +  (DT_STR, 10,1252)@[User::PackageExecutionID]"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="ErrorText">
+      <DTS:VariableValue
+        DTS:DataType="8">Errors were encountered in package: Data pump - Gtransitems (Load MyTable).  See logging.DataError for details.  PackageExecutionID: 0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{1CE7FFBB-A816-4B61-A8C6-6F1E0DF3F611}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="InsertedRows">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{B15ABA2D-F109-4C8E-918D-0E4A7EA1E4C7}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="PackageDescription">
+      <DTS:VariableValue
+        DTS:DataType="8">Load MyTable</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{9243408A-E035-4117-8933-26BFB7A13355}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="PackageExecutionID">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{0E0E8E6C-8E93-451D-ACC5-852F4482D3AA}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="&quot;SELECT IN_DATE,&#xA;UP_DATE,&#xA;GTRANS_NUM,&#xA;GITEM_NUM,&#xA;GTRANS_SORT,&#xA;SOR_NUM,&#xA;GSOURCE_BIN,&#xA;GDEST_BIN,&#xA;ORIG_DSP_NUM,&#xA;SITEM_NUM,&#xA;SCR_SOR_NUM,&#xA;SCR_ITEM_NUM,&#xA;DOC_NUM,&#xA;DITEM_NUM,&#xA;GEN_STATE,&#xA;RITEM_NUM,&#xA;RAL_NUM,&#xA;SEASON,&#xA;STY_NUM,&#xA;STY_QUAL,&#xA;STY_SIZE,&#xA;BF_MAT_CHAR_VAL,&#xA;GTRANS_FPRICE,&#xA;GTRANS_LPRICE,&#xA;GITEM_STATE,&#xA;DSP_STATE,&#xA;QTY1,&#xA;QTY2,&#xA;QTY3,&#xA;QTY4,&#xA;QTY5,&#xA;QTY6,&#xA;QTY7,&#xA;QTY8,&#xA;QTY9,&#xA;QTY10,&#xA;QTY11,&#xA;QTY12,&#xA;TOT_ITEM_QTY,&#xA;TOT_ITEM_AMOUNT,&#xA;TOT_ITEM_VAT,&#xA;VAT_CODE,&#xA;GITEM_RANK,&#xA;CARTON_BARCODE,&#xA;MANUAL_QTY,&#xA;RET_TYPE,&#xA;VAT_RATE,&#xA;PICKER_ID,&#xA;CAGE_NUM,&#xA;PICK_DATE,&#xA;MIN_PICK_DATE&#xA;FROM  GTRANS_ITEMS&#xA;WHERE UP_DATE &gt; TRUNC(sysdate - &quot; + (DT_WSTR,5)@[$Package::NumberOfDaysToLoad]  + &quot;) or IN_DATE &gt; TRUNC(sysdate - &quot;+ (DT_WSTR,5)@[$Package::NumberOfDaysToLoad]  +&quot;)&quot;"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="SQLSource">
+      <DTS:VariableValue
+        DTS:DataType="8">SELECT IN_DATE,
+UP_DATE,
+GTRANS_NUM,
+GITEM_NUM,
+GTRANS_SORT,
+SOR_NUM,
+GSOURCE_BIN,
+GDEST_BIN,
+ORIG_DSP_NUM,
+SITEM_NUM,
+SCR_SOR_NUM,
+SCR_ITEM_NUM,
+DOC_NUM,
+DITEM_NUM,
+GEN_STATE,
+RITEM_NUM,
+RAL_NUM,
+SEASON,
+STY_NUM,
+STY_QUAL,
+STY_SIZE,
+BF_MAT_CHAR_VAL,
+GTRANS_FPRICE,
+GTRANS_LPRICE,
+GITEM_STATE,
+DSP_STATE,
+QTY1,
+QTY2,
+QTY3,
+QTY4,
+QTY5,
+QTY6,
+QTY7,
+QTY8,
+QTY9,
+QTY10,
+QTY11,
+QTY12,
+TOT_ITEM_QTY,
+TOT_ITEM_AMOUNT,
+TOT_ITEM_VAT,
+VAT_CODE,
+GITEM_RANK,
+CARTON_BARCODE,
+MANUAL_QTY,
+RET_TYPE,
+VAT_RATE,
+PICKER_ID,
+CAGE_NUM,
+PICK_DATE,
+MIN_PICK_DATE
+FROM  GTRANS_ITEMS
+WHERE UP_DATE &gt; TRUNC(sysdate - 1) or IN_DATE &gt; TRUNC(sysdate - 1)</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{AB270FF8-37AB-4575-AC2A-DD298F41AE7C}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="UpdatedRows">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\SEQ Package Body"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{7EF01F0C-232A-474E-B2CB-B22323F80908}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SEQ Package Body">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\SEQ Package Body\Process GTransitems"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{18D2EAE3-D9D0-4A5E-9BF9-4703EA1662F6}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Process GTransitems"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\SEQ Package Body\Process GTransitems\Get Data"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+                  description="OLE DB Source"
+                  name="Get Data"
+                  usesDispositions="true"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset"></property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT IN_DATE,
+UP_DATE,
+GTRANS_NUM,
+GITEM_NUM,
+GTRANS_SORT,
+SOR_NUM,
+GSOURCE_BIN,
+GDEST_BIN,
+ORIG_DSP_NUM,
+SITEM_NUM,
+SCR_SOR_NUM,
+SCR_ITEM_NUM,
+DOC_NUM,
+DITEM_NUM,
+GEN_STATE,
+RITEM_NUM,
+RAL_NUM,
+SEASON,
+STY_NUM,
+STY_QUAL,
+STY_SIZE,
+BF_MAT_CHAR_VAL,
+GTRANS_FPRICE,
+GTRANS_LPRICE,
+GITEM_STATE,
+DSP_STATE,
+QTY1,
+QTY2,
+QTY3,
+QTY4,
+QTY5,
+QTY6,
+QTY7,
+QTY8,
+QTY9,
+QTY10,
+QTY11,
+QTY12,
+TOT_ITEM_QTY,
+TOT_ITEM_AMOUNT,
+TOT_ITEM_VAT,
+VAT_CODE,
+GITEM_RANK,
+CARTON_BARCODE,
+MANUAL_QTY,
+RET_TYPE,
+VAT_RATE,
+PICKER_ID,
+CAGE_NUM,
+PICK_DATE,
+MIN_PICK_DATE
+FROM  GTRANS_ITEMS
+where up_date &gt; TRUNC(sysdate -1) or in_date &gt; TRUNC(sysdate -1)</property>
+                    <property
+                      dataType="System.String"
+                      description="The variable that contains the SQL command to be executed."
+                      name="SqlCommandVariable">User::SQLSource</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">true</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.String"
+                      description="The mappings between the parameters in the SQL command and variables."
+                      name="ParameterMapping"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\SEQ Package Body\Process GTransitems\Get Data.Connections[OleDbConnection]"
+                      connectionManagerID="{838FC444-B8A0-495A-8598-BCD4276DEEBF}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[CIMS]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output]"
+                      name="OLE DB Source Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[IN_DATE]"
+                          dataType="dbTimeStamp"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[IN_DATE]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[IN_DATE]"
+                          name="IN_DATE"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[UP_DATE]"
+                          dataType="dbTimeStamp"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[UP_DATE]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[UP_DATE]"
+                          name="UP_DATE"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[GTRANS_NUM]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[GTRANS_NUM]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[GTRANS_NUM]"
+                          name="GTRANS_NUM"
+                          precision="9"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[GITEM_NUM]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[GITEM_NUM]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[GITEM_NUM]"
+                          name="GITEM_NUM"
+                          precision="4"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[GTRANS_SORT]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[GTRANS_SORT]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[GTRANS_SORT]"
+                          name="GTRANS_SORT"
+                          precision="4"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[SOR_NUM]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[SOR_NUM]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[SOR_NUM]"
+                          name="SOR_NUM"
+                          precision="9"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[GSOURCE_BIN]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[GSOURCE_BIN]"
+                          length="6"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[GSOURCE_BIN]"
+                          name="GSOURCE_BIN"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[GDEST_BIN]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[GDEST_BIN]"
+                          length="6"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[GDEST_BIN]"
+                          name="GDEST_BIN"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[ORIG_DSP_NUM]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[ORIG_DSP_NUM]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[ORIG_DSP_NUM]"
+                          name="ORIG_DSP_NUM"
+                          precision="9"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[SITEM_NUM]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[SITEM_NUM]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[SITEM_NUM]"
+                          name="SITEM_NUM"
+                          precision="4"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[SCR_SOR_NUM]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[SCR_SOR_NUM]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[SCR_SOR_NUM]"
+                          name="SCR_SOR_NUM"
+                          precision="9"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[SCR_ITEM_NUM]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[SCR_ITEM_NUM]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[SCR_ITEM_NUM]"
+                          name="SCR_ITEM_NUM"
+                          precision="4"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[DOC_NUM]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[DOC_NUM]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[DOC_NUM]"
+                          name="DOC_NUM"
+                          precision="9"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[DITEM_NUM]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[DITEM_NUM]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[DITEM_NUM]"
+                          name="DITEM_NUM"
+                          precision="4"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[GEN_STATE]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[GEN_STATE]"
+                          length="1"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[GEN_STATE]"
+                          name="GEN_STATE"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[RITEM_NUM]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[RITEM_NUM]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[RITEM_NUM]"
+                          name="RITEM_NUM"
+                          precision="4"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[RAL_NUM]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[RAL_NUM]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[RAL_NUM]"
+                          name="RAL_NUM"
+                          precision="9"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[SEASON]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[SEASON]"
+                          length="4"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[SEASON]"
+                          name="SEASON"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[STY_NUM]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[STY_NUM]"
+                          length="4"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[STY_NUM]"
+                          name="STY_NUM"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[STY_QUAL]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[STY_QUAL]"
+                          length="7"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[STY_QUAL]"
+                          name="STY_QUAL"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[STY_SIZE]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[STY_SIZE]"
+                          length="3"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[STY_SIZE]"
+                          name="STY_SIZE"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[BF_MAT_CHAR_VAL]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[BF_MAT_CHAR_VAL]"
+                          length="15"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[BF_MAT_CHAR_VAL]"
+                          name="BF_MAT_CHAR_VAL"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[GTRANS_FPRICE]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[GTRANS_FPRICE]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[GTRANS_FPRICE]"
+                          name="GTRANS_FPRICE"
+                          precision="13"
+                          scale="4"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[GTRANS_LPRICE]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[GTRANS_LPRICE]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[GTRANS_LPRICE]"
+                          name="GTRANS_LPRICE"
+                          precision="13"
+                          scale="4"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[GITEM_STATE]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[GITEM_STATE]"
+                          length="1"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[GITEM_STATE]"
+                          name="GITEM_STATE"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[DSP_STATE]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[DSP_STATE]"
+                          length="1"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[DSP_STATE]"
+                          name="DSP_STATE"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[QTY1]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[QTY1]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[QTY1]"
+                          name="QTY1"
+                          precision="5"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[QTY2]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[QTY2]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[QTY2]"
+                          name="QTY2"
+                          precision="5"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[QTY3]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[QTY3]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[QTY3]"
+                          name="QTY3"
+                          precision="5"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[QTY4]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[QTY4]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[QTY4]"
+                          name="QTY4"
+                          precision="5"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[QTY5]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[QTY5]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[QTY5]"
+                          name="QTY5"
+                          precision="5"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[QTY6]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[QTY6]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[QTY6]"
+                          name="QTY6"
+                          precision="5"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[QTY7]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[QTY7]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[QTY7]"
+                          name="QTY7"
+                          precision="5"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[QTY8]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[QTY8]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[QTY8]"
+                          name="QTY8"
+                          precision="5"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[QTY9]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[QTY9]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[QTY9]"
+                          name="QTY9"
+                          precision="5"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[QTY10]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[QTY10]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[QTY10]"
+                          name="QTY10"
+                          precision="5"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[QTY11]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[QTY11]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[QTY11]"
+                          name="QTY11"
+                          precision="5"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[QTY12]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[QTY12]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[QTY12]"
+                          name="QTY12"
+                          precision="5"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[TOT_ITEM_QTY]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[TOT_ITEM_QTY]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[TOT_ITEM_QTY]"
+                          name="TOT_ITEM_QTY"
+                          precision="5"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[TOT_ITEM_AMOUNT]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[TOT_ITEM_AMOUNT]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[TOT_ITEM_AMOUNT]"
+                          name="TOT_ITEM_AMOUNT"
+                          precision="15"
+                          scale="4"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[TOT_ITEM_VAT]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[TOT_ITEM_VAT]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[TOT_ITEM_VAT]"
+                          name="TOT_ITEM_VAT"
+                          precision="13"
+                          scale="4"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[VAT_CODE]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[VAT_CODE]"
+                          length="2"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[VAT_CODE]"
+                          name="VAT_CODE"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[GITEM_RANK]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[GITEM_RANK]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[GITEM_RANK]"
+                          name="GITEM_RANK"
+                          precision="1"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[CARTON_BARCODE]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[CARTON_BARCODE]"
+                          length="30"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[CARTON_BARCODE]"
+                          name="CARTON_BARCODE"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[MANUAL_QTY]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[MANUAL_QTY]"
+                          length="1"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[MANUAL_QTY]"
+                          name="MANUAL_QTY"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[RET_TYPE]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[RET_TYPE]"
+                          length="12"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[RET_TYPE]"
+                          name="RET_TYPE"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[VAT_RATE]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[VAT_RATE]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[VAT_RATE]"
+                          name="VAT_RATE"
+                          precision="5"
+                          scale="2"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[PICKER_ID]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[PICKER_ID]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[PICKER_ID]"
+                          name="PICKER_ID"
+                          precision="9"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[CAGE_NUM]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[CAGE_NUM]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[CAGE_NUM]"
+                          name="CAGE_NUM"
+                          precision="9"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[PICK_DATE]"
+                          dataType="dbDate"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[PICK_DATE]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[PICK_DATE]"
+                          name="PICK_DATE"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[MIN_PICK_DATE]"
+                          dataType="dbDate"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[MIN_PICK_DATE]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[MIN_PICK_DATE]"
+                          name="MIN_PICK_DATE"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[IN_DATE]"
+                          dataType="dbTimeStamp"
+                          name="IN_DATE" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[UP_DATE]"
+                          dataType="dbTimeStamp"
+                          name="UP_DATE" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[GTRANS_NUM]"
+                          dataType="numeric"
+                          name="GTRANS_NUM"
+                          precision="9" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[GITEM_NUM]"
+                          dataType="numeric"
+                          name="GITEM_NUM"
+                          precision="4" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[GTRANS_SORT]"
+                          dataType="numeric"
+                          name="GTRANS_SORT"
+                          precision="4" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[SOR_NUM]"
+                          dataType="numeric"
+                          name="SOR_NUM"
+                          precision="9" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[GSOURCE_BIN]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          name="GSOURCE_BIN" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[GDEST_BIN]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          name="GDEST_BIN" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[ORIG_DSP_NUM]"
+                          dataType="numeric"
+                          name="ORIG_DSP_NUM"
+                          precision="9" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[SITEM_NUM]"
+                          dataType="numeric"
+                          name="SITEM_NUM"
+                          precision="4" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[SCR_SOR_NUM]"
+                          dataType="numeric"
+                          name="SCR_SOR_NUM"
+                          precision="9" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[SCR_ITEM_NUM]"
+                          dataType="numeric"
+                          name="SCR_ITEM_NUM"
+                          precision="4" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[DOC_NUM]"
+                          dataType="numeric"
+                          name="DOC_NUM"
+                          precision="9" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[DITEM_NUM]"
+                          dataType="numeric"
+                          name="DITEM_NUM"
+                          precision="4" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[GEN_STATE]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          name="GEN_STATE" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[RITEM_NUM]"
+                          dataType="numeric"
+                          name="RITEM_NUM"
+                          precision="4" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[RAL_NUM]"
+                          dataType="numeric"
+                          name="RAL_NUM"
+                          precision="9" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[SEASON]"
+                          codePage="1252"
+                          dataType="str"
+                          length="4"
+                          name="SEASON" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[STY_NUM]"
+                          codePage="1252"
+                          dataType="str"
+                          length="4"
+                          name="STY_NUM" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[STY_QUAL]"
+                          codePage="1252"
+                          dataType="str"
+                          length="7"
+                          name="STY_QUAL" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[STY_SIZE]"
+                          codePage="1252"
+                          dataType="str"
+                          length="3"
+                          name="STY_SIZE" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[BF_MAT_CHAR_VAL]"
+                          codePage="1252"
+                          dataType="str"
+                          length="15"
+                          name="BF_MAT_CHAR_VAL" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[GTRANS_FPRICE]"
+                          dataType="numeric"
+                          name="GTRANS_FPRICE"
+                          precision="13"
+                          scale="4" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[GTRANS_LPRICE]"
+                          dataType="numeric"
+                          name="GTRANS_LPRICE"
+                          precision="13"
+                          scale="4" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[GITEM_STATE]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          name="GITEM_STATE" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[DSP_STATE]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          name="DSP_STATE" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[QTY1]"
+                          dataType="numeric"
+                          name="QTY1"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[QTY2]"
+                          dataType="numeric"
+                          name="QTY2"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[QTY3]"
+                          dataType="numeric"
+                          name="QTY3"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[QTY4]"
+                          dataType="numeric"
+                          name="QTY4"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[QTY5]"
+                          dataType="numeric"
+                          name="QTY5"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[QTY6]"
+                          dataType="numeric"
+                          name="QTY6"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[QTY7]"
+                          dataType="numeric"
+                          name="QTY7"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[QTY8]"
+                          dataType="numeric"
+                          name="QTY8"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[QTY9]"
+                          dataType="numeric"
+                          name="QTY9"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[QTY10]"
+                          dataType="numeric"
+                          name="QTY10"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[QTY11]"
+                          dataType="numeric"
+                          name="QTY11"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[QTY12]"
+                          dataType="numeric"
+                          name="QTY12"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[TOT_ITEM_QTY]"
+                          dataType="numeric"
+                          name="TOT_ITEM_QTY"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[TOT_ITEM_AMOUNT]"
+                          dataType="numeric"
+                          name="TOT_ITEM_AMOUNT"
+                          precision="15"
+                          scale="4" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[TOT_ITEM_VAT]"
+                          dataType="numeric"
+                          name="TOT_ITEM_VAT"
+                          precision="13"
+                          scale="4" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[VAT_CODE]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          name="VAT_CODE" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[GITEM_RANK]"
+                          dataType="numeric"
+                          name="GITEM_RANK"
+                          precision="1" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[CARTON_BARCODE]"
+                          codePage="1252"
+                          dataType="str"
+                          length="30"
+                          name="CARTON_BARCODE" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[MANUAL_QTY]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          name="MANUAL_QTY" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[RET_TYPE]"
+                          codePage="1252"
+                          dataType="str"
+                          length="12"
+                          name="RET_TYPE" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[VAT_RATE]"
+                          dataType="numeric"
+                          name="VAT_RATE"
+                          precision="5"
+                          scale="2" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[PICKER_ID]"
+                          dataType="numeric"
+                          name="PICKER_ID"
+                          precision="9" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[CAGE_NUM]"
+                          dataType="numeric"
+                          name="CAGE_NUM"
+                          precision="9" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[PICK_DATE]"
+                          dataType="dbTimeStamp"
+                          name="PICK_DATE" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[MIN_PICK_DATE]"
+                          dataType="dbTimeStamp"
+                          name="MIN_PICK_DATE" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output]"
+                      isErrorOut="true"
+                      name="OLE DB Source Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[IN_DATE]"
+                          dataType="dbTimeStamp"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[IN_DATE]"
+                          name="IN_DATE" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[UP_DATE]"
+                          dataType="dbTimeStamp"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[UP_DATE]"
+                          name="UP_DATE" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[GTRANS_NUM]"
+                          dataType="numeric"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[GTRANS_NUM]"
+                          name="GTRANS_NUM"
+                          precision="9" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[GITEM_NUM]"
+                          dataType="numeric"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[GITEM_NUM]"
+                          name="GITEM_NUM"
+                          precision="4" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[GTRANS_SORT]"
+                          dataType="numeric"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[GTRANS_SORT]"
+                          name="GTRANS_SORT"
+                          precision="4" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[SOR_NUM]"
+                          dataType="numeric"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[SOR_NUM]"
+                          name="SOR_NUM"
+                          precision="9" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[GSOURCE_BIN]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[GSOURCE_BIN]"
+                          name="GSOURCE_BIN" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[GDEST_BIN]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[GDEST_BIN]"
+                          name="GDEST_BIN" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[ORIG_DSP_NUM]"
+                          dataType="numeric"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[ORIG_DSP_NUM]"
+                          name="ORIG_DSP_NUM"
+                          precision="9" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[SITEM_NUM]"
+                          dataType="numeric"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[SITEM_NUM]"
+                          name="SITEM_NUM"
+                          precision="4" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[SCR_SOR_NUM]"
+                          dataType="numeric"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[SCR_SOR_NUM]"
+                          name="SCR_SOR_NUM"
+                          precision="9" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[SCR_ITEM_NUM]"
+                          dataType="numeric"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[SCR_ITEM_NUM]"
+                          name="SCR_ITEM_NUM"
+                          precision="4" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[DOC_NUM]"
+                          dataType="numeric"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[DOC_NUM]"
+                          name="DOC_NUM"
+                          precision="9" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[DITEM_NUM]"
+                          dataType="numeric"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[DITEM_NUM]"
+                          name="DITEM_NUM"
+                          precision="4" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[GEN_STATE]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[GEN_STATE]"
+                          name="GEN_STATE" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[RITEM_NUM]"
+                          dataType="numeric"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[RITEM_NUM]"
+                          name="RITEM_NUM"
+                          precision="4" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[RAL_NUM]"
+                          dataType="numeric"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[RAL_NUM]"
+                          name="RAL_NUM"
+                          precision="9" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[SEASON]"
+                          codePage="1252"
+                          dataType="str"
+                          length="4"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[SEASON]"
+                          name="SEASON" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[STY_NUM]"
+                          codePage="1252"
+                          dataType="str"
+                          length="4"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[STY_NUM]"
+                          name="STY_NUM" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[STY_QUAL]"
+                          codePage="1252"
+                          dataType="str"
+                          length="7"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[STY_QUAL]"
+                          name="STY_QUAL" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[STY_SIZE]"
+                          codePage="1252"
+                          dataType="str"
+                          length="3"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[STY_SIZE]"
+                          name="STY_SIZE" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[BF_MAT_CHAR_VAL]"
+                          codePage="1252"
+                          dataType="str"
+                          length="15"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[BF_MAT_CHAR_VAL]"
+                          name="BF_MAT_CHAR_VAL" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[GTRANS_FPRICE]"
+                          dataType="numeric"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[GTRANS_FPRICE]"
+                          name="GTRANS_FPRICE"
+                          precision="13"
+                          scale="4" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[GTRANS_LPRICE]"
+                          dataType="numeric"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[GTRANS_LPRICE]"
+                          name="GTRANS_LPRICE"
+                          precision="13"
+                          scale="4" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[GITEM_STATE]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[GITEM_STATE]"
+                          name="GITEM_STATE" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[DSP_STATE]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[DSP_STATE]"
+                          name="DSP_STATE" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[QTY1]"
+                          dataType="numeric"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[QTY1]"
+                          name="QTY1"
+                          precision="5" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[QTY2]"
+                          dataType="numeric"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[QTY2]"
+                          name="QTY2"
+                          precision="5" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[QTY3]"
+                          dataType="numeric"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[QTY3]"
+                          name="QTY3"
+                          precision="5" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[QTY4]"
+                          dataType="numeric"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[QTY4]"
+                          name="QTY4"
+                          precision="5" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[QTY5]"
+                          dataType="numeric"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[QTY5]"
+                          name="QTY5"
+                          precision="5" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[QTY6]"
+                          dataType="numeric"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[QTY6]"
+                          name="QTY6"
+                          precision="5" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[QTY7]"
+                          dataType="numeric"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[QTY7]"
+                          name="QTY7"
+                          precision="5" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[QTY8]"
+                          dataType="numeric"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[QTY8]"
+                          name="QTY8"
+                          precision="5" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[QTY9]"
+                          dataType="numeric"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[QTY9]"
+                          name="QTY9"
+                          precision="5" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[QTY10]"
+                          dataType="numeric"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[QTY10]"
+                          name="QTY10"
+                          precision="5" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[QTY11]"
+                          dataType="numeric"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[QTY11]"
+                          name="QTY11"
+                          precision="5" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[QTY12]"
+                          dataType="numeric"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[QTY12]"
+                          name="QTY12"
+                          precision="5" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[TOT_ITEM_QTY]"
+                          dataType="numeric"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[TOT_ITEM_QTY]"
+                          name="TOT_ITEM_QTY"
+                          precision="5" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[TOT_ITEM_AMOUNT]"
+                          dataType="numeric"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[TOT_ITEM_AMOUNT]"
+                          name="TOT_ITEM_AMOUNT"
+                          precision="15"
+                          scale="4" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[TOT_ITEM_VAT]"
+                          dataType="numeric"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[TOT_ITEM_VAT]"
+                          name="TOT_ITEM_VAT"
+                          precision="13"
+                          scale="4" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[VAT_CODE]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[VAT_CODE]"
+                          name="VAT_CODE" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[GITEM_RANK]"
+                          dataType="numeric"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[GITEM_RANK]"
+                          name="GITEM_RANK"
+                          precision="1" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[CARTON_BARCODE]"
+                          codePage="1252"
+                          dataType="str"
+                          length="30"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[CARTON_BARCODE]"
+                          name="CARTON_BARCODE" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[MANUAL_QTY]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[MANUAL_QTY]"
+                          name="MANUAL_QTY" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[RET_TYPE]"
+                          codePage="1252"
+                          dataType="str"
+                          length="12"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[RET_TYPE]"
+                          name="RET_TYPE" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[VAT_RATE]"
+                          dataType="numeric"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[VAT_RATE]"
+                          name="VAT_RATE"
+                          precision="5"
+                          scale="2" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[PICKER_ID]"
+                          dataType="numeric"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[PICKER_ID]"
+                          name="PICKER_ID"
+                          precision="9" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[CAGE_NUM]"
+                          dataType="numeric"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[CAGE_NUM]"
+                          name="CAGE_NUM"
+                          precision="9" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[PICK_DATE]"
+                          dataType="dbTimeStamp"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[PICK_DATE]"
+                          name="PICK_DATE" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[MIN_PICK_DATE]"
+                          dataType="dbTimeStamp"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[MIN_PICK_DATE]"
+                          name="MIN_PICK_DATE" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\SEQ Package Body\Process GTransitems\Insert Rows"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  description="OLE DB Destination"
+                  name="Insert Rows"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[Cims].[GtransItems]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Connections[OleDbConnection]"
+                      connectionManagerID="{915CBEE3-A847-43BD-A895-44946E73BA9B}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[FatCims]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].Columns[IN_DATE]"
+                          cachedDataType="dbTimeStamp"
+                          cachedName="IN_DATE"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[IN_DATE]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[IN_DATE]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].Columns[UP_DATE]"
+                          cachedDataType="dbTimeStamp"
+                          cachedName="UP_DATE"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[UP_DATE]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[UP_DATE]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].Columns[GTRANS_NUM]"
+                          cachedDataType="numeric"
+                          cachedName="GTRANS_NUM"
+                          cachedPrecision="9"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[GTRANS_NUM]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[GTRANS_NUM]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].Columns[GITEM_NUM]"
+                          cachedDataType="numeric"
+                          cachedName="GITEM_NUM"
+                          cachedPrecision="4"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[GITEM_NUM]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[GITEM_NUM]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].Columns[GTRANS_SORT]"
+                          cachedDataType="numeric"
+                          cachedName="GTRANS_SORT"
+                          cachedPrecision="4"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[GTRANS_SORT]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[GTRANS_SORT]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].Columns[SOR_NUM]"
+                          cachedDataType="numeric"
+                          cachedName="SOR_NUM"
+                          cachedPrecision="9"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[SOR_NUM]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[SOR_NUM]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].Columns[GSOURCE_BIN]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="6"
+                          cachedName="GSOURCE_BIN"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[GSOURCE_BIN]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[GSOURCE_BIN]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].Columns[GDEST_BIN]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="6"
+                          cachedName="GDEST_BIN"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[GDEST_BIN]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[GDEST_BIN]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].Columns[ORIG_DSP_NUM]"
+                          cachedDataType="numeric"
+                          cachedName="ORIG_DSP_NUM"
+                          cachedPrecision="9"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[ORIG_DSP_NUM]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[ORIG_DSP_NUM]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].Columns[SITEM_NUM]"
+                          cachedDataType="numeric"
+                          cachedName="SITEM_NUM"
+                          cachedPrecision="4"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[SITEM_NUM]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[SITEM_NUM]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].Columns[SCR_SOR_NUM]"
+                          cachedDataType="numeric"
+                          cachedName="SCR_SOR_NUM"
+                          cachedPrecision="9"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[SCR_SOR_NUM]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[SCR_SOR_NUM]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].Columns[SCR_ITEM_NUM]"
+                          cachedDataType="numeric"
+                          cachedName="SCR_ITEM_NUM"
+                          cachedPrecision="4"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[SCR_ITEM_NUM]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[SCR_ITEM_NUM]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].Columns[DOC_NUM]"
+                          cachedDataType="numeric"
+                          cachedName="DOC_NUM"
+                          cachedPrecision="9"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[DOC_NUM]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[DOC_NUM]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].Columns[DITEM_NUM]"
+                          cachedDataType="numeric"
+                          cachedName="DITEM_NUM"
+                          cachedPrecision="4"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[DITEM_NUM]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[DITEM_NUM]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].Columns[GEN_STATE]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="1"
+                          cachedName="GEN_STATE"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[GEN_STATE]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[GEN_STATE]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].Columns[RITEM_NUM]"
+                          cachedDataType="numeric"
+                          cachedName="RITEM_NUM"
+                          cachedPrecision="4"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[RITEM_NUM]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[RITEM_NUM]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].Columns[RAL_NUM]"
+                          cachedDataType="numeric"
+                          cachedName="RAL_NUM"
+                          cachedPrecision="9"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[RAL_NUM]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[RAL_NUM]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].Columns[SEASON]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="4"
+                          cachedName="SEASON"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[SEASON]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[SEASON]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].Columns[STY_NUM]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="4"
+                          cachedName="STY_NUM"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[STY_NUM]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[STY_NUM]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].Columns[STY_QUAL]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="7"
+                          cachedName="STY_QUAL"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[STY_QUAL]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[STY_QUAL]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].Columns[STY_SIZE]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="3"
+                          cachedName="STY_SIZE"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[STY_SIZE]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[STY_SIZE]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].Columns[BF_MAT_CHAR_VAL]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="15"
+                          cachedName="BF_MAT_CHAR_VAL"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[BF_MAT_CHAR_VAL]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[BF_MAT_CHAR_VAL]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].Columns[GTRANS_FPRICE]"
+                          cachedDataType="numeric"
+                          cachedName="GTRANS_FPRICE"
+                          cachedPrecision="13"
+                          cachedScale="4"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[GTRANS_FPRICE]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[GTRANS_FPRICE]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].Columns[GTRANS_LPRICE]"
+                          cachedDataType="numeric"
+                          cachedName="GTRANS_LPRICE"
+                          cachedPrecision="13"
+                          cachedScale="4"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[GTRANS_LPRICE]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[GTRANS_LPRICE]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].Columns[GITEM_STATE]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="1"
+                          cachedName="GITEM_STATE"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[GITEM_STATE]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[GITEM_STATE]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].Columns[DSP_STATE]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="1"
+                          cachedName="DSP_STATE"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[DSP_STATE]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[DSP_STATE]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].Columns[QTY1]"
+                          cachedDataType="numeric"
+                          cachedName="QTY1"
+                          cachedPrecision="5"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[QTY1]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[QTY1]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].Columns[QTY2]"
+                          cachedDataType="numeric"
+                          cachedName="QTY2"
+                          cachedPrecision="5"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[QTY2]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[QTY2]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].Columns[QTY3]"
+                          cachedDataType="numeric"
+                          cachedName="QTY3"
+                          cachedPrecision="5"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[QTY3]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[QTY3]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].Columns[QTY4]"
+                          cachedDataType="numeric"
+                          cachedName="QTY4"
+                          cachedPrecision="5"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[QTY4]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[QTY4]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].Columns[QTY5]"
+                          cachedDataType="numeric"
+                          cachedName="QTY5"
+                          cachedPrecision="5"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[QTY5]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[QTY5]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].Columns[QTY6]"
+                          cachedDataType="numeric"
+                          cachedName="QTY6"
+                          cachedPrecision="5"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[QTY6]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[QTY6]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].Columns[QTY7]"
+                          cachedDataType="numeric"
+                          cachedName="QTY7"
+                          cachedPrecision="5"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[QTY7]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[QTY7]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].Columns[QTY8]"
+                          cachedDataType="numeric"
+                          cachedName="QTY8"
+                          cachedPrecision="5"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[QTY8]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[QTY8]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].Columns[QTY9]"
+                          cachedDataType="numeric"
+                          cachedName="QTY9"
+                          cachedPrecision="5"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[QTY9]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[QTY9]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].Columns[QTY10]"
+                          cachedDataType="numeric"
+                          cachedName="QTY10"
+                          cachedPrecision="5"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[QTY10]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[QTY10]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].Columns[QTY11]"
+                          cachedDataType="numeric"
+                          cachedName="QTY11"
+                          cachedPrecision="5"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[QTY11]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[QTY11]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].Columns[QTY12]"
+                          cachedDataType="numeric"
+                          cachedName="QTY12"
+                          cachedPrecision="5"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[QTY12]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[QTY12]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].Columns[TOT_ITEM_QTY]"
+                          cachedDataType="numeric"
+                          cachedName="TOT_ITEM_QTY"
+                          cachedPrecision="5"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[TOT_ITEM_QTY]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[TOT_ITEM_QTY]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].Columns[TOT_ITEM_AMOUNT]"
+                          cachedDataType="numeric"
+                          cachedName="TOT_ITEM_AMOUNT"
+                          cachedPrecision="15"
+                          cachedScale="4"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[TOT_ITEM_AMOUNT]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[TOT_ITEM_AMOUNT]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].Columns[TOT_ITEM_VAT]"
+                          cachedDataType="numeric"
+                          cachedName="TOT_ITEM_VAT"
+                          cachedPrecision="13"
+                          cachedScale="4"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[TOT_ITEM_VAT]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[TOT_ITEM_VAT]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].Columns[VAT_CODE]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="2"
+                          cachedName="VAT_CODE"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[VAT_CODE]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[VAT_CODE]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].Columns[GITEM_RANK]"
+                          cachedDataType="numeric"
+                          cachedName="GITEM_RANK"
+                          cachedPrecision="1"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[GITEM_RANK]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[GITEM_RANK]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].Columns[CARTON_BARCODE]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="30"
+                          cachedName="CARTON_BARCODE"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[CARTON_BARCODE]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[CARTON_BARCODE]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].Columns[MANUAL_QTY]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="1"
+                          cachedName="MANUAL_QTY"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[MANUAL_QTY]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[MANUAL_QTY]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].Columns[RET_TYPE]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="12"
+                          cachedName="RET_TYPE"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[RET_TYPE]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[RET_TYPE]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].Columns[VAT_RATE]"
+                          cachedDataType="numeric"
+                          cachedName="VAT_RATE"
+                          cachedPrecision="5"
+                          cachedScale="2"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[VAT_RATE]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[VAT_RATE]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].Columns[PICKER_ID]"
+                          cachedDataType="numeric"
+                          cachedName="PICKER_ID"
+                          cachedPrecision="9"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[PICKER_ID]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[PICKER_ID]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].Columns[CAGE_NUM]"
+                          cachedDataType="numeric"
+                          cachedName="CAGE_NUM"
+                          cachedPrecision="9"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[CAGE_NUM]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[CAGE_NUM]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].Columns[PICK_DATE]"
+                          cachedDataType="dbDate"
+                          cachedName="PICK_DATE"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[PICK_DATE]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[PICK_DATE]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].Columns[MIN_PICK_DATE]"
+                          cachedDataType="dbDate"
+                          cachedName="MIN_PICK_DATE"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[MIN_PICK_DATE]"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output].Columns[MIN_PICK_DATE]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[gtransitemsId]"
+                          dataType="i4"
+                          name="gtransitemsId" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[IN_DATE]"
+                          dataType="dbTimeStamp"
+                          name="IN_DATE" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[UP_DATE]"
+                          dataType="dbTimeStamp"
+                          name="UP_DATE" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[GTRANS_NUM]"
+                          dataType="numeric"
+                          name="GTRANS_NUM"
+                          precision="9" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[GITEM_NUM]"
+                          dataType="numeric"
+                          name="GITEM_NUM"
+                          precision="4" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[GTRANS_SORT]"
+                          dataType="numeric"
+                          name="GTRANS_SORT"
+                          precision="4" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[SOR_NUM]"
+                          dataType="numeric"
+                          name="SOR_NUM"
+                          precision="9" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[GSOURCE_BIN]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          name="GSOURCE_BIN" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[GDEST_BIN]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          name="GDEST_BIN" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[ORIG_DSP_NUM]"
+                          dataType="numeric"
+                          name="ORIG_DSP_NUM"
+                          precision="9" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[SITEM_NUM]"
+                          dataType="numeric"
+                          name="SITEM_NUM"
+                          precision="4" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[SCR_SOR_NUM]"
+                          dataType="numeric"
+                          name="SCR_SOR_NUM"
+                          precision="9" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[SCR_ITEM_NUM]"
+                          dataType="numeric"
+                          name="SCR_ITEM_NUM"
+                          precision="4" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[DOC_NUM]"
+                          dataType="numeric"
+                          name="DOC_NUM"
+                          precision="9" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[DITEM_NUM]"
+                          dataType="numeric"
+                          name="DITEM_NUM"
+                          precision="4" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[GEN_STATE]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          name="GEN_STATE" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[RITEM_NUM]"
+                          dataType="numeric"
+                          name="RITEM_NUM"
+                          precision="4" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[RAL_NUM]"
+                          dataType="numeric"
+                          name="RAL_NUM"
+                          precision="9" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[SEASON]"
+                          codePage="1252"
+                          dataType="str"
+                          length="4"
+                          name="SEASON" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[STY_NUM]"
+                          codePage="1252"
+                          dataType="str"
+                          length="4"
+                          name="STY_NUM" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[STY_QUAL]"
+                          codePage="1252"
+                          dataType="str"
+                          length="7"
+                          name="STY_QUAL" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[STY_SIZE]"
+                          codePage="1252"
+                          dataType="str"
+                          length="3"
+                          name="STY_SIZE" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[BF_MAT_CHAR_VAL]"
+                          codePage="1252"
+                          dataType="str"
+                          length="15"
+                          name="BF_MAT_CHAR_VAL" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[GTRANS_FPRICE]"
+                          dataType="numeric"
+                          name="GTRANS_FPRICE"
+                          precision="13"
+                          scale="4" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[GTRANS_LPRICE]"
+                          dataType="numeric"
+                          name="GTRANS_LPRICE"
+                          precision="13"
+                          scale="4" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[GITEM_STATE]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          name="GITEM_STATE" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[DSP_STATE]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          name="DSP_STATE" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[QTY1]"
+                          dataType="numeric"
+                          name="QTY1"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[QTY2]"
+                          dataType="numeric"
+                          name="QTY2"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[QTY3]"
+                          dataType="numeric"
+                          name="QTY3"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[QTY4]"
+                          dataType="numeric"
+                          name="QTY4"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[QTY5]"
+                          dataType="numeric"
+                          name="QTY5"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[QTY6]"
+                          dataType="numeric"
+                          name="QTY6"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[QTY7]"
+                          dataType="numeric"
+                          name="QTY7"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[QTY8]"
+                          dataType="numeric"
+                          name="QTY8"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[QTY9]"
+                          dataType="numeric"
+                          name="QTY9"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[QTY10]"
+                          dataType="numeric"
+                          name="QTY10"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[QTY11]"
+                          dataType="numeric"
+                          name="QTY11"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[QTY12]"
+                          dataType="numeric"
+                          name="QTY12"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[TOT_ITEM_QTY]"
+                          dataType="numeric"
+                          name="TOT_ITEM_QTY"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[TOT_ITEM_AMOUNT]"
+                          dataType="numeric"
+                          name="TOT_ITEM_AMOUNT"
+                          precision="15"
+                          scale="4" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[TOT_ITEM_VAT]"
+                          dataType="numeric"
+                          name="TOT_ITEM_VAT"
+                          precision="13"
+                          scale="4" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[VAT_CODE]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          name="VAT_CODE" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[GITEM_RANK]"
+                          dataType="numeric"
+                          name="GITEM_RANK"
+                          precision="1" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[CARTON_BARCODE]"
+                          codePage="1252"
+                          dataType="str"
+                          length="30"
+                          name="CARTON_BARCODE" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[MANUAL_QTY]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          name="MANUAL_QTY" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[RET_TYPE]"
+                          codePage="1252"
+                          dataType="str"
+                          length="12"
+                          name="RET_TYPE" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[VAT_RATE]"
+                          dataType="numeric"
+                          name="VAT_RATE"
+                          precision="5"
+                          scale="2" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[PICKER_ID]"
+                          dataType="numeric"
+                          name="PICKER_ID"
+                          precision="9" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[CAGE_NUM]"
+                          dataType="numeric"
+                          name="CAGE_NUM"
+                          precision="9" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[PICK_DATE]"
+                          dataType="dbDate"
+                          name="PICK_DATE" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[MIN_PICK_DATE]"
+                          dataType="dbDate"
+                          name="MIN_PICK_DATE" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Outputs[OLE DB Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Destination Error Output"
+                      synchronousInputId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\SEQ Package Body\Process GTransitems\Inserted Row Count"
+                  componentClassID="Microsoft.RowCount"
+                  contactInfo="Row Count;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                  description="Counts rows as they pass through a data flow. For example, use the number of rows processed to determine whether or not to perform cleanup operations, or update text in an e-mail message to communicate processing status."
+                  name="Inserted Row Count">
+                  <properties>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable to hold the row count."
+                      name="VariableName">User::InsertedRows</property>
+                  </properties>
+                  <inputs>
+                    <input
+                      refId="Package\SEQ Package Body\Process GTransitems\Inserted Row Count.Inputs[Row Count Input 1]"
+                      hasSideEffects="true"
+                      name="Row Count Input 1">
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\SEQ Package Body\Process GTransitems\Inserted Row Count.Outputs[Row Count Output 1]"
+                      name="Row Count Output 1"
+                      synchronousInputId="Package\SEQ Package Body\Process GTransitems\Inserted Row Count.Inputs[Row Count Input 1]">
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\SEQ Package Body\Process GTransitems.Paths[OLE DB Source Output]"
+                  endId="Package\SEQ Package Body\Process GTransitems\Inserted Row Count.Inputs[Row Count Input 1]"
+                  name="OLE DB Source Output"
+                  startId="Package\SEQ Package Body\Process GTransitems\Get Data.Outputs[OLE DB Source Output]" />
+                <path
+                  refId="Package\SEQ Package Body\Process GTransitems.Paths[Row Count Output 1]"
+                  endId="Package\SEQ Package Body\Process GTransitems\Insert Rows.Inputs[OLE DB Destination Input]"
+                  name="Row Count Output 1"
+                  startId="Package\SEQ Package Body\Process GTransitems\Inserted Row Count.Outputs[Row Count Output 1]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\SEQ Package Body\Truncate Staging"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Truncates Staging.GtransItems"
+          DTS:DTSID="{0A346E45-AC81-4164-A2BF-4A1C1BB2F13D}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Truncate Staging"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{915CBEE3-A847-43BD-A895-44946E73BA9B}"
+              SQLTask:SqlStatementSource="Truncate Table Staging.GtransItems" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\SEQ Package Body\Update Existing Records"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{72835086-FBD5-4782-AAEF-656DC5B02EE3}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Update Existing Records"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{915CBEE3-A847-43BD-A895-44946E73BA9B}"
+              SQLTask:SqlStatementSource="UPDATE gi&#xA;SET &#xA;gi.IN_DATE = gi2.IN_DATE,&#xA;gi.UP_DATE = gi2.UP_DATE,&#xA;gi.GTRANS_NUM = gi2.GTRANS_NUM,&#xA;gi.GITEM_NUM = gi2.GITEM_NUM,&#xA;gi.GTRANS_SORT = gi2.GTRANS_SORT,&#xA;gi.SOR_NUM = gi2.SOR_NUM,&#xA;gi.GSOURCE_BIN = gi2.GSOURCE_BIN,&#xA;gi.GDEST_BIN = gi2.GDEST_BIN,&#xA;gi.ORIG_DSP_NUM = gi2.ORIG_DSP_NUM,&#xA;gi.SITEM_NUM = gi2.SITEM_NUM,&#xA;gi.SCR_SOR_NUM = gi2.SCR_SOR_NUM,&#xA;gi.SCR_ITEM_NUM = gi2.SCR_ITEM_NUM,&#xA;gi.DOC_NUM = gi2.DOC_NUM,&#xA;gi.DITEM_NUM = gi2.DITEM_NUM,&#xA;gi.GEN_STATE = gi2.GEN_STATE,&#xA;gi.RITEM_NUM = gi2.RITEM_NUM,&#xA;gi.RAL_NUM = gi2.RAL_NUM,&#xA;gi.SEASON = gi2.SEASON,&#xA;gi.STY_NUM = gi2.STY_NUM,&#xA;gi.STY_QUAL = gi2.STY_QUAL,&#xA;gi.STY_SIZE = gi2.STY_SIZE,&#xA;gi.BF_MAT_CHAR_VAL = gi2.BF_MAT_CHAR_VAL,&#xA;gi.GTRANS_FPRICE = gi2.GTRANS_FPRICE,&#xA;gi.GTRANS_LPRICE = gi2.GTRANS_LPRICE,&#xA;gi.GITEM_STATE = gi2.GITEM_STATE,&#xA;gi.DSP_STATE = gi2.DSP_STATE,&#xA;gi.QTY1 = gi2.QTY1,&#xA;gi.QTY2 = gi2.QTY2,&#xA;gi.QTY3 = gi2.QTY3,&#xA;gi.QTY4 = gi2.QTY4,&#xA;gi.QTY5 = gi2.QTY5,&#xA;gi.QTY6 = gi2.QTY6,&#xA;gi.QTY7 = gi2.QTY7,&#xA;gi.QTY8 = gi2.QTY8,&#xA;gi.QTY9 = gi2.QTY9,&#xA;gi.QTY10 = gi2.QTY10,&#xA;gi.QTY11 = gi2.QTY11,&#xA;gi.QTY12 = gi2.QTY12,&#xA;gi.TOT_ITEM_QTY = gi2.TOT_ITEM_QTY,&#xA;gi.TOT_ITEM_AMOUNT = gi2.TOT_ITEM_AMOUNT,&#xA;gi.TOT_ITEM_VAT = gi2.TOT_ITEM_VAT,&#xA;gi.VAT_CODE = gi2.VAT_CODE,&#xA;gi.GITEM_RANK = gi2.GITEM_RANK,&#xA;gi.CARTON_BARCODE = gi2.CARTON_BARCODE,&#xA;gi.MANUAL_QTY = gi2.MANUAL_QTY,&#xA;gi.RET_TYPE = gi2.RET_TYPE,&#xA;gi.VAT_RATE = gi2.VAT_RATE,&#xA;gi.PICKER_ID = gi2.PICKER_ID,&#xA;gi.CAGE_NUM = gi2.CAGE_NUM,&#xA;gi.PICK_DATE = gi2.PICK_DATE,&#xA;gi.MIN_PICK_DATE = gi2.MIN_PICK_DATE&#xA;FROM Cims.GtransItems gi&#xA;INNER JOIN Staging.GtransItems gi2 ON gi2.GTRANS_NUM = gi.GTRANS_NUM AND gi2.GITEM_NUM = gi.GITEM_NUM" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\SEQ Package Body.PrecedenceConstraints[Constraint]"
+          DTS:CreationName=""
+          DTS:DTSID="{38783233-F8C1-448F-AC0C-06EEF94BCC83}"
+          DTS:From="Package\SEQ Package Body\Process GTransitems"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint"
+          DTS:To="Package\SEQ Package Body\Update Existing Records" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\SEQ Package Body.PrecedenceConstraints[Constraint 1]"
+          DTS:CreationName=""
+          DTS:DTSID="{61A24B30-C9BD-4B3C-A185-1B3B91151C8B}"
+          DTS:From="Package\SEQ Package Body\Truncate Staging"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 1"
+          DTS:To="Package\SEQ Package Body\Process GTransitems" />
+      </DTS:PrecedenceConstraints>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SQL Log Package Complete"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{324A0AFD-EF92-4BC4-962E-0E0F6E91D6D8}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL Log Package Complete"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 CTP2.1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{5527293B-F206-4C37-97DF-7AC6BC5D5D95}"
+          SQLTask:SqlStatementSource="EXEC logging.PackageExecutionLogUpdate ?, ?, ?, ?, ?, ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="User::PackageExecutionID"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="1"
+            SQLTask:DtsVariableName="User::InsertedRows"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="2"
+            SQLTask:DtsVariableName="User::UpdatedRows"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="3"
+            SQLTask:DtsVariableName="User::DeletedRows"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="4"
+            SQLTask:DtsVariableName="User::ErrorRows"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="5"
+            SQLTask:DtsVariableName="$Project::ExectutionStatusComplete"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SQL Log Package Start"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{AFAFBA70-F4FA-46FD-8D3B-D216A7E65D89}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL Log Package Start"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 CTP2.1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{5527293B-F206-4C37-97DF-7AC6BC5D5D95}"
+          SQLTask:SqlStatementSource="EXEC logging.PackageExecutionLogInsert ?,?, ?, ? OUTPUT" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="1"
+            SQLTask:DtsVariableName="System::PackageName"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="2"
+            SQLTask:DtsVariableName="User::PackageDescription"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="3"
+            SQLTask:DtsVariableName="User::PackageExecutionID"
+            SQLTask:ParameterDirection="Output"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="$Package::LoadID"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{C80EB389-7570-41A4-A2ED-B5CE76FF580B}"
+      DTS:From="Package\SQL Log Package Start"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\SEQ Package Body" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{D82F6D25-417B-40FB-94DC-7B045E27ED18}"
+      DTS:From="Package\SEQ Package Body"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\SQL Log Package Complete" />
+  </DTS:PrecedenceConstraints>
+  <DTS:EventHandlers>
+    <DTS:EventHandler
+      DTS:refId="Package.EventHandlers[OnError]"
+      DTS:CreationName="OnError"
+      DTS:DTSID="{5A56093E-3444-49DD-8C75-72A739D2DBC5}"
+      DTS:EventID="702871272"
+      DTS:EventName="OnError"
+      DTS:LocaleID="-1">
+      <DTS:Variables>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:Description="The propagate property of the event"
+          DTS:DTSID="{BA161596-0CB0-4AA8-A158-8AF3ACC129EB}"
+          DTS:IncludeInDebugDump="6789"
+          DTS:Namespace="System"
+          DTS:ObjectName="Propagate">
+          <DTS:VariableValue
+            DTS:DataType="11">-1</DTS:VariableValue>
+        </DTS:Variable>
+      </DTS:Variables>
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package.EventHandlers[OnError]\SQL Log Package Complete"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{66DF6753-DB97-4D86-854F-E38CAA82F427}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="SQL Log Package Complete"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 CTP2.1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{5527293B-F206-4C37-97DF-7AC6BC5D5D95}"
+              SQLTask:SqlStatementSource="EXEC logging.PackageExecutionLogUpdate ?, ?, ?, ?, ?, ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="User::PackageExecutionID"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="1"
+                SQLTask:DtsVariableName="User::InsertedRows"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="2"
+                SQLTask:DtsVariableName="User::UpdatedRows"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="3"
+                SQLTask:DtsVariableName="User::DeletedRows"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="4"
+                SQLTask:DtsVariableName="User::ErrorRows"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="5"
+                SQLTask:DtsVariableName="$Project::ExectutionStatusFailure"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="-1" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:EventHandler>
+  </DTS:EventHandlers>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="176,42"
+          Id="Package\SEQ Package Body\Process GTransitems"
+          TopLeft="47.1666666666666,89.8333333333334" />
+        <NodeLayout
+          Size="164,42"
+          Id="Package\SEQ Package Body\Truncate Staging"
+          TopLeft="59.6666666666666,14.8333333333333" />
+        <NodeLayout
+          Size="193,42"
+          Id="Package\SEQ Package Body\Update Existing Records"
+          TopLeft="37.3333333333334,173.833333333333" />
+        <EdgeLayout
+          Id="Package\SEQ Package Body.PrecedenceConstraints[Constraint]"
+          TopLeft="134.625,131.833333333333">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,41.9999999999996"
+              Start="0,0"
+              End="0,34.4999999999996">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,34.4999999999996" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\SEQ Package Body.PrecedenceConstraints[Constraint 1]"
+          TopLeft="138.416666666667,56.8333333333333">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,33.0000000000001"
+              Start="0,0"
+              End="0,25.5000000000001">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,25.5000000000001" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="319,270"
+          Size="319,312"
+          Id="Package\SEQ Package Body"
+          TopLeft="249.583333333333,115.666666666667" />
+        <NodeLayout
+          Size="208,42"
+          Id="Package\SQL Log Package Complete"
+          TopLeft="299.5,466.666666666667" />
+        <NodeLayout
+          Size="186,42"
+          Id="Package\SQL Log Package Start"
+          TopLeft="308.916666666667,33.5833333333333" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="405.5,75.5833333333333">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,40.0833333333337"
+              Start="0,0"
+              End="0,32.5833333333337">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,32.5833333333337" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="406.291666666667,428.166666666667">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,38.5000000000001"
+              Start="0,0"
+              End="0,31.0000000000001">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,31.0000000000001" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <DtsEventHandler
+    design-time-name="Package.EventHandlers[OnError]">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="208,42"
+          Id="Package.EventHandlers[OnError]\SQL Log Package Complete"
+          TopLeft="118,60" />
+      </GraphLayout>
+    </LayoutInfo>
+  </DtsEventHandler>
+  <TaskHost
+    design-time-name="Package\SEQ Package Body\Process GTransitems">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="120,42"
+          Id="Package\SEQ Package Body\Process GTransitems\Get Data"
+          TopLeft="264.75,5.5" />
+        <NodeLayout
+          Size="173,42"
+          Id="Package\SEQ Package Body\Process GTransitems\Inserted Row Count"
+          TopLeft="5.50000000000003,209.5" />
+        <NodeLayout
+          Size="135,42"
+          Id="Package\SEQ Package Body\Process GTransitems\Insert Rows"
+          TopLeft="24.5000000000001,311.5" />
+        <EdgeLayout
+          Id="Package\SEQ Package Body\Process GTransitems.Paths[Row Count Output 1]"
+          TopLeft="92,251.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\SEQ Package Body\Process GTransitems.Paths[OLE DB Source Output]"
+          TopLeft="324.75,47.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-232.75,162"
+              Start="0,0"
+              End="-232.75,154.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,77" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,77"
+                    Point2="0,81"
+                    Point3="-4,81" />
+                  <mssgle:LineSegment
+                    End="-228.75,81" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-228.75,81"
+                    Point2="-232.75,81"
+                    Point3="-232.75,85" />
+                  <mssgle:LineSegment
+                    End="-232.75,154.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\SEQ Package Body\Process GTransitems\Get Data">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\SEQ Package Body\Process GTransitems\Insert Rows">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

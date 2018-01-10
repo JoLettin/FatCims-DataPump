@@ -1,0 +1,2755 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="12:00:00 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName=""
+  DTS:CreatorName=""
+  DTS:DTSID="{11544328-FB07-498C-857B-9C4589D93694}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="14.0.3006.16"
+  DTS:LocaleID="2057"
+  DTS:ObjectName="Data pump - DocItems"
+  DTS:PackageType="5"
+  DTS:VersionBuild="90"
+  DTS:VersionGUID="{576568D1-06BA-45E1-981C-02133FCDF058}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:PackageParameters>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="3"
+      DTS:Description="MasterPackageLoadID"
+      DTS:DTSID="{C12A271A-C86C-4ECA-9D3C-1ED44B90A9F6}"
+      DTS:ObjectName="LoadID"
+      DTS:Required="True">
+      <DTS:Property
+        DTS:DataType="3"
+        DTS:Name="ParameterValue">0</DTS:Property>
+    </DTS:PackageParameter>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="2"
+      DTS:DTSID="{6A5B89FA-C24A-4FA7-9141-1969805BFC78}"
+      DTS:ObjectName="NumberOfDaysToLoad"
+      DTS:Required="True">
+      <DTS:Property
+        DTS:DataType="2"
+        DTS:Name="ParameterValue">4000</DTS:Property>
+    </DTS:PackageParameter>
+  </DTS:PackageParameters>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{AFB1FA82-23C9-4DE8-A335-7DE07A5A9CD8}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="DeletedRows">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{F28F6E63-6A32-421C-8395-BD3A27B0A0C5}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="ErrorRows">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{A7C2639E-634C-4332-AE0C-0126C02B8365}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="&quot;Errors were encountered in package: &quot; + @[System::PackageName] + &quot; (&quot; + @[User::PackageDescription]  + &quot;).  See logging.DataError for details.  PackageExecutionID: &quot; +  (DT_STR, 10,1252)@[User::PackageExecutionID]"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="ErrorText">
+      <DTS:VariableValue
+        DTS:DataType="8">Errors were encountered in package: Data pump - DocItems (Load MyTable).  See logging.DataError for details.  PackageExecutionID: 0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{B56DA76B-1812-45F1-954F-86007243D6DF}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="InsertedRows">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{F529DAF2-36DF-46AD-985B-E5EFF9F5B689}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="PackageDescription">
+      <DTS:VariableValue
+        DTS:DataType="8">Load MyTable</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{015B1F88-3223-4E0F-BC33-2AFDC7B56761}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="PackageExecutionID">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{ABF9B4D3-341A-4BE5-8409-9D57D8942A17}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="&quot;SELECT&#xA;IN_DATE,&#xA;UP_DATE,&#xA;GOR_NUM,&#xA;DOC_NUM,&#xA;DITEM_NUM,&#xA;BF_MAT_CHAR_VAL,&#xA;STY_SIZE,&#xA;DITEM_SIZED,&#xA;DOC_QTY,&#xA;QTY1,&#xA;QTY2,&#xA;QTY3,&#xA;QTY4,&#xA;QTY5,&#xA;QTY6,&#xA;QTY7,&#xA;QTY8,&#xA;QTY9,&#xA;QTY10,&#xA;QTY11,&#xA;QTY12,&#xA;EQTY1,&#xA;EQTY2,&#xA;EQTY3,&#xA;EQTY4,&#xA;EQTY5,&#xA;EQTY6,&#xA;EQTY7,&#xA;STY_TPRICE&#xA;FROM  Doc_Items&#xA;WHERE UP_DATE &gt; TRUNC(sysdate - &quot; + (DT_WSTR,5)@[$Package::NumberOfDaysToLoad]  + &quot;) or IN_DATE &gt; TRUNC(sysdate - &quot;+ (DT_WSTR,5)@[$Package::NumberOfDaysToLoad]  +&quot;)&quot;"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="SQLSource">
+      <DTS:VariableValue
+        DTS:DataType="8">SELECT
+IN_DATE,
+UP_DATE,
+GOR_NUM,
+DOC_NUM,
+DITEM_NUM,
+BF_MAT_CHAR_VAL,
+STY_SIZE,
+DITEM_SIZED,
+DOC_QTY,
+QTY1,
+QTY2,
+QTY3,
+QTY4,
+QTY5,
+QTY6,
+QTY7,
+QTY8,
+QTY9,
+QTY10,
+QTY11,
+QTY12,
+EQTY1,
+EQTY2,
+EQTY3,
+EQTY4,
+EQTY5,
+EQTY6,
+EQTY7,
+STY_TPRICE
+FROM  Doc_Items
+WHERE UP_DATE &gt; TRUNC(sysdate - 4000) or IN_DATE &gt; TRUNC(sysdate - 4000)</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{F692B99F-57A1-40A1-A19B-B0E0F58EB59C}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="UpdatedRows">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\SEQ Package Body"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{59B60EAF-E53E-4103-93DA-E17C7C6D6800}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SEQ Package Body">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\SEQ Package Body\Process DocItems"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{CD1D01AF-19AF-4D5F-B2EC-46B9181B56C0}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Process DocItems"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\SEQ Package Body\Process DocItems\Get Data"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+                  description="OLE DB Source"
+                  name="Get Data"
+                  usesDispositions="true"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset"></property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT
+IN_DATE,
+UP_DATE,
+GOR_NUM,
+DOC_NUM,
+DITEM_NUM,
+BF_MAT_CHAR_VAL,
+STY_SIZE,
+DITEM_SIZED,
+DOC_QTY,
+QTY1,
+QTY2,
+QTY3,
+QTY4,
+QTY5,
+QTY6,
+QTY7,
+QTY8,
+QTY9,
+QTY10,
+QTY11,
+QTY12,
+EQTY1,
+EQTY2,
+EQTY3,
+EQTY4,
+EQTY5,
+EQTY6,
+EQTY7,
+STY_TPRICE
+FROM  Doc_Items
+where up_date &gt; TRUNC(sysdate -1) or in_date &gt; TRUNC(sysdate -1)</property>
+                    <property
+                      dataType="System.String"
+                      description="The variable that contains the SQL command to be executed."
+                      name="SqlCommandVariable">User::SQLSource</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">true</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.String"
+                      description="The mappings between the parameters in the SQL command and variables."
+                      name="ParameterMapping"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\SEQ Package Body\Process DocItems\Get Data.Connections[OleDbConnection]"
+                      connectionManagerID="{838FC444-B8A0-495A-8598-BCD4276DEEBF}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[CIMS]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output]"
+                      name="OLE DB Source Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[IN_DATE]"
+                          dataType="dbTimeStamp"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[IN_DATE]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[IN_DATE]"
+                          name="IN_DATE"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[UP_DATE]"
+                          dataType="dbTimeStamp"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[UP_DATE]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[UP_DATE]"
+                          name="UP_DATE"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[DOC_NUM]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[DOC_NUM]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[DOC_NUM]"
+                          name="DOC_NUM"
+                          precision="9"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[DITEM_NUM]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[DITEM_NUM]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[DITEM_NUM]"
+                          name="DITEM_NUM"
+                          precision="4"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[STY_SIZE]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[STY_SIZE]"
+                          length="3"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[STY_SIZE]"
+                          name="STY_SIZE"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[BF_MAT_CHAR_VAL]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[BF_MAT_CHAR_VAL]"
+                          length="15"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[BF_MAT_CHAR_VAL]"
+                          name="BF_MAT_CHAR_VAL"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[QTY1]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[QTY1]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[QTY1]"
+                          name="QTY1"
+                          precision="5"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[QTY2]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[QTY2]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[QTY2]"
+                          name="QTY2"
+                          precision="5"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[QTY3]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[QTY3]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[QTY3]"
+                          name="QTY3"
+                          precision="5"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[QTY4]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[QTY4]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[QTY4]"
+                          name="QTY4"
+                          precision="5"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[QTY5]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[QTY5]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[QTY5]"
+                          name="QTY5"
+                          precision="5"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[QTY6]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[QTY6]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[QTY6]"
+                          name="QTY6"
+                          precision="5"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[QTY7]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[QTY7]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[QTY7]"
+                          name="QTY7"
+                          precision="5"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[QTY8]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[QTY8]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[QTY8]"
+                          name="QTY8"
+                          precision="5"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[QTY9]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[QTY9]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[QTY9]"
+                          name="QTY9"
+                          precision="5"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[QTY10]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[QTY10]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[QTY10]"
+                          name="QTY10"
+                          precision="5"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[QTY11]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[QTY11]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[QTY11]"
+                          name="QTY11"
+                          precision="5"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[QTY12]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[QTY12]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[QTY12]"
+                          name="QTY12"
+                          precision="5"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[GOR_NUM]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[GOR_NUM]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[GOR_NUM]"
+                          name="GOR_NUM"
+                          precision="8"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[DITEM_SIZED]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[DITEM_SIZED]"
+                          length="1"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[DITEM_SIZED]"
+                          name="DITEM_SIZED"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[DOC_QTY]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[DOC_QTY]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[DOC_QTY]"
+                          name="DOC_QTY"
+                          precision="5"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[EQTY1]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[EQTY1]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[EQTY1]"
+                          name="EQTY1"
+                          precision="5"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[EQTY2]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[EQTY2]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[EQTY2]"
+                          name="EQTY2"
+                          precision="5"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[EQTY3]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[EQTY3]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[EQTY3]"
+                          name="EQTY3"
+                          precision="5"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[EQTY4]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[EQTY4]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[EQTY4]"
+                          name="EQTY4"
+                          precision="5"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[EQTY5]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[EQTY5]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[EQTY5]"
+                          name="EQTY5"
+                          precision="5"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[EQTY6]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[EQTY6]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[EQTY6]"
+                          name="EQTY6"
+                          precision="5"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[EQTY7]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[EQTY7]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[EQTY7]"
+                          name="EQTY7"
+                          precision="5"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[STY_TPRICE]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[STY_TPRICE]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[STY_TPRICE]"
+                          name="STY_TPRICE"
+                          precision="13"
+                          scale="4"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[IN_DATE]"
+                          dataType="dbTimeStamp"
+                          name="IN_DATE" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[UP_DATE]"
+                          dataType="dbTimeStamp"
+                          name="UP_DATE" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[DOC_NUM]"
+                          dataType="numeric"
+                          name="DOC_NUM"
+                          precision="9" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[DITEM_NUM]"
+                          dataType="numeric"
+                          name="DITEM_NUM"
+                          precision="3" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[STY_SIZE]"
+                          codePage="1252"
+                          dataType="str"
+                          length="3"
+                          name="STY_SIZE" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[BF_MAT_CHAR_VAL]"
+                          codePage="1252"
+                          dataType="str"
+                          length="15"
+                          name="BF_MAT_CHAR_VAL" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[QTY1]"
+                          dataType="numeric"
+                          name="QTY1"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[QTY2]"
+                          dataType="numeric"
+                          name="QTY2"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[QTY3]"
+                          dataType="numeric"
+                          name="QTY3"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[QTY4]"
+                          dataType="numeric"
+                          name="QTY4"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[QTY5]"
+                          dataType="numeric"
+                          name="QTY5"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[QTY6]"
+                          dataType="numeric"
+                          name="QTY6"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[QTY7]"
+                          dataType="numeric"
+                          name="QTY7"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[QTY8]"
+                          dataType="numeric"
+                          name="QTY8"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[QTY9]"
+                          dataType="numeric"
+                          name="QTY9"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[QTY10]"
+                          dataType="numeric"
+                          name="QTY10"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[QTY11]"
+                          dataType="numeric"
+                          name="QTY11"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[QTY12]"
+                          dataType="numeric"
+                          name="QTY12"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[GOR_NUM]"
+                          dataType="numeric"
+                          name="GOR_NUM"
+                          precision="8" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[DITEM_SIZED]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          name="DITEM_SIZED" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[DOC_QTY]"
+                          dataType="numeric"
+                          name="DOC_QTY"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[EQTY1]"
+                          dataType="numeric"
+                          name="EQTY1"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[EQTY2]"
+                          dataType="numeric"
+                          name="EQTY2"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[EQTY3]"
+                          dataType="numeric"
+                          name="EQTY3"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[EQTY4]"
+                          dataType="numeric"
+                          name="EQTY4"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[EQTY5]"
+                          dataType="numeric"
+                          name="EQTY5"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[EQTY6]"
+                          dataType="numeric"
+                          name="EQTY6"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[EQTY7]"
+                          dataType="numeric"
+                          name="EQTY7"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].ExternalColumns[STY_TPRICE]"
+                          dataType="numeric"
+                          name="STY_TPRICE"
+                          precision="13"
+                          scale="4" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Error Output]"
+                      isErrorOut="true"
+                      name="OLE DB Source Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Error Output].Columns[IN_DATE]"
+                          dataType="dbTimeStamp"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Error Output].Columns[IN_DATE]"
+                          name="IN_DATE" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Error Output].Columns[UP_DATE]"
+                          dataType="dbTimeStamp"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Error Output].Columns[UP_DATE]"
+                          name="UP_DATE" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Error Output].Columns[GOR_NUM]"
+                          dataType="numeric"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Error Output].Columns[GOR_NUM]"
+                          name="GOR_NUM"
+                          precision="8" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Error Output].Columns[DOC_NUM]"
+                          dataType="numeric"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Error Output].Columns[DOC_NUM]"
+                          name="DOC_NUM"
+                          precision="9" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Error Output].Columns[DITEM_NUM]"
+                          dataType="numeric"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Error Output].Columns[DITEM_NUM]"
+                          name="DITEM_NUM"
+                          precision="3" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Error Output].Columns[STY_SIZE]"
+                          codePage="1252"
+                          dataType="str"
+                          length="3"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Error Output].Columns[STY_SIZE]"
+                          name="STY_SIZE" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Error Output].Columns[BF_MAT_CHAR_VAL]"
+                          codePage="1252"
+                          dataType="str"
+                          length="15"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Error Output].Columns[BF_MAT_CHAR_VAL]"
+                          name="BF_MAT_CHAR_VAL" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Error Output].Columns[DITEM_SIZED]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Error Output].Columns[DITEM_SIZED]"
+                          name="DITEM_SIZED" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Error Output].Columns[DOC_QTY]"
+                          dataType="numeric"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Error Output].Columns[DOC_QTY]"
+                          name="DOC_QTY"
+                          precision="5" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Error Output].Columns[QTY1]"
+                          dataType="numeric"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Error Output].Columns[QTY1]"
+                          name="QTY1"
+                          precision="5" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Error Output].Columns[QTY2]"
+                          dataType="numeric"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Error Output].Columns[QTY2]"
+                          name="QTY2"
+                          precision="5" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Error Output].Columns[QTY3]"
+                          dataType="numeric"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Error Output].Columns[QTY3]"
+                          name="QTY3"
+                          precision="5" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Error Output].Columns[QTY4]"
+                          dataType="numeric"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Error Output].Columns[QTY4]"
+                          name="QTY4"
+                          precision="5" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Error Output].Columns[QTY5]"
+                          dataType="numeric"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Error Output].Columns[QTY5]"
+                          name="QTY5"
+                          precision="5" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Error Output].Columns[QTY6]"
+                          dataType="numeric"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Error Output].Columns[QTY6]"
+                          name="QTY6"
+                          precision="5" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Error Output].Columns[QTY7]"
+                          dataType="numeric"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Error Output].Columns[QTY7]"
+                          name="QTY7"
+                          precision="5" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Error Output].Columns[QTY8]"
+                          dataType="numeric"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Error Output].Columns[QTY8]"
+                          name="QTY8"
+                          precision="5" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Error Output].Columns[QTY9]"
+                          dataType="numeric"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Error Output].Columns[QTY9]"
+                          name="QTY9"
+                          precision="5" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Error Output].Columns[QTY10]"
+                          dataType="numeric"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Error Output].Columns[QTY10]"
+                          name="QTY10"
+                          precision="5" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Error Output].Columns[QTY11]"
+                          dataType="numeric"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Error Output].Columns[QTY11]"
+                          name="QTY11"
+                          precision="5" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Error Output].Columns[QTY12]"
+                          dataType="numeric"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Error Output].Columns[QTY12]"
+                          name="QTY12"
+                          precision="5" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Error Output].Columns[EQTY1]"
+                          dataType="numeric"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Error Output].Columns[EQTY1]"
+                          name="EQTY1"
+                          precision="5" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Error Output].Columns[EQTY2]"
+                          dataType="numeric"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Error Output].Columns[EQTY2]"
+                          name="EQTY2"
+                          precision="5" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Error Output].Columns[EQTY3]"
+                          dataType="numeric"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Error Output].Columns[EQTY3]"
+                          name="EQTY3"
+                          precision="5" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Error Output].Columns[EQTY4]"
+                          dataType="numeric"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Error Output].Columns[EQTY4]"
+                          name="EQTY4"
+                          precision="5" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Error Output].Columns[EQTY5]"
+                          dataType="numeric"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Error Output].Columns[EQTY5]"
+                          name="EQTY5"
+                          precision="5" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Error Output].Columns[EQTY6]"
+                          dataType="numeric"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Error Output].Columns[EQTY6]"
+                          name="EQTY6"
+                          precision="5" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Error Output].Columns[EQTY7]"
+                          dataType="numeric"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Error Output].Columns[EQTY7]"
+                          name="EQTY7"
+                          precision="5" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Error Output].Columns[STY_TPRICE]"
+                          dataType="numeric"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Error Output].Columns[STY_TPRICE]"
+                          name="STY_TPRICE"
+                          precision="13"
+                          scale="4" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\SEQ Package Body\Process DocItems\Insert Rows"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  description="OLE DB Destination"
+                  name="Insert Rows"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[Cims].[DocItems]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\SEQ Package Body\Process DocItems\Insert Rows.Connections[OleDbConnection]"
+                      connectionManagerID="{915CBEE3-A847-43BD-A895-44946E73BA9B}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[FatCims]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].Columns[IN_DATE]"
+                          cachedDataType="dbTimeStamp"
+                          cachedName="IN_DATE"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[IN_DATE]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[IN_DATE]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].Columns[UP_DATE]"
+                          cachedDataType="dbTimeStamp"
+                          cachedName="UP_DATE"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[UP_DATE]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[UP_DATE]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].Columns[DOC_NUM]"
+                          cachedDataType="numeric"
+                          cachedName="DOC_NUM"
+                          cachedPrecision="9"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[DOC_NUM]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[DOC_NUM]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].Columns[DITEM_NUM]"
+                          cachedDataType="numeric"
+                          cachedName="DITEM_NUM"
+                          cachedPrecision="4"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[DITEM_NUM]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[DITEM_NUM]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].Columns[STY_SIZE]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="3"
+                          cachedName="STY_SIZE"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[STY_SIZE]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[STY_SIZE]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].Columns[BF_MAT_CHAR_VAL]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="15"
+                          cachedName="BF_MAT_CHAR_VAL"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[BF_MAT_CHAR_VAL]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[BF_MAT_CHAR_VAL]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].Columns[QTY1]"
+                          cachedDataType="numeric"
+                          cachedName="QTY1"
+                          cachedPrecision="5"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[QTY1]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[QTY1]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].Columns[QTY2]"
+                          cachedDataType="numeric"
+                          cachedName="QTY2"
+                          cachedPrecision="5"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[QTY2]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[QTY2]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].Columns[QTY3]"
+                          cachedDataType="numeric"
+                          cachedName="QTY3"
+                          cachedPrecision="5"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[QTY3]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[QTY3]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].Columns[QTY4]"
+                          cachedDataType="numeric"
+                          cachedName="QTY4"
+                          cachedPrecision="5"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[QTY4]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[QTY4]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].Columns[QTY5]"
+                          cachedDataType="numeric"
+                          cachedName="QTY5"
+                          cachedPrecision="5"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[QTY5]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[QTY5]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].Columns[QTY6]"
+                          cachedDataType="numeric"
+                          cachedName="QTY6"
+                          cachedPrecision="5"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[QTY6]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[QTY6]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].Columns[QTY7]"
+                          cachedDataType="numeric"
+                          cachedName="QTY7"
+                          cachedPrecision="5"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[QTY7]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[QTY7]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].Columns[QTY8]"
+                          cachedDataType="numeric"
+                          cachedName="QTY8"
+                          cachedPrecision="5"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[QTY8]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[QTY8]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].Columns[QTY9]"
+                          cachedDataType="numeric"
+                          cachedName="QTY9"
+                          cachedPrecision="5"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[QTY9]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[QTY9]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].Columns[QTY10]"
+                          cachedDataType="numeric"
+                          cachedName="QTY10"
+                          cachedPrecision="5"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[QTY10]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[QTY10]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].Columns[QTY11]"
+                          cachedDataType="numeric"
+                          cachedName="QTY11"
+                          cachedPrecision="5"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[QTY11]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[QTY11]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].Columns[QTY12]"
+                          cachedDataType="numeric"
+                          cachedName="QTY12"
+                          cachedPrecision="5"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[QTY12]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[QTY12]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].Columns[GOR_NUM]"
+                          cachedDataType="numeric"
+                          cachedName="GOR_NUM"
+                          cachedPrecision="8"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[GOR_NUM]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[GOR_NUM]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].Columns[DITEM_SIZED]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="1"
+                          cachedName="DITEM_SIZED"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[DITEM_SIZED]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[DITEM_SIZED]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].Columns[DOC_QTY]"
+                          cachedDataType="numeric"
+                          cachedName="DOC_QTY"
+                          cachedPrecision="5"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[DOC_QTY]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[DOC_QTY]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].Columns[EQTY1]"
+                          cachedDataType="numeric"
+                          cachedName="EQTY1"
+                          cachedPrecision="5"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[EQTY1]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[EQTY1]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].Columns[EQTY2]"
+                          cachedDataType="numeric"
+                          cachedName="EQTY2"
+                          cachedPrecision="5"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[EQTY2]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[EQTY2]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].Columns[EQTY3]"
+                          cachedDataType="numeric"
+                          cachedName="EQTY3"
+                          cachedPrecision="5"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[EQTY3]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[EQTY3]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].Columns[EQTY4]"
+                          cachedDataType="numeric"
+                          cachedName="EQTY4"
+                          cachedPrecision="5"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[EQTY4]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[EQTY4]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].Columns[EQTY6]"
+                          cachedDataType="numeric"
+                          cachedName="EQTY6"
+                          cachedPrecision="5"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[EQTY5]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[EQTY6]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].Columns[EQTY5]"
+                          cachedDataType="numeric"
+                          cachedName="EQTY5"
+                          cachedPrecision="5"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[EQTY6]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[EQTY5]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].Columns[EQTY7]"
+                          cachedDataType="numeric"
+                          cachedName="EQTY7"
+                          cachedPrecision="5"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[EQTY7]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[EQTY7]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].Columns[STY_TPRICE]"
+                          cachedDataType="numeric"
+                          cachedName="STY_TPRICE"
+                          cachedPrecision="13"
+                          cachedScale="4"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[STY_TPRICE]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[STY_TPRICE]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[IN_DATE]"
+                          dataType="dbTimeStamp"
+                          name="IN_DATE" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[UP_DATE]"
+                          dataType="dbTimeStamp"
+                          name="UP_DATE" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[DOC_NUM]"
+                          dataType="numeric"
+                          name="DOC_NUM"
+                          precision="9" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[DITEM_NUM]"
+                          dataType="numeric"
+                          name="DITEM_NUM"
+                          precision="4" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[STY_SIZE]"
+                          codePage="1252"
+                          dataType="str"
+                          length="3"
+                          name="STY_SIZE" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[BF_MAT_CHAR_VAL]"
+                          codePage="1252"
+                          dataType="str"
+                          length="15"
+                          name="BF_MAT_CHAR_VAL" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[QTY1]"
+                          dataType="numeric"
+                          name="QTY1"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[QTY2]"
+                          dataType="numeric"
+                          name="QTY2"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[QTY3]"
+                          dataType="numeric"
+                          name="QTY3"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[QTY4]"
+                          dataType="numeric"
+                          name="QTY4"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[QTY5]"
+                          dataType="numeric"
+                          name="QTY5"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[QTY6]"
+                          dataType="numeric"
+                          name="QTY6"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[QTY7]"
+                          dataType="numeric"
+                          name="QTY7"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[QTY8]"
+                          dataType="numeric"
+                          name="QTY8"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[QTY9]"
+                          dataType="numeric"
+                          name="QTY9"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[QTY10]"
+                          dataType="numeric"
+                          name="QTY10"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[QTY11]"
+                          dataType="numeric"
+                          name="QTY11"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[QTY12]"
+                          dataType="numeric"
+                          name="QTY12"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[DocItemsId]"
+                          dataType="i4"
+                          name="DocItemsId" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[GOR_NUM]"
+                          dataType="numeric"
+                          name="GOR_NUM"
+                          precision="8" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[DITEM_SIZED]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          name="DITEM_SIZED" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[DOC_QTY]"
+                          dataType="numeric"
+                          name="DOC_QTY"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[EQTY1]"
+                          dataType="numeric"
+                          name="EQTY1"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[EQTY2]"
+                          dataType="numeric"
+                          name="EQTY2"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[EQTY3]"
+                          dataType="numeric"
+                          name="EQTY3"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[EQTY4]"
+                          dataType="numeric"
+                          name="EQTY4"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[EQTY5]"
+                          dataType="numeric"
+                          name="EQTY5"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[EQTY6]"
+                          dataType="numeric"
+                          name="EQTY6"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[EQTY7]"
+                          dataType="numeric"
+                          name="EQTY7"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[STY_TPRICE]"
+                          dataType="numeric"
+                          name="STY_TPRICE"
+                          precision="13"
+                          scale="4" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\SEQ Package Body\Process DocItems\Insert Rows.Outputs[OLE DB Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Destination Error Output"
+                      synchronousInputId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Insert Rows.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Insert Rows.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Insert Rows.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Insert Rows.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\SEQ Package Body\Process DocItems\Inserted Row Count"
+                  componentClassID="Microsoft.RowCount"
+                  contactInfo="Row Count;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                  description="Counts rows as they pass through a data flow. For example, use the number of rows processed to determine whether or not to perform cleanup operations, or update text in an e-mail message to communicate processing status."
+                  name="Inserted Row Count">
+                  <properties>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable to hold the row count."
+                      name="VariableName">User::InsertedRows</property>
+                  </properties>
+                  <inputs>
+                    <input
+                      refId="Package\SEQ Package Body\Process DocItems\Inserted Row Count.Inputs[Row Count Input 1]"
+                      hasSideEffects="true"
+                      name="Row Count Input 1">
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\SEQ Package Body\Process DocItems\Inserted Row Count.Outputs[Row Count Output 1]"
+                      name="Row Count Output 1"
+                      synchronousInputId="Package\SEQ Package Body\Process DocItems\Inserted Row Count.Inputs[Row Count Input 1]">
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\SEQ Package Body\Process DocItems\Lookup"
+                  componentClassID="Microsoft.Lookup"
+                  contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+                  description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+                  name="Lookup"
+                  usesDispositions="true"
+                  version="6">
+                  <properties>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the SQL statement that generates the lookup table."
+                      expressionType="Notify"
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [Cims].[DocItems]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                      expressionType="Notify"
+                      name="SqlCommandParam"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [Cims].[DocItems]) [refTable]
+where [refTable].[DOC_NUM] = ? and [refTable].[DITEM_NUM] = ?</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the type of connection used to access the reference dataset."
+                      name="ConnectionType"
+                      typeConverter="LookupConnectionType">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the cache type of the lookup table."
+                      name="CacheType"
+                      typeConverter="CacheType">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                      name="NoMatchBehavior"
+                      typeConverter="LookupNoMatchBehavior">1</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                      name="NoMatchCachePercentage">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                      name="MaxMemoryUsage">25</property>
+                    <property
+                      dataType="System.Int64"
+                      description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                      name="MaxMemoryUsage64">25</property>
+                    <property
+                      dataType="System.String"
+                      description="Indicates whether to reference metadata in an XML format."
+                      name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="DocItemsId" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="IN_DATE" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="UP_DATE" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="DOC_NUM" dataType="DT_NUMERIC" length="0" precision="9" scale="0" codePage="0"/&gt;&lt;referenceColumn name="DITEM_NUM" dataType="DT_NUMERIC" length="0" precision="4" scale="0" codePage="0"/&gt;&lt;referenceColumn name="STY_SIZE" dataType="DT_STR" length="3" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="BF_MAT_CHAR_VAL" dataType="DT_STR" length="15" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="QTY1" dataType="DT_NUMERIC" length="0" precision="5" scale="0" codePage="0"/&gt;&lt;referenceColumn name="QTY2" dataType="DT_NUMERIC" length="0" precision="5" scale="0" codePage="0"/&gt;&lt;referenceColumn name="QTY3" dataType="DT_NUMERIC" length="0" precision="5" scale="0" codePage="0"/&gt;&lt;referenceColumn name="QTY4" dataType="DT_NUMERIC" length="0" precision="5" scale="0" codePage="0"/&gt;&lt;referenceColumn name="QTY5" dataType="DT_NUMERIC" length="0" precision="5" scale="0" codePage="0"/&gt;&lt;referenceColumn name="QTY6" dataType="DT_NUMERIC" length="0" precision="5" scale="0" codePage="0"/&gt;&lt;referenceColumn name="QTY7" dataType="DT_NUMERIC" length="0" precision="5" scale="0" codePage="0"/&gt;&lt;referenceColumn name="QTY8" dataType="DT_NUMERIC" length="0" precision="5" scale="0" codePage="0"/&gt;&lt;referenceColumn name="QTY9" dataType="DT_NUMERIC" length="0" precision="5" scale="0" codePage="0"/&gt;&lt;referenceColumn name="QTY10" dataType="DT_NUMERIC" length="0" precision="5" scale="0" codePage="0"/&gt;&lt;referenceColumn name="QTY11" dataType="DT_NUMERIC" length="0" precision="5" scale="0" codePage="0"/&gt;&lt;referenceColumn name="QTY12" dataType="DT_NUMERIC" length="0" precision="5" scale="0" codePage="0"/&gt;&lt;referenceColumn name="GOR_NUM" dataType="DT_NUMERIC" length="0" precision="8" scale="0" codePage="0"/&gt;&lt;referenceColumn name="DITEM_SIZED" dataType="DT_STR" length="1" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="DOC_QTY" dataType="DT_NUMERIC" length="0" precision="5" scale="0" codePage="0"/&gt;&lt;referenceColumn name="EQTY1" dataType="DT_NUMERIC" length="0" precision="5" scale="0" codePage="0"/&gt;&lt;referenceColumn name="EQTY2" dataType="DT_NUMERIC" length="0" precision="5" scale="0" codePage="0"/&gt;&lt;referenceColumn name="EQTY3" dataType="DT_NUMERIC" length="0" precision="5" scale="0" codePage="0"/&gt;&lt;referenceColumn name="EQTY4" dataType="DT_NUMERIC" length="0" precision="5" scale="0" codePage="0"/&gt;&lt;referenceColumn name="EQTY5" dataType="DT_NUMERIC" length="0" precision="5" scale="0" codePage="0"/&gt;&lt;referenceColumn name="EQTY6" dataType="DT_NUMERIC" length="0" precision="5" scale="0" codePage="0"/&gt;&lt;referenceColumn name="EQTY7" dataType="DT_NUMERIC" length="0" precision="5" scale="0" codePage="0"/&gt;&lt;referenceColumn name="STY_TPRICE" dataType="DT_NUMERIC" length="0" precision="13" scale="4" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                      name="ParameterMap">#{Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[DOC_NUM]};#{Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[DITEM_NUM]};</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                      name="TreatDuplicateKeysAsError">false</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\SEQ Package Body\Process DocItems\Lookup.Connections[OleDbConnection]"
+                      connectionManagerID="{915CBEE3-A847-43BD-A895-44946E73BA9B}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[FatCims]"
+                      description="Connection manager used to access lookup data."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\SEQ Package Body\Process DocItems\Lookup.Inputs[Lookup Input]"
+                      name="Lookup Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Lookup.Inputs[Lookup Input].Columns[DOC_NUM]"
+                          cachedDataType="numeric"
+                          cachedName="DOC_NUM"
+                          cachedPrecision="9"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[DOC_NUM]">
+                          <properties>
+                            <property
+                              dataType="System.String"
+                              description="Specifies the column in the reference table that a column joins."
+                              name="JoinToReferenceColumn">DOC_NUM</property>
+                            <property
+                              dataType="System.Null"
+                              description="Specifies the column in the reference table from which a column is copied."
+                              name="CopyFromReferenceColumn" />
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Lookup.Inputs[Lookup Input].Columns[DITEM_NUM]"
+                          cachedDataType="numeric"
+                          cachedName="DITEM_NUM"
+                          cachedPrecision="4"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[DITEM_NUM]">
+                          <properties>
+                            <property
+                              dataType="System.String"
+                              description="Specifies the column in the reference table that a column joins."
+                              name="JoinToReferenceColumn">DITEM_NUM</property>
+                            <property
+                              dataType="System.Null"
+                              description="Specifies the column in the reference table from which a column is copied."
+                              name="CopyFromReferenceColumn" />
+                          </properties>
+                        </inputColumn>
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\SEQ Package Body\Process DocItems\Lookup.Outputs[Lookup Match Output]"
+                      errorOrTruncationOperation="Lookup"
+                      exclusionGroup="1"
+                      name="Lookup Match Output"
+                      synchronousInputId="Package\SEQ Package Body\Process DocItems\Lookup.Inputs[Lookup Input]">
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\SEQ Package Body\Process DocItems\Lookup.Outputs[Lookup No Match Output]"
+                      description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                      exclusionGroup="1"
+                      name="Lookup No Match Output"
+                      synchronousInputId="Package\SEQ Package Body\Process DocItems\Lookup.Inputs[Lookup Input]">
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\SEQ Package Body\Process DocItems\Lookup.Outputs[Lookup Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Lookup Error Output"
+                      synchronousInputId="Package\SEQ Package Body\Process DocItems\Lookup.Inputs[Lookup Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Lookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Lookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Lookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Lookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  description="OLE DB Destination"
+                  name="Update Rows - load Staging"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[Staging].[DocItems]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">UPDATE gi
+SET 
+gi.IN_DATE = gi2.IN_DATE,
+gi.UP_DATE = gi2.UP_DATE,
+gi.GTRANS_NUM = gi2.GTRANS_NUM,
+gi.GITEM_NUM = gi2.GITEM_NUM,
+gi.GTRANS_SORT = gi2.GTRANS_SORT,
+gi.SOR_NUM = gi2.SOR_NUM,
+gi.GSOURCE_BIN = gi2.GSOURCE_BIN,
+gi.GDEST_BIN = gi2.GDEST_BIN,
+gi.ORIG_DSP_NUM = gi2.ORIG_DSP_NUM,
+gi.SITEM_NUM = gi2.SITEM_NUM,
+gi.SCR_SOR_NUM = gi2.SCR_SOR_NUM,
+gi.SCR_ITEM_NUM = gi2.SCR_ITEM_NUM,
+gi.DOC_NUM = gi2.DOC_NUM,
+gi.DITEM_NUM = gi2.DITEM_NUM,
+gi.GEN_STATE = gi2.GEN_STATE,
+gi.RITEM_NUM = gi2.RITEM_NUM,
+gi.RAL_NUM = gi2.RAL_NUM,
+gi.SEASON = gi2.SEASON,
+gi.STY_NUM = gi2.STY_NUM,
+gi.STY_QUAL = gi2.STY_QUAL,
+gi.STY_SIZE = gi2.STY_SIZE,
+gi.BF_MAT_CHAR_VAL = gi2.BF_MAT_CHAR_VAL,
+gi.GTRANS_FPRICE = gi2.GTRANS_FPRICE,
+gi.GTRANS_LPRICE = gi2.GTRANS_LPRICE,
+gi.GITEM_STATE = gi2.GITEM_STATE,
+gi.DSP_STATE = gi2.DSP_STATE,
+gi.QTY1 = gi2.QTY1,
+gi.QTY2 = gi2.QTY2,
+gi.QTY3 = gi2.QTY3,
+gi.QTY4 = gi2.QTY4,
+gi.QTY5 = gi2.QTY5,
+gi.QTY6 = gi2.QTY6,
+gi.QTY7 = gi2.QTY7,
+gi.QTY8 = gi2.QTY8,
+gi.QTY9 = gi2.QTY9,
+gi.QTY10 = gi2.QTY10,
+gi.QTY11 = gi2.QTY11,
+gi.QTY12 = gi2.QTY12,
+gi.TOT_ITEM_QTY = gi2.TOT_ITEM_QTY,
+gi.TOT_ITEM_AMOUNT = gi2.TOT_ITEM_AMOUNT,
+gi.TOT_ITEM_VAT = gi2.TOT_ITEM_VAT,
+gi.VAT_CODE = gi2.VAT_CODE,
+gi.GITEM_RANK = gi2.GITEM_RANK,
+gi.CARTON_BARCODE = gi2.CARTON_BARCODE,
+gi.MANUAL_QTY = gi2.MANUAL_QTY,
+gi.RET_TYPE = gi2.RET_TYPE,
+gi.VAT_RATE = gi2.VAT_RATE,
+gi.PICKER_ID = gi2.PICKER_ID,
+gi.CAGE_NUM = gi2.CAGE_NUM,
+gi.PICK_DATE = gi2.PICK_DATE,
+gi.MIN_PICK_DATE = gi2.MIN_PICK_DATE
+FROM Cims.GtransItems gi
+INNER JOIN Staging.GtransItems gi2 ON gi2.GTRANS_NUM = gi.GTRANS_NUM AND gi2.GITEM_NUM = gi.GITEM_NUM</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Connections[OleDbConnection]"
+                      connectionManagerID="{915CBEE3-A847-43BD-A895-44946E73BA9B}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[FatCims]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].Columns[IN_DATE]"
+                          cachedDataType="dbTimeStamp"
+                          cachedName="IN_DATE"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[IN_DATE]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[IN_DATE]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].Columns[UP_DATE]"
+                          cachedDataType="dbTimeStamp"
+                          cachedName="UP_DATE"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[UP_DATE]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[UP_DATE]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].Columns[DOC_NUM]"
+                          cachedDataType="numeric"
+                          cachedName="DOC_NUM"
+                          cachedPrecision="9"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[DOC_NUM]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[DOC_NUM]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].Columns[DITEM_NUM]"
+                          cachedDataType="numeric"
+                          cachedName="DITEM_NUM"
+                          cachedPrecision="4"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[DITEM_NUM]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[DITEM_NUM]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].Columns[STY_SIZE]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="3"
+                          cachedName="STY_SIZE"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[STY_SIZE]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[STY_SIZE]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].Columns[BF_MAT_CHAR_VAL]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="15"
+                          cachedName="BF_MAT_CHAR_VAL"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[BF_MAT_CHAR_VAL]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[BF_MAT_CHAR_VAL]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].Columns[QTY1]"
+                          cachedDataType="numeric"
+                          cachedName="QTY1"
+                          cachedPrecision="5"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[QTY1]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[QTY1]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].Columns[QTY2]"
+                          cachedDataType="numeric"
+                          cachedName="QTY2"
+                          cachedPrecision="5"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[QTY2]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[QTY2]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].Columns[QTY3]"
+                          cachedDataType="numeric"
+                          cachedName="QTY3"
+                          cachedPrecision="5"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[QTY3]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[QTY3]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].Columns[QTY4]"
+                          cachedDataType="numeric"
+                          cachedName="QTY4"
+                          cachedPrecision="5"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[QTY4]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[QTY4]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].Columns[QTY5]"
+                          cachedDataType="numeric"
+                          cachedName="QTY5"
+                          cachedPrecision="5"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[QTY5]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[QTY5]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].Columns[QTY6]"
+                          cachedDataType="numeric"
+                          cachedName="QTY6"
+                          cachedPrecision="5"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[QTY6]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[QTY6]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].Columns[QTY7]"
+                          cachedDataType="numeric"
+                          cachedName="QTY7"
+                          cachedPrecision="5"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[QTY7]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[QTY7]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].Columns[QTY8]"
+                          cachedDataType="numeric"
+                          cachedName="QTY8"
+                          cachedPrecision="5"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[QTY8]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[QTY8]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].Columns[QTY9]"
+                          cachedDataType="numeric"
+                          cachedName="QTY9"
+                          cachedPrecision="5"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[QTY9]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[QTY9]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].Columns[QTY10]"
+                          cachedDataType="numeric"
+                          cachedName="QTY10"
+                          cachedPrecision="5"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[QTY10]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[QTY10]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].Columns[QTY11]"
+                          cachedDataType="numeric"
+                          cachedName="QTY11"
+                          cachedPrecision="5"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[QTY11]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[QTY11]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].Columns[QTY12]"
+                          cachedDataType="numeric"
+                          cachedName="QTY12"
+                          cachedPrecision="5"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[QTY12]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[QTY12]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].Columns[GOR_NUM]"
+                          cachedDataType="numeric"
+                          cachedName="GOR_NUM"
+                          cachedPrecision="8"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[GOR_NUM]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[GOR_NUM]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].Columns[DITEM_SIZED]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="1"
+                          cachedName="DITEM_SIZED"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[DITEM_SIZED]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[DITEM_SIZED]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].Columns[DOC_QTY]"
+                          cachedDataType="numeric"
+                          cachedName="DOC_QTY"
+                          cachedPrecision="5"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[DOC_QTY]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[DOC_QTY]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].Columns[EQTY1]"
+                          cachedDataType="numeric"
+                          cachedName="EQTY1"
+                          cachedPrecision="5"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[EQTY1]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[EQTY1]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].Columns[EQTY2]"
+                          cachedDataType="numeric"
+                          cachedName="EQTY2"
+                          cachedPrecision="5"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[EQTY2]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[EQTY2]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].Columns[EQTY3]"
+                          cachedDataType="numeric"
+                          cachedName="EQTY3"
+                          cachedPrecision="5"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[EQTY3]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[EQTY3]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].Columns[EQTY4]"
+                          cachedDataType="numeric"
+                          cachedName="EQTY4"
+                          cachedPrecision="5"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[EQTY4]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[EQTY4]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].Columns[EQTY5]"
+                          cachedDataType="numeric"
+                          cachedName="EQTY5"
+                          cachedPrecision="5"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[EQTY5]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[EQTY5]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].Columns[EQTY6]"
+                          cachedDataType="numeric"
+                          cachedName="EQTY6"
+                          cachedPrecision="5"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[EQTY6]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[EQTY6]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].Columns[EQTY7]"
+                          cachedDataType="numeric"
+                          cachedName="EQTY7"
+                          cachedPrecision="5"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[EQTY7]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[EQTY7]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].Columns[STY_TPRICE]"
+                          cachedDataType="numeric"
+                          cachedName="STY_TPRICE"
+                          cachedPrecision="13"
+                          cachedScale="4"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[STY_TPRICE]"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output].Columns[STY_TPRICE]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[IN_DATE]"
+                          dataType="dbTimeStamp"
+                          name="IN_DATE" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[UP_DATE]"
+                          dataType="dbTimeStamp"
+                          name="UP_DATE" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[DOC_NUM]"
+                          dataType="numeric"
+                          name="DOC_NUM"
+                          precision="9" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[DITEM_NUM]"
+                          dataType="numeric"
+                          name="DITEM_NUM"
+                          precision="4" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[STY_SIZE]"
+                          codePage="1252"
+                          dataType="str"
+                          length="3"
+                          name="STY_SIZE" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[BF_MAT_CHAR_VAL]"
+                          codePage="1252"
+                          dataType="str"
+                          length="15"
+                          name="BF_MAT_CHAR_VAL" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[QTY1]"
+                          dataType="numeric"
+                          name="QTY1"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[QTY2]"
+                          dataType="numeric"
+                          name="QTY2"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[QTY3]"
+                          dataType="numeric"
+                          name="QTY3"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[QTY4]"
+                          dataType="numeric"
+                          name="QTY4"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[QTY5]"
+                          dataType="numeric"
+                          name="QTY5"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[QTY6]"
+                          dataType="numeric"
+                          name="QTY6"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[QTY7]"
+                          dataType="numeric"
+                          name="QTY7"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[QTY8]"
+                          dataType="numeric"
+                          name="QTY8"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[QTY9]"
+                          dataType="numeric"
+                          name="QTY9"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[QTY10]"
+                          dataType="numeric"
+                          name="QTY10"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[QTY11]"
+                          dataType="numeric"
+                          name="QTY11"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[QTY12]"
+                          dataType="numeric"
+                          name="QTY12"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[DocItemsId]"
+                          dataType="i4"
+                          name="DocItemsId" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[GOR_NUM]"
+                          dataType="numeric"
+                          name="GOR_NUM"
+                          precision="8" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[DITEM_SIZED]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          name="DITEM_SIZED" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[DOC_QTY]"
+                          dataType="numeric"
+                          name="DOC_QTY"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[EQTY1]"
+                          dataType="numeric"
+                          name="EQTY1"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[EQTY2]"
+                          dataType="numeric"
+                          name="EQTY2"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[EQTY3]"
+                          dataType="numeric"
+                          name="EQTY3"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[EQTY4]"
+                          dataType="numeric"
+                          name="EQTY4"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[EQTY5]"
+                          dataType="numeric"
+                          name="EQTY5"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[EQTY6]"
+                          dataType="numeric"
+                          name="EQTY6"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[EQTY7]"
+                          dataType="numeric"
+                          name="EQTY7"
+                          precision="5" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[STY_TPRICE]"
+                          dataType="numeric"
+                          name="STY_TPRICE"
+                          precision="13"
+                          scale="4" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Outputs[OLE DB Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Destination Error Output"
+                      synchronousInputId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\SEQ Package Body\Process DocItems\Updates Row Count"
+                  componentClassID="Microsoft.RowCount"
+                  contactInfo="Row Count;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                  description="Counts rows as they pass through a data flow. For example, use the number of rows processed to determine whether or not to perform cleanup operations, or update text in an e-mail message to communicate processing status."
+                  name="Updates Row Count">
+                  <properties>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable to hold the row count."
+                      name="VariableName">User::UpdatedRows</property>
+                  </properties>
+                  <inputs>
+                    <input
+                      refId="Package\SEQ Package Body\Process DocItems\Updates Row Count.Inputs[Row Count Input 1]"
+                      hasSideEffects="true"
+                      name="Row Count Input 1">
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\SEQ Package Body\Process DocItems\Updates Row Count.Outputs[Row Count Output 1]"
+                      name="Row Count Output 1"
+                      synchronousInputId="Package\SEQ Package Body\Process DocItems\Updates Row Count.Inputs[Row Count Input 1]">
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\SEQ Package Body\Process DocItems.Paths[Lookup Match Output]"
+                  endId="Package\SEQ Package Body\Process DocItems\Updates Row Count.Inputs[Row Count Input 1]"
+                  name="Lookup Match Output"
+                  startId="Package\SEQ Package Body\Process DocItems\Lookup.Outputs[Lookup Match Output]" />
+                <path
+                  refId="Package\SEQ Package Body\Process DocItems.Paths[Lookup No Match Output]"
+                  endId="Package\SEQ Package Body\Process DocItems\Inserted Row Count.Inputs[Row Count Input 1]"
+                  name="Lookup No Match Output"
+                  startId="Package\SEQ Package Body\Process DocItems\Lookup.Outputs[Lookup No Match Output]" />
+                <path
+                  refId="Package\SEQ Package Body\Process DocItems.Paths[OLE DB Source Output]"
+                  endId="Package\SEQ Package Body\Process DocItems\Lookup.Inputs[Lookup Input]"
+                  name="OLE DB Source Output"
+                  startId="Package\SEQ Package Body\Process DocItems\Get Data.Outputs[OLE DB Source Output]" />
+                <path
+                  refId="Package\SEQ Package Body\Process DocItems.Paths[Row Count Output 1]"
+                  endId="Package\SEQ Package Body\Process DocItems\Insert Rows.Inputs[OLE DB Destination Input]"
+                  name="Row Count Output 1"
+                  startId="Package\SEQ Package Body\Process DocItems\Inserted Row Count.Outputs[Row Count Output 1]" />
+                <path
+                  refId="Package\SEQ Package Body\Process DocItems.Paths[Row Count Output 11]"
+                  endId="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging.Inputs[OLE DB Destination Input]"
+                  name="Row Count Output 1"
+                  startId="Package\SEQ Package Body\Process DocItems\Updates Row Count.Outputs[Row Count Output 1]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\SEQ Package Body\Truncate Staging"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Truncates Staging.GtransItems"
+          DTS:DTSID="{6523130F-5529-40B9-A0D3-92B86A90C376}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Truncate Staging"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{915CBEE3-A847-43BD-A895-44946E73BA9B}"
+              SQLTask:SqlStatementSource="Truncate Table Staging.DocItems" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\SEQ Package Body\Update Existing Records"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{76B89513-A1B9-4EF4-A7E0-546EAE840CDD}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Update Existing Records"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{915CBEE3-A847-43BD-A895-44946E73BA9B}"
+              SQLTask:SqlStatementSource="UPDATE di&#xA;SET&#xA;di.IN_DATE = di2.IN_DATE,&#xA;di.UP_DATE = di2.UP_DATE,&#xA;di.DOC_NUM = di2.DOC_NUM,&#xA;di.DITEM_NUM = di2.DITEM_NUM,&#xA;di.STY_SIZE = di2.STY_SIZE,&#xA;di.BF_MAT_CHAR_VAL = di2.BF_MAT_CHAR_VAL,&#xA;di.QTY1 = di2.QTY1,&#xA;di.QTY2 = di2.QTY2,&#xA;di.QTY3 = di2.QTY3,&#xA;di.QTY4 = di2.QTY4,&#xA;di.QTY5 = di2.QTY5,&#xA;di.QTY6 = di2.QTY6,&#xA;di.QTY7 = di2.QTY7,&#xA;di.QTY8 = di2.QTY8,&#xA;di.QTY9 = di2.QTY9,&#xA;di.QTY10 = di2.QTY10,&#xA;di.QTY11 = di2.QTY11,&#xA;di.QTY12 = di2.QTY12,&#xA;di.GOR_NUM = di2.GOR_NUM,&#xA;di.DITEM_SIZED = di2.DITEM_SIZED,&#xA;di.DOC_QTY = di2.DOC_QTY,&#xA;di.EQTY1 = di2.EQTY1,&#xA;di.EQTY2 = di2.EQTY2,&#xA;di.EQTY3 = di2.EQTY3,&#xA;di.EQTY4 = di2.EQTY4,&#xA;di.EQTY5 = di2.EQTY5,&#xA;di.EQTY6 = di2.EQTY6,&#xA;di.EQTY7 = di2.EQTY7,&#xA;di.STY_TPRICE = di2.STY_TPRICE&#xA;FROM Cims.DocItems di&#xA;INNER JOIN Staging.DocItems di2 ON di2.DOC_NUM = di.DOC_NUM AND di2.DITEM_NUM = di.DITEM_NUM" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\SEQ Package Body.PrecedenceConstraints[Constraint]"
+          DTS:CreationName=""
+          DTS:DTSID="{270CDD7E-FB8E-4441-A7D5-885BFB3558B6}"
+          DTS:From="Package\SEQ Package Body\Process DocItems"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint"
+          DTS:To="Package\SEQ Package Body\Update Existing Records" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\SEQ Package Body.PrecedenceConstraints[Constraint 1]"
+          DTS:CreationName=""
+          DTS:DTSID="{BE68E646-CB3F-4C3F-ABB0-063209E115DF}"
+          DTS:From="Package\SEQ Package Body\Truncate Staging"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 1"
+          DTS:To="Package\SEQ Package Body\Process DocItems" />
+      </DTS:PrecedenceConstraints>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SQL Log Package Complete"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{18E782E4-57DF-4585-B907-4D51F831EDDE}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL Log Package Complete"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 CTP2.1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{5527293B-F206-4C37-97DF-7AC6BC5D5D95}"
+          SQLTask:SqlStatementSource="EXEC logging.PackageExecutionLogUpdate ?, ?, ?, ?, ?, ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="User::PackageExecutionID"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="1"
+            SQLTask:DtsVariableName="User::InsertedRows"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="2"
+            SQLTask:DtsVariableName="User::UpdatedRows"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="3"
+            SQLTask:DtsVariableName="User::DeletedRows"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="4"
+            SQLTask:DtsVariableName="User::ErrorRows"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="5"
+            SQLTask:DtsVariableName="$Project::ExectutionStatusComplete"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SQL Log Package Start"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{A5BCB98E-6D15-445B-81C6-2FFEDBB69AFF}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL Log Package Start"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 CTP2.1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{5527293B-F206-4C37-97DF-7AC6BC5D5D95}"
+          SQLTask:SqlStatementSource="EXEC logging.PackageExecutionLogInsert ?,?, ?, ? OUTPUT" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="1"
+            SQLTask:DtsVariableName="System::PackageName"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="2"
+            SQLTask:DtsVariableName="User::PackageDescription"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="3"
+            SQLTask:DtsVariableName="User::PackageExecutionID"
+            SQLTask:ParameterDirection="Output"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="$Package::LoadID"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{EF373E14-FBCE-4455-8272-1217B1217FC0}"
+      DTS:From="Package\SQL Log Package Start"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\SEQ Package Body" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{872B649C-D5B6-4DB8-89E4-940DAA9E3D34}"
+      DTS:From="Package\SEQ Package Body"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\SQL Log Package Complete" />
+  </DTS:PrecedenceConstraints>
+  <DTS:EventHandlers>
+    <DTS:EventHandler
+      DTS:refId="Package.EventHandlers[OnError]"
+      DTS:CreationName="OnError"
+      DTS:DTSID="{0749D6B3-40F0-478E-BF00-9A9759FF2439}"
+      DTS:EventID="702871272"
+      DTS:EventName="OnError"
+      DTS:LocaleID="-1">
+      <DTS:Variables>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:Description="The propagate property of the event"
+          DTS:DTSID="{A3329DB7-314F-470E-8F9B-D2010F664040}"
+          DTS:IncludeInDebugDump="6789"
+          DTS:Namespace="System"
+          DTS:ObjectName="Propagate">
+          <DTS:VariableValue
+            DTS:DataType="11">-1</DTS:VariableValue>
+        </DTS:Variable>
+      </DTS:Variables>
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package.EventHandlers[OnError]\SQL Log Package Complete"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{F28230A3-345D-4477-B81C-B93D1759003C}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="SQL Log Package Complete"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 CTP2.1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{5527293B-F206-4C37-97DF-7AC6BC5D5D95}"
+              SQLTask:SqlStatementSource="EXEC logging.PackageExecutionLogUpdate ?, ?, ?, ?, ?, ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="User::PackageExecutionID"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="1"
+                SQLTask:DtsVariableName="User::InsertedRows"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="2"
+                SQLTask:DtsVariableName="User::UpdatedRows"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="3"
+                SQLTask:DtsVariableName="User::DeletedRows"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="4"
+                SQLTask:DtsVariableName="User::ErrorRows"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="5"
+                SQLTask:DtsVariableName="$Project::ExectutionStatusFailure"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="-1" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:EventHandler>
+  </DTS:EventHandlers>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="162,42"
+          Id="Package\SEQ Package Body\Process DocItems"
+          TopLeft="47.1666666666666,89.8333333333334" />
+        <NodeLayout
+          Size="164,42"
+          Id="Package\SEQ Package Body\Truncate Staging"
+          TopLeft="59.6666666666666,14.8333333333333" />
+        <NodeLayout
+          Size="193,42"
+          Id="Package\SEQ Package Body\Update Existing Records"
+          TopLeft="37.3333333333334,173.833333333333" />
+        <EdgeLayout
+          Id="Package\SEQ Package Body.PrecedenceConstraints[Constraint]"
+          TopLeft="131.125,131.833333333333">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,41.9999999999996"
+              Start="0,0"
+              End="0,34.4999999999996">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,34.4999999999996" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\SEQ Package Body.PrecedenceConstraints[Constraint 1]"
+          TopLeft="141.416666666667,56.8333333333333">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-13,33.0000000000001"
+              Start="0,0"
+              End="-13,25.5000000000001">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,12.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,12.5"
+                    Point2="0,16.5000000000001"
+                    Point3="-4,16.5000000000001" />
+                  <mssgle:LineSegment
+                    End="-9,16.5000000000001" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-9,16.5000000000001"
+                    Point2="-13,16.5000000000001"
+                    Point3="-13,20.5000000000001" />
+                  <mssgle:LineSegment
+                    End="-13,25.5000000000001" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="319,270"
+          Size="319,312"
+          Id="Package\SEQ Package Body"
+          TopLeft="249.583333333333,115.666666666667" />
+        <NodeLayout
+          Size="208,42"
+          Id="Package\SQL Log Package Complete"
+          TopLeft="299.5,466.666666666667" />
+        <NodeLayout
+          Size="186,42"
+          Id="Package\SQL Log Package Start"
+          TopLeft="308.916666666667,33.5833333333333" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="405.5,75.5833333333333">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,40.0833333333337"
+              Start="0,0"
+              End="0,32.5833333333337">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,32.5833333333337" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="406.291666666667,428.166666666667">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,38.5000000000001"
+              Start="0,0"
+              End="0,31.0000000000001">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,31.0000000000001" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <DtsEventHandler
+    design-time-name="Package.EventHandlers[OnError]">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="208,42"
+          Id="Package.EventHandlers[OnError]\SQL Log Package Complete"
+          TopLeft="118,60" />
+      </GraphLayout>
+    </LayoutInfo>
+  </DtsEventHandler>
+  <TaskHost
+    design-time-name="Package\SEQ Package Body\Process DocItems">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="113,42"
+          Id="Package\SEQ Package Body\Process DocItems\Lookup"
+          TopLeft="268.5,107.5" />
+        <NodeLayout
+          Size="135,42"
+          Id="Package\SEQ Package Body\Process DocItems\Insert Rows"
+          TopLeft="24.5000000000001,311.5" />
+        <NodeLayout
+          Size="173,42"
+          Id="Package\SEQ Package Body\Process DocItems\Inserted Row Count"
+          TopLeft="5.50000000000003,209.5" />
+        <NodeLayout
+          Size="210,42"
+          Id="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging"
+          TopLeft="403.190476190476,309.119047619047" />
+        <NodeLayout
+          Size="172,42"
+          Id="Package\SEQ Package Body\Process DocItems\Updates Row Count"
+          TopLeft="419.833333333333,185.333333333333" />
+        <NodeLayout
+          Size="120,42"
+          Id="Package\SEQ Package Body\Process DocItems\Get Data"
+          TopLeft="264.75,5.5" />
+        <EdgeLayout
+          Id="Package\SEQ Package Body\Process DocItems.Paths[Row Count Output 11]"
+          TopLeft="507.011904761904,227.333333333333">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,81.7857142857142"
+              Start="0,0"
+              End="0,74.2857142857142">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,74.2857142857142" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\SEQ Package Body\Process DocItems.Paths[Row Count Output 1]"
+          TopLeft="92,251.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\SEQ Package Body\Process DocItems.Paths[OLE DB Source Output]"
+          TopLeft="325,47.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\SEQ Package Body\Process DocItems.Paths[Lookup No Match Output]"
+          TopLeft="307.5,149.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-215.5,60"
+              Start="0,0"
+              End="-215.5,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,20.5026178010471" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,20.5026178010471"
+                    Point2="0,24.5026178010471"
+                    Point3="-4,24.5026178010471" />
+                  <mssgle:LineSegment
+                    End="-211.5,24.5026178010471" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-211.5,24.5026178010471"
+                    Point2="-215.5,24.5026178010471"
+                    Point3="-215.5,28.5026178010471" />
+                  <mssgle:LineSegment
+                    End="-215.5,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-163.55638671875,29.5026178010471,111.6127734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\SEQ Package Body\Process DocItems.Paths[Lookup Match Output]"
+          TopLeft="342.5,149.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="163.333333333333,35.833333333333"
+              Start="0,0"
+              End="163.333333333333,28.333333333333">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,10.633507853403" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,10.633507853403"
+                    Point2="0,14.633507853403"
+                    Point3="4,14.633507853403" />
+                  <mssgle:LineSegment
+                    End="159.333333333333,14.633507853403" />
+                  <mssgle:CubicBezierSegment
+                    Point1="159.333333333333,14.633507853403"
+                    Point2="163.333333333333,14.633507853403"
+                    Point3="163.333333333333,18.633507853403" />
+                  <mssgle:LineSegment
+                    End="163.333333333333,28.333333333333" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="33.4752799479165,19.633507853403,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\SEQ Package Body\Process DocItems\Lookup">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[Cims].[DocItems]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\SEQ Package Body\Process DocItems\Insert Rows">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\SEQ Package Body\Process DocItems\Update Rows - load Staging">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\SEQ Package Body\Process DocItems\Get Data">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

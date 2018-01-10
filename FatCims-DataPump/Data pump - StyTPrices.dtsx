@@ -1,0 +1,2248 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="12:00:00 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName=""
+  DTS:CreatorName=""
+  DTS:DTSID="{673F1694-B465-4ACD-A1B8-3DC2E9B41C9B}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="14.0.3006.16"
+  DTS:LocaleID="2057"
+  DTS:ObjectName="Data pump - StyTPrices"
+  DTS:PackageType="5"
+  DTS:VersionBuild="89"
+  DTS:VersionGUID="{B85CE8C7-50F5-4C3F-BB5C-B4971BDAA26B}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:PackageParameters>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="3"
+      DTS:Description="MasterPackageLoadID"
+      DTS:DTSID="{7080095E-508D-4B41-B0D2-22EFEAC19A01}"
+      DTS:ObjectName="LoadID"
+      DTS:Required="True">
+      <DTS:Property
+        DTS:DataType="3"
+        DTS:Name="ParameterValue">0</DTS:Property>
+    </DTS:PackageParameter>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="2"
+      DTS:DTSID="{F9D956C2-9DFA-450A-8EAA-DE4BDCA78BF7}"
+      DTS:ObjectName="NumberOfDaysToLoad"
+      DTS:Required="True">
+      <DTS:Property
+        DTS:DataType="2"
+        DTS:Name="ParameterValue">1</DTS:Property>
+    </DTS:PackageParameter>
+  </DTS:PackageParameters>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{3E79904E-3921-409C-9F5E-54DD15C4B658}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="DeletedRows">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{7BF88087-419B-4860-AFAD-2CAAE9AEABAD}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="ErrorRows">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{95058304-E6B2-4207-BB85-CCA44053AB24}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="&quot;Errors were encountered in package: &quot; + @[System::PackageName] + &quot; (&quot; + @[User::PackageDescription]  + &quot;).  See logging.DataError for details.  PackageExecutionID: &quot; +  (DT_STR, 10,1252)@[User::PackageExecutionID]"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="ErrorText">
+      <DTS:VariableValue
+        DTS:DataType="8">Errors were encountered in package: Data pump - StyTPrices (Load MyTable).  See logging.DataError for details.  PackageExecutionID: 0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{7C191417-71C1-4B85-9C19-ECAF1D912850}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="InsertedRows">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{B738F536-8EC8-4F45-A57F-711DD3C1A4B8}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="PackageDescription">
+      <DTS:VariableValue
+        DTS:DataType="8">Load MyTable</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{65423EEF-0548-43CF-B2A9-AC3B92C58CE2}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="PackageExecutionID">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{60BBBF63-378A-458F-8A9E-54229900D8F4}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="&quot;SELECT&#xA;IN_DATE,&#xA;UP_DATE,&#xA;STY_ID,&#xA;PRICE_LIST,&#xA;SEASON,&#xA;STY_NUM,&#xA;STY_QUAL,&#xA;STY_RRPRICE,&#xA;STY_OPRICE,&#xA;STY_TPRICE,&#xA;ACTIVE,&#xA;TPRICE_RUN,&#xA;MONEY_SYMBOL,&#xA;MDOWN_CODE,&#xA;PRE_VAT_TPRICE,&#xA;PRE_VAT_OPRICE,&#xA;PRICE_LAST_CHANGED &#xA;FROM Sty_TPrices &#xA;WHERE UP_DATE &gt; TRUNC(sysdate - &quot; + (DT_WSTR,5)@[$Package::NumberOfDaysToLoad]  + &quot;) or IN_DATE &gt; TRUNC(sysdate - &quot;+ (DT_WSTR,5)@[$Package::NumberOfDaysToLoad]  +&quot;)&quot;"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="SQLSource">
+      <DTS:VariableValue
+        DTS:DataType="8">SELECT
+IN_DATE,
+UP_DATE,
+STY_ID,
+PRICE_LIST,
+SEASON,
+STY_NUM,
+STY_QUAL,
+STY_RRPRICE,
+STY_OPRICE,
+STY_TPRICE,
+ACTIVE,
+TPRICE_RUN,
+MONEY_SYMBOL,
+MDOWN_CODE,
+PRE_VAT_TPRICE,
+PRE_VAT_OPRICE,
+PRICE_LAST_CHANGED 
+FROM Sty_TPrices 
+WHERE UP_DATE &gt; TRUNC(sysdate - 1) or IN_DATE &gt; TRUNC(sysdate - 1)</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{DF4B4106-2383-4CB4-A86F-E4E5FAB86414}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="UpdatedRows">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\SEQ Package Body"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{ECD65C1C-9E29-45B1-893B-C1B1E7D668C2}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SEQ Package Body">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\SEQ Package Body\Process StyTPrices"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{8C01DA2D-7692-450A-826B-532C68B76DA4}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Process StyTPrices"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\SEQ Package Body\Process StyTPrices\Get Data"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+                  description="OLE DB Source"
+                  name="Get Data"
+                  usesDispositions="true"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset"></property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT
+IN_DATE,
+UP_DATE,
+STY_ID,
+PRICE_LIST,
+SEASON,
+STY_NUM,
+STY_QUAL,
+STY_RRPRICE,
+STY_OPRICE,
+STY_TPRICE,
+ACTIVE,
+TPRICE_RUN,
+MONEY_SYMBOL,
+MDOWN_CODE,
+PRE_VAT_TPRICE,
+PRE_VAT_OPRICE,
+PRICE_LAST_CHANGED
+FROM Sty_TPrices
+where up_date &gt; TRUNC(sysdate -1) or in_date &gt; TRUNC(sysdate -1)</property>
+                    <property
+                      dataType="System.String"
+                      description="The variable that contains the SQL command to be executed."
+                      name="SqlCommandVariable">User::SQLSource</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">true</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.String"
+                      description="The mappings between the parameters in the SQL command and variables."
+                      name="ParameterMapping"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\SEQ Package Body\Process StyTPrices\Get Data.Connections[OleDbConnection]"
+                      connectionManagerID="{838FC444-B8A0-495A-8598-BCD4276DEEBF}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[CIMS]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output]"
+                      name="OLE DB Source Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].Columns[IN_DATE]"
+                          dataType="dbTimeStamp"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].ExternalColumns[IN_DATE]"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].Columns[IN_DATE]"
+                          name="IN_DATE"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].Columns[UP_DATE]"
+                          dataType="dbTimeStamp"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].ExternalColumns[UP_DATE]"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].Columns[UP_DATE]"
+                          name="UP_DATE"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].Columns[SEASON]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].ExternalColumns[SEASON]"
+                          length="4"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].Columns[SEASON]"
+                          name="SEASON"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].Columns[STY_NUM]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].ExternalColumns[STY_NUM]"
+                          length="4"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].Columns[STY_NUM]"
+                          name="STY_NUM"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].Columns[STY_QUAL]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].ExternalColumns[STY_QUAL]"
+                          length="7"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].Columns[STY_QUAL]"
+                          name="STY_QUAL"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].Columns[STY_ID]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].ExternalColumns[STY_ID]"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].Columns[STY_ID]"
+                          name="STY_ID"
+                          precision="9"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].Columns[PRICE_LIST]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].ExternalColumns[PRICE_LIST]"
+                          length="6"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].Columns[PRICE_LIST]"
+                          name="PRICE_LIST"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].Columns[STY_RRPRICE]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].ExternalColumns[STY_RRPRICE]"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].Columns[STY_RRPRICE]"
+                          name="STY_RRPRICE"
+                          precision="13"
+                          scale="4"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].Columns[STY_OPRICE]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].ExternalColumns[STY_OPRICE]"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].Columns[STY_OPRICE]"
+                          name="STY_OPRICE"
+                          precision="13"
+                          scale="4"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].Columns[STY_TPRICE]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].ExternalColumns[STY_TPRICE]"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].Columns[STY_TPRICE]"
+                          name="STY_TPRICE"
+                          precision="13"
+                          scale="4"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].Columns[ACTIVE]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].ExternalColumns[ACTIVE]"
+                          length="1"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].Columns[ACTIVE]"
+                          name="ACTIVE"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].Columns[TPRICE_RUN]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].ExternalColumns[TPRICE_RUN]"
+                          length="1"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].Columns[TPRICE_RUN]"
+                          name="TPRICE_RUN"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].Columns[MONEY_SYMBOL]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].ExternalColumns[MONEY_SYMBOL]"
+                          length="3"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].Columns[MONEY_SYMBOL]"
+                          name="MONEY_SYMBOL"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].Columns[MDOWN_CODE]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].ExternalColumns[MDOWN_CODE]"
+                          length="6"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].Columns[MDOWN_CODE]"
+                          name="MDOWN_CODE"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].Columns[PRE_VAT_TPRICE]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].ExternalColumns[PRE_VAT_TPRICE]"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].Columns[PRE_VAT_TPRICE]"
+                          name="PRE_VAT_TPRICE"
+                          precision="13"
+                          scale="4"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].Columns[PRE_VAT_OPRICE]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].ExternalColumns[PRE_VAT_OPRICE]"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].Columns[PRE_VAT_OPRICE]"
+                          name="PRE_VAT_OPRICE"
+                          precision="13"
+                          scale="4"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].Columns[PRICE_LAST_CHANGED]"
+                          dataType="dbTimeStamp"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].ExternalColumns[PRICE_LAST_CHANGED]"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].Columns[PRICE_LAST_CHANGED]"
+                          name="PRICE_LAST_CHANGED"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].ExternalColumns[IN_DATE]"
+                          dataType="dbTimeStamp"
+                          name="IN_DATE" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].ExternalColumns[UP_DATE]"
+                          dataType="dbTimeStamp"
+                          name="UP_DATE" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].ExternalColumns[SEASON]"
+                          codePage="1252"
+                          dataType="str"
+                          length="4"
+                          name="SEASON" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].ExternalColumns[STY_NUM]"
+                          codePage="1252"
+                          dataType="str"
+                          length="4"
+                          name="STY_NUM" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].ExternalColumns[STY_QUAL]"
+                          codePage="1252"
+                          dataType="str"
+                          length="7"
+                          name="STY_QUAL" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].ExternalColumns[STY_ID]"
+                          dataType="numeric"
+                          name="STY_ID"
+                          precision="9" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].ExternalColumns[PRICE_LIST]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          name="PRICE_LIST" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].ExternalColumns[STY_RRPRICE]"
+                          dataType="numeric"
+                          name="STY_RRPRICE"
+                          precision="13"
+                          scale="4" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].ExternalColumns[STY_OPRICE]"
+                          dataType="numeric"
+                          name="STY_OPRICE"
+                          precision="13"
+                          scale="4" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].ExternalColumns[STY_TPRICE]"
+                          dataType="numeric"
+                          name="STY_TPRICE"
+                          precision="13"
+                          scale="4" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].ExternalColumns[ACTIVE]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          name="ACTIVE" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].ExternalColumns[TPRICE_RUN]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          name="TPRICE_RUN" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].ExternalColumns[MONEY_SYMBOL]"
+                          codePage="1252"
+                          dataType="str"
+                          length="3"
+                          name="MONEY_SYMBOL" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].ExternalColumns[MDOWN_CODE]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          name="MDOWN_CODE" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].ExternalColumns[PRE_VAT_TPRICE]"
+                          dataType="numeric"
+                          name="PRE_VAT_TPRICE"
+                          precision="13"
+                          scale="4" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].ExternalColumns[PRE_VAT_OPRICE]"
+                          dataType="numeric"
+                          name="PRE_VAT_OPRICE"
+                          precision="13"
+                          scale="4" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].ExternalColumns[PRICE_LAST_CHANGED]"
+                          dataType="dbTimeStamp"
+                          name="PRICE_LAST_CHANGED" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Error Output]"
+                      isErrorOut="true"
+                      name="OLE DB Source Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Error Output].Columns[IN_DATE]"
+                          dataType="dbTimeStamp"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Error Output].Columns[IN_DATE]"
+                          name="IN_DATE" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Error Output].Columns[UP_DATE]"
+                          dataType="dbTimeStamp"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Error Output].Columns[UP_DATE]"
+                          name="UP_DATE" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Error Output].Columns[STY_ID]"
+                          dataType="numeric"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Error Output].Columns[STY_ID]"
+                          name="STY_ID"
+                          precision="9" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Error Output].Columns[PRICE_LIST]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Error Output].Columns[PRICE_LIST]"
+                          name="PRICE_LIST" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Error Output].Columns[SEASON]"
+                          codePage="1252"
+                          dataType="str"
+                          length="4"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Error Output].Columns[SEASON]"
+                          name="SEASON" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Error Output].Columns[STY_NUM]"
+                          codePage="1252"
+                          dataType="str"
+                          length="4"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Error Output].Columns[STY_NUM]"
+                          name="STY_NUM" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Error Output].Columns[STY_QUAL]"
+                          codePage="1252"
+                          dataType="str"
+                          length="7"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Error Output].Columns[STY_QUAL]"
+                          name="STY_QUAL" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Error Output].Columns[STY_RRPRICE]"
+                          dataType="numeric"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Error Output].Columns[STY_RRPRICE]"
+                          name="STY_RRPRICE"
+                          precision="13"
+                          scale="4" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Error Output].Columns[STY_OPRICE]"
+                          dataType="numeric"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Error Output].Columns[STY_OPRICE]"
+                          name="STY_OPRICE"
+                          precision="13"
+                          scale="4" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Error Output].Columns[STY_TPRICE]"
+                          dataType="numeric"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Error Output].Columns[STY_TPRICE]"
+                          name="STY_TPRICE"
+                          precision="13"
+                          scale="4" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Error Output].Columns[ACTIVE]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Error Output].Columns[ACTIVE]"
+                          name="ACTIVE" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Error Output].Columns[TPRICE_RUN]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Error Output].Columns[TPRICE_RUN]"
+                          name="TPRICE_RUN" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Error Output].Columns[MONEY_SYMBOL]"
+                          codePage="1252"
+                          dataType="str"
+                          length="3"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Error Output].Columns[MONEY_SYMBOL]"
+                          name="MONEY_SYMBOL" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Error Output].Columns[MDOWN_CODE]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Error Output].Columns[MDOWN_CODE]"
+                          name="MDOWN_CODE" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Error Output].Columns[PRE_VAT_TPRICE]"
+                          dataType="numeric"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Error Output].Columns[PRE_VAT_TPRICE]"
+                          name="PRE_VAT_TPRICE"
+                          precision="13"
+                          scale="4" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Error Output].Columns[PRE_VAT_OPRICE]"
+                          dataType="numeric"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Error Output].Columns[PRE_VAT_OPRICE]"
+                          name="PRE_VAT_OPRICE"
+                          precision="13"
+                          scale="4" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Error Output].Columns[PRICE_LAST_CHANGED]"
+                          dataType="dbTimeStamp"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Error Output].Columns[PRICE_LAST_CHANGED]"
+                          name="PRICE_LAST_CHANGED" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\SEQ Package Body\Process StyTPrices\Insert Rows"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  description="OLE DB Destination"
+                  name="Insert Rows"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[Cims].[StyTPrices]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\SEQ Package Body\Process StyTPrices\Insert Rows.Connections[OleDbConnection]"
+                      connectionManagerID="{915CBEE3-A847-43BD-A895-44946E73BA9B}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[FatCims]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\SEQ Package Body\Process StyTPrices\Insert Rows.Inputs[OLE DB Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Insert Rows.Inputs[OLE DB Destination Input].Columns[IN_DATE]"
+                          cachedDataType="dbTimeStamp"
+                          cachedName="IN_DATE"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyTPrices\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[IN_DATE]"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].Columns[IN_DATE]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Insert Rows.Inputs[OLE DB Destination Input].Columns[UP_DATE]"
+                          cachedDataType="dbTimeStamp"
+                          cachedName="UP_DATE"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyTPrices\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[UP_DATE]"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].Columns[UP_DATE]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Insert Rows.Inputs[OLE DB Destination Input].Columns[SEASON]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="4"
+                          cachedName="SEASON"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyTPrices\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[SEASON]"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].Columns[SEASON]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Insert Rows.Inputs[OLE DB Destination Input].Columns[STY_NUM]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="4"
+                          cachedName="STY_NUM"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyTPrices\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[STY_NUM]"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].Columns[STY_NUM]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Insert Rows.Inputs[OLE DB Destination Input].Columns[STY_QUAL]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="7"
+                          cachedName="STY_QUAL"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyTPrices\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[STY_QUAL]"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].Columns[STY_QUAL]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Insert Rows.Inputs[OLE DB Destination Input].Columns[STY_ID]"
+                          cachedDataType="numeric"
+                          cachedName="STY_ID"
+                          cachedPrecision="9"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyTPrices\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[STY_ID]"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].Columns[STY_ID]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Insert Rows.Inputs[OLE DB Destination Input].Columns[PRICE_LIST]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="6"
+                          cachedName="PRICE_LIST"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyTPrices\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[PRICE_LIST]"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].Columns[PRICE_LIST]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Insert Rows.Inputs[OLE DB Destination Input].Columns[STY_RRPRICE]"
+                          cachedDataType="numeric"
+                          cachedName="STY_RRPRICE"
+                          cachedPrecision="13"
+                          cachedScale="4"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyTPrices\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[STY_RRPRICE]"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].Columns[STY_RRPRICE]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Insert Rows.Inputs[OLE DB Destination Input].Columns[STY_OPRICE]"
+                          cachedDataType="numeric"
+                          cachedName="STY_OPRICE"
+                          cachedPrecision="13"
+                          cachedScale="4"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyTPrices\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[STY_OPRICE]"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].Columns[STY_OPRICE]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Insert Rows.Inputs[OLE DB Destination Input].Columns[STY_TPRICE]"
+                          cachedDataType="numeric"
+                          cachedName="STY_TPRICE"
+                          cachedPrecision="13"
+                          cachedScale="4"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyTPrices\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[STY_TPRICE]"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].Columns[STY_TPRICE]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Insert Rows.Inputs[OLE DB Destination Input].Columns[ACTIVE]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="1"
+                          cachedName="ACTIVE"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyTPrices\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[ACTIVE]"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].Columns[ACTIVE]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Insert Rows.Inputs[OLE DB Destination Input].Columns[TPRICE_RUN]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="1"
+                          cachedName="TPRICE_RUN"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyTPrices\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[TPRICE_RUN]"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].Columns[TPRICE_RUN]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Insert Rows.Inputs[OLE DB Destination Input].Columns[MONEY_SYMBOL]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="3"
+                          cachedName="MONEY_SYMBOL"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyTPrices\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[MONEY_SYMBOL]"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].Columns[MONEY_SYMBOL]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Insert Rows.Inputs[OLE DB Destination Input].Columns[MDOWN_CODE]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="6"
+                          cachedName="MDOWN_CODE"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyTPrices\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[MDOWN_CODE]"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].Columns[MDOWN_CODE]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Insert Rows.Inputs[OLE DB Destination Input].Columns[PRE_VAT_TPRICE]"
+                          cachedDataType="numeric"
+                          cachedName="PRE_VAT_TPRICE"
+                          cachedPrecision="13"
+                          cachedScale="4"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyTPrices\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[PRE_VAT_TPRICE]"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].Columns[PRE_VAT_TPRICE]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Insert Rows.Inputs[OLE DB Destination Input].Columns[PRE_VAT_OPRICE]"
+                          cachedDataType="numeric"
+                          cachedName="PRE_VAT_OPRICE"
+                          cachedPrecision="13"
+                          cachedScale="4"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyTPrices\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[PRE_VAT_OPRICE]"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].Columns[PRE_VAT_OPRICE]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Insert Rows.Inputs[OLE DB Destination Input].Columns[PRICE_LAST_CHANGED]"
+                          cachedDataType="dbTimeStamp"
+                          cachedName="PRICE_LAST_CHANGED"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyTPrices\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[PRICE_LAST_CHANGED]"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].Columns[PRICE_LAST_CHANGED]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[IN_DATE]"
+                          dataType="dbTimeStamp"
+                          name="IN_DATE" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[UP_DATE]"
+                          dataType="dbTimeStamp"
+                          name="UP_DATE" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[SEASON]"
+                          codePage="1252"
+                          dataType="str"
+                          length="4"
+                          name="SEASON" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[STY_NUM]"
+                          codePage="1252"
+                          dataType="str"
+                          length="4"
+                          name="STY_NUM" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[STY_QUAL]"
+                          codePage="1252"
+                          dataType="str"
+                          length="7"
+                          name="STY_QUAL" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[StyTPricesId]"
+                          dataType="i4"
+                          name="StyTPricesId" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[STY_ID]"
+                          dataType="numeric"
+                          name="STY_ID"
+                          precision="9" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[PRICE_LIST]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          name="PRICE_LIST" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[STY_RRPRICE]"
+                          dataType="numeric"
+                          name="STY_RRPRICE"
+                          precision="13"
+                          scale="4" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[STY_OPRICE]"
+                          dataType="numeric"
+                          name="STY_OPRICE"
+                          precision="13"
+                          scale="4" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[STY_TPRICE]"
+                          dataType="numeric"
+                          name="STY_TPRICE"
+                          precision="13"
+                          scale="4" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[ACTIVE]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          name="ACTIVE" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[TPRICE_RUN]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          name="TPRICE_RUN" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[MONEY_SYMBOL]"
+                          codePage="1252"
+                          dataType="str"
+                          length="3"
+                          name="MONEY_SYMBOL" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[MDOWN_CODE]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          name="MDOWN_CODE" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[PRE_VAT_TPRICE]"
+                          dataType="numeric"
+                          name="PRE_VAT_TPRICE"
+                          precision="13"
+                          scale="4" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[PRE_VAT_OPRICE]"
+                          dataType="numeric"
+                          name="PRE_VAT_OPRICE"
+                          precision="13"
+                          scale="4" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Insert Rows.Inputs[OLE DB Destination Input].ExternalColumns[PRICE_LAST_CHANGED]"
+                          dataType="dbTimeStamp"
+                          name="PRICE_LAST_CHANGED" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\SEQ Package Body\Process StyTPrices\Insert Rows.Outputs[OLE DB Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Destination Error Output"
+                      synchronousInputId="Package\SEQ Package Body\Process StyTPrices\Insert Rows.Inputs[OLE DB Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Insert Rows.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Insert Rows.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Insert Rows.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Insert Rows.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\SEQ Package Body\Process StyTPrices\Inserted Row Count"
+                  componentClassID="Microsoft.RowCount"
+                  contactInfo="Row Count;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                  description="Counts rows as they pass through a data flow. For example, use the number of rows processed to determine whether or not to perform cleanup operations, or update text in an e-mail message to communicate processing status."
+                  name="Inserted Row Count">
+                  <properties>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable to hold the row count."
+                      name="VariableName">User::InsertedRows</property>
+                  </properties>
+                  <inputs>
+                    <input
+                      refId="Package\SEQ Package Body\Process StyTPrices\Inserted Row Count.Inputs[Row Count Input 1]"
+                      hasSideEffects="true"
+                      name="Row Count Input 1">
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\SEQ Package Body\Process StyTPrices\Inserted Row Count.Outputs[Row Count Output 1]"
+                      name="Row Count Output 1"
+                      synchronousInputId="Package\SEQ Package Body\Process StyTPrices\Inserted Row Count.Inputs[Row Count Input 1]">
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\SEQ Package Body\Process StyTPrices\Lookup"
+                  componentClassID="Microsoft.Lookup"
+                  contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+                  description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+                  name="Lookup"
+                  usesDispositions="true"
+                  version="6">
+                  <properties>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the SQL statement that generates the lookup table."
+                      expressionType="Notify"
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [Cims].[StyTPrices]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                      expressionType="Notify"
+                      name="SqlCommandParam"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [Cims].[StyTPrices]) [refTable]
+where [refTable].[STY_ID] = ? and [refTable].[PRICE_LIST] = ?</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the type of connection used to access the reference dataset."
+                      name="ConnectionType"
+                      typeConverter="LookupConnectionType">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the cache type of the lookup table."
+                      name="CacheType"
+                      typeConverter="CacheType">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                      name="NoMatchBehavior"
+                      typeConverter="LookupNoMatchBehavior">1</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                      name="NoMatchCachePercentage">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                      name="MaxMemoryUsage">25</property>
+                    <property
+                      dataType="System.Int64"
+                      description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                      name="MaxMemoryUsage64">25</property>
+                    <property
+                      dataType="System.String"
+                      description="Indicates whether to reference metadata in an XML format."
+                      name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="StyTPricesId" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="IN_DATE" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="UP_DATE" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="SEASON" dataType="DT_STR" length="4" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="STY_NUM" dataType="DT_STR" length="4" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="STY_QUAL" dataType="DT_STR" length="7" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="STY_ID" dataType="DT_NUMERIC" length="0" precision="9" scale="0" codePage="0"/&gt;&lt;referenceColumn name="PRICE_LIST" dataType="DT_STR" length="6" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="STY_RRPRICE" dataType="DT_NUMERIC" length="0" precision="13" scale="4" codePage="0"/&gt;&lt;referenceColumn name="STY_OPRICE" dataType="DT_NUMERIC" length="0" precision="13" scale="4" codePage="0"/&gt;&lt;referenceColumn name="STY_TPRICE" dataType="DT_NUMERIC" length="0" precision="13" scale="4" codePage="0"/&gt;&lt;referenceColumn name="ACTIVE" dataType="DT_STR" length="1" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="TPRICE_RUN" dataType="DT_STR" length="1" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="MONEY_SYMBOL" dataType="DT_STR" length="3" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="MDOWN_CODE" dataType="DT_STR" length="6" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="PRE_VAT_TPRICE" dataType="DT_NUMERIC" length="0" precision="13" scale="4" codePage="0"/&gt;&lt;referenceColumn name="PRE_VAT_OPRICE" dataType="DT_NUMERIC" length="0" precision="13" scale="4" codePage="0"/&gt;&lt;referenceColumn name="PRICE_LAST_CHANGED" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                      name="ParameterMap">#{Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].Columns[STY_ID]};#{Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].Columns[PRICE_LIST]};</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                      name="TreatDuplicateKeysAsError">false</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\SEQ Package Body\Process StyTPrices\Lookup.Connections[OleDbConnection]"
+                      connectionManagerID="{915CBEE3-A847-43BD-A895-44946E73BA9B}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[FatCims]"
+                      description="Connection manager used to access lookup data."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\SEQ Package Body\Process StyTPrices\Lookup.Inputs[Lookup Input]"
+                      name="Lookup Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Lookup.Inputs[Lookup Input].Columns[STY_ID]"
+                          cachedDataType="numeric"
+                          cachedName="STY_ID"
+                          cachedPrecision="9"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].Columns[STY_ID]">
+                          <properties>
+                            <property
+                              dataType="System.String"
+                              description="Specifies the column in the reference table that a column joins."
+                              name="JoinToReferenceColumn">STY_ID</property>
+                            <property
+                              dataType="System.Null"
+                              description="Specifies the column in the reference table from which a column is copied."
+                              name="CopyFromReferenceColumn" />
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Lookup.Inputs[Lookup Input].Columns[PRICE_LIST]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="6"
+                          cachedName="PRICE_LIST"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].Columns[PRICE_LIST]">
+                          <properties>
+                            <property
+                              dataType="System.String"
+                              description="Specifies the column in the reference table that a column joins."
+                              name="JoinToReferenceColumn">PRICE_LIST</property>
+                            <property
+                              dataType="System.Null"
+                              description="Specifies the column in the reference table from which a column is copied."
+                              name="CopyFromReferenceColumn" />
+                          </properties>
+                        </inputColumn>
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\SEQ Package Body\Process StyTPrices\Lookup.Outputs[Lookup Match Output]"
+                      errorOrTruncationOperation="Lookup"
+                      exclusionGroup="1"
+                      name="Lookup Match Output"
+                      synchronousInputId="Package\SEQ Package Body\Process StyTPrices\Lookup.Inputs[Lookup Input]">
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\SEQ Package Body\Process StyTPrices\Lookup.Outputs[Lookup No Match Output]"
+                      description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                      exclusionGroup="1"
+                      name="Lookup No Match Output"
+                      synchronousInputId="Package\SEQ Package Body\Process StyTPrices\Lookup.Inputs[Lookup Input]">
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\SEQ Package Body\Process StyTPrices\Lookup.Outputs[Lookup Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Lookup Error Output"
+                      synchronousInputId="Package\SEQ Package Body\Process StyTPrices\Lookup.Inputs[Lookup Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Lookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Lookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Lookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Lookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\SEQ Package Body\Process StyTPrices\Update Rows - load Staging"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  description="OLE DB Destination"
+                  name="Update Rows - load Staging"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[Staging].[StyTPrices]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">UPDATE gi
+SET 
+gi.IN_DATE = gi2.IN_DATE,
+gi.UP_DATE = gi2.UP_DATE,
+gi.GTRANS_NUM = gi2.GTRANS_NUM,
+gi.GITEM_NUM = gi2.GITEM_NUM,
+gi.GTRANS_SORT = gi2.GTRANS_SORT,
+gi.SOR_NUM = gi2.SOR_NUM,
+gi.GSOURCE_BIN = gi2.GSOURCE_BIN,
+gi.GDEST_BIN = gi2.GDEST_BIN,
+gi.ORIG_DSP_NUM = gi2.ORIG_DSP_NUM,
+gi.SITEM_NUM = gi2.SITEM_NUM,
+gi.SCR_SOR_NUM = gi2.SCR_SOR_NUM,
+gi.SCR_ITEM_NUM = gi2.SCR_ITEM_NUM,
+gi.DOC_NUM = gi2.DOC_NUM,
+gi.DITEM_NUM = gi2.DITEM_NUM,
+gi.GEN_STATE = gi2.GEN_STATE,
+gi.RITEM_NUM = gi2.RITEM_NUM,
+gi.RAL_NUM = gi2.RAL_NUM,
+gi.SEASON = gi2.SEASON,
+gi.STY_NUM = gi2.STY_NUM,
+gi.STY_QUAL = gi2.STY_QUAL,
+gi.STY_SIZE = gi2.STY_SIZE,
+gi.BF_MAT_CHAR_VAL = gi2.BF_MAT_CHAR_VAL,
+gi.GTRANS_FPRICE = gi2.GTRANS_FPRICE,
+gi.GTRANS_LPRICE = gi2.GTRANS_LPRICE,
+gi.GITEM_STATE = gi2.GITEM_STATE,
+gi.DSP_STATE = gi2.DSP_STATE,
+gi.QTY1 = gi2.QTY1,
+gi.QTY2 = gi2.QTY2,
+gi.QTY3 = gi2.QTY3,
+gi.QTY4 = gi2.QTY4,
+gi.QTY5 = gi2.QTY5,
+gi.QTY6 = gi2.QTY6,
+gi.QTY7 = gi2.QTY7,
+gi.QTY8 = gi2.QTY8,
+gi.QTY9 = gi2.QTY9,
+gi.QTY10 = gi2.QTY10,
+gi.QTY11 = gi2.QTY11,
+gi.QTY12 = gi2.QTY12,
+gi.TOT_ITEM_QTY = gi2.TOT_ITEM_QTY,
+gi.TOT_ITEM_AMOUNT = gi2.TOT_ITEM_AMOUNT,
+gi.TOT_ITEM_VAT = gi2.TOT_ITEM_VAT,
+gi.VAT_CODE = gi2.VAT_CODE,
+gi.GITEM_RANK = gi2.GITEM_RANK,
+gi.CARTON_BARCODE = gi2.CARTON_BARCODE,
+gi.MANUAL_QTY = gi2.MANUAL_QTY,
+gi.RET_TYPE = gi2.RET_TYPE,
+gi.VAT_RATE = gi2.VAT_RATE,
+gi.PICKER_ID = gi2.PICKER_ID,
+gi.CAGE_NUM = gi2.CAGE_NUM,
+gi.PICK_DATE = gi2.PICK_DATE,
+gi.MIN_PICK_DATE = gi2.MIN_PICK_DATE
+FROM Cims.GtransItems gi
+INNER JOIN Staging.GtransItems gi2 ON gi2.GTRANS_NUM = gi.GTRANS_NUM AND gi2.GITEM_NUM = gi.GITEM_NUM</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\SEQ Package Body\Process StyTPrices\Update Rows - load Staging.Connections[OleDbConnection]"
+                      connectionManagerID="{915CBEE3-A847-43BD-A895-44946E73BA9B}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[FatCims]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\SEQ Package Body\Process StyTPrices\Update Rows - load Staging.Inputs[OLE DB Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Update Rows - load Staging.Inputs[OLE DB Destination Input].Columns[IN_DATE]"
+                          cachedDataType="dbTimeStamp"
+                          cachedName="IN_DATE"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyTPrices\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[IN_DATE]"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].Columns[IN_DATE]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Update Rows - load Staging.Inputs[OLE DB Destination Input].Columns[UP_DATE]"
+                          cachedDataType="dbTimeStamp"
+                          cachedName="UP_DATE"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyTPrices\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[UP_DATE]"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].Columns[UP_DATE]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Update Rows - load Staging.Inputs[OLE DB Destination Input].Columns[SEASON]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="4"
+                          cachedName="SEASON"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyTPrices\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[SEASON]"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].Columns[SEASON]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Update Rows - load Staging.Inputs[OLE DB Destination Input].Columns[STY_NUM]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="4"
+                          cachedName="STY_NUM"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyTPrices\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[STY_NUM]"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].Columns[STY_NUM]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Update Rows - load Staging.Inputs[OLE DB Destination Input].Columns[STY_QUAL]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="7"
+                          cachedName="STY_QUAL"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyTPrices\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[STY_QUAL]"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].Columns[STY_QUAL]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Update Rows - load Staging.Inputs[OLE DB Destination Input].Columns[STY_ID]"
+                          cachedDataType="numeric"
+                          cachedName="STY_ID"
+                          cachedPrecision="9"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyTPrices\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[STY_ID]"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].Columns[STY_ID]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Update Rows - load Staging.Inputs[OLE DB Destination Input].Columns[PRICE_LIST]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="6"
+                          cachedName="PRICE_LIST"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyTPrices\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[PRICE_LIST]"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].Columns[PRICE_LIST]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Update Rows - load Staging.Inputs[OLE DB Destination Input].Columns[STY_RRPRICE]"
+                          cachedDataType="numeric"
+                          cachedName="STY_RRPRICE"
+                          cachedPrecision="13"
+                          cachedScale="4"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyTPrices\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[STY_RRPRICE]"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].Columns[STY_RRPRICE]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Update Rows - load Staging.Inputs[OLE DB Destination Input].Columns[STY_OPRICE]"
+                          cachedDataType="numeric"
+                          cachedName="STY_OPRICE"
+                          cachedPrecision="13"
+                          cachedScale="4"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyTPrices\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[STY_OPRICE]"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].Columns[STY_OPRICE]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Update Rows - load Staging.Inputs[OLE DB Destination Input].Columns[STY_TPRICE]"
+                          cachedDataType="numeric"
+                          cachedName="STY_TPRICE"
+                          cachedPrecision="13"
+                          cachedScale="4"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyTPrices\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[STY_TPRICE]"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].Columns[STY_TPRICE]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Update Rows - load Staging.Inputs[OLE DB Destination Input].Columns[ACTIVE]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="1"
+                          cachedName="ACTIVE"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyTPrices\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[ACTIVE]"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].Columns[ACTIVE]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Update Rows - load Staging.Inputs[OLE DB Destination Input].Columns[TPRICE_RUN]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="1"
+                          cachedName="TPRICE_RUN"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyTPrices\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[TPRICE_RUN]"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].Columns[TPRICE_RUN]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Update Rows - load Staging.Inputs[OLE DB Destination Input].Columns[MONEY_SYMBOL]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="3"
+                          cachedName="MONEY_SYMBOL"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyTPrices\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[MONEY_SYMBOL]"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].Columns[MONEY_SYMBOL]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Update Rows - load Staging.Inputs[OLE DB Destination Input].Columns[MDOWN_CODE]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="6"
+                          cachedName="MDOWN_CODE"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyTPrices\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[MDOWN_CODE]"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].Columns[MDOWN_CODE]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Update Rows - load Staging.Inputs[OLE DB Destination Input].Columns[PRE_VAT_TPRICE]"
+                          cachedDataType="numeric"
+                          cachedName="PRE_VAT_TPRICE"
+                          cachedPrecision="13"
+                          cachedScale="4"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyTPrices\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[PRE_VAT_TPRICE]"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].Columns[PRE_VAT_TPRICE]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Update Rows - load Staging.Inputs[OLE DB Destination Input].Columns[PRE_VAT_OPRICE]"
+                          cachedDataType="numeric"
+                          cachedName="PRE_VAT_OPRICE"
+                          cachedPrecision="13"
+                          cachedScale="4"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyTPrices\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[PRE_VAT_OPRICE]"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].Columns[PRE_VAT_OPRICE]" />
+                        <inputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Update Rows - load Staging.Inputs[OLE DB Destination Input].Columns[PRICE_LAST_CHANGED]"
+                          cachedDataType="dbTimeStamp"
+                          cachedName="PRICE_LAST_CHANGED"
+                          externalMetadataColumnId="Package\SEQ Package Body\Process StyTPrices\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[PRICE_LAST_CHANGED]"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output].Columns[PRICE_LAST_CHANGED]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[IN_DATE]"
+                          dataType="dbTimeStamp"
+                          name="IN_DATE" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[UP_DATE]"
+                          dataType="dbTimeStamp"
+                          name="UP_DATE" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[SEASON]"
+                          codePage="1252"
+                          dataType="str"
+                          length="4"
+                          name="SEASON" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[STY_NUM]"
+                          codePage="1252"
+                          dataType="str"
+                          length="4"
+                          name="STY_NUM" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[STY_QUAL]"
+                          codePage="1252"
+                          dataType="str"
+                          length="7"
+                          name="STY_QUAL" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[StyTPricesId]"
+                          dataType="i4"
+                          name="StyTPricesId" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[STY_ID]"
+                          dataType="numeric"
+                          name="STY_ID"
+                          precision="9" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[PRICE_LIST]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          name="PRICE_LIST" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[STY_RRPRICE]"
+                          dataType="numeric"
+                          name="STY_RRPRICE"
+                          precision="13"
+                          scale="4" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[STY_OPRICE]"
+                          dataType="numeric"
+                          name="STY_OPRICE"
+                          precision="13"
+                          scale="4" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[STY_TPRICE]"
+                          dataType="numeric"
+                          name="STY_TPRICE"
+                          precision="13"
+                          scale="4" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[ACTIVE]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          name="ACTIVE" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[TPRICE_RUN]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          name="TPRICE_RUN" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[MONEY_SYMBOL]"
+                          codePage="1252"
+                          dataType="str"
+                          length="3"
+                          name="MONEY_SYMBOL" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[MDOWN_CODE]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          name="MDOWN_CODE" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[PRE_VAT_TPRICE]"
+                          dataType="numeric"
+                          name="PRE_VAT_TPRICE"
+                          precision="13"
+                          scale="4" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[PRE_VAT_OPRICE]"
+                          dataType="numeric"
+                          name="PRE_VAT_OPRICE"
+                          precision="13"
+                          scale="4" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Update Rows - load Staging.Inputs[OLE DB Destination Input].ExternalColumns[PRICE_LAST_CHANGED]"
+                          dataType="dbTimeStamp"
+                          name="PRICE_LAST_CHANGED" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\SEQ Package Body\Process StyTPrices\Update Rows - load Staging.Outputs[OLE DB Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Destination Error Output"
+                      synchronousInputId="Package\SEQ Package Body\Process StyTPrices\Update Rows - load Staging.Inputs[OLE DB Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Update Rows - load Staging.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Update Rows - load Staging.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\SEQ Package Body\Process StyTPrices\Update Rows - load Staging.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\SEQ Package Body\Process StyTPrices\Update Rows - load Staging.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\SEQ Package Body\Process StyTPrices\Updates Row Count"
+                  componentClassID="Microsoft.RowCount"
+                  contactInfo="Row Count;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                  description="Counts rows as they pass through a data flow. For example, use the number of rows processed to determine whether or not to perform cleanup operations, or update text in an e-mail message to communicate processing status."
+                  name="Updates Row Count">
+                  <properties>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable to hold the row count."
+                      name="VariableName">User::UpdatedRows</property>
+                  </properties>
+                  <inputs>
+                    <input
+                      refId="Package\SEQ Package Body\Process StyTPrices\Updates Row Count.Inputs[Row Count Input 1]"
+                      hasSideEffects="true"
+                      name="Row Count Input 1">
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\SEQ Package Body\Process StyTPrices\Updates Row Count.Outputs[Row Count Output 1]"
+                      name="Row Count Output 1"
+                      synchronousInputId="Package\SEQ Package Body\Process StyTPrices\Updates Row Count.Inputs[Row Count Input 1]">
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\SEQ Package Body\Process StyTPrices.Paths[Lookup Match Output]"
+                  endId="Package\SEQ Package Body\Process StyTPrices\Updates Row Count.Inputs[Row Count Input 1]"
+                  name="Lookup Match Output"
+                  startId="Package\SEQ Package Body\Process StyTPrices\Lookup.Outputs[Lookup Match Output]" />
+                <path
+                  refId="Package\SEQ Package Body\Process StyTPrices.Paths[Lookup No Match Output]"
+                  endId="Package\SEQ Package Body\Process StyTPrices\Inserted Row Count.Inputs[Row Count Input 1]"
+                  name="Lookup No Match Output"
+                  startId="Package\SEQ Package Body\Process StyTPrices\Lookup.Outputs[Lookup No Match Output]" />
+                <path
+                  refId="Package\SEQ Package Body\Process StyTPrices.Paths[OLE DB Source Output]"
+                  endId="Package\SEQ Package Body\Process StyTPrices\Lookup.Inputs[Lookup Input]"
+                  name="OLE DB Source Output"
+                  startId="Package\SEQ Package Body\Process StyTPrices\Get Data.Outputs[OLE DB Source Output]" />
+                <path
+                  refId="Package\SEQ Package Body\Process StyTPrices.Paths[Row Count Output 1]"
+                  endId="Package\SEQ Package Body\Process StyTPrices\Insert Rows.Inputs[OLE DB Destination Input]"
+                  name="Row Count Output 1"
+                  startId="Package\SEQ Package Body\Process StyTPrices\Inserted Row Count.Outputs[Row Count Output 1]" />
+                <path
+                  refId="Package\SEQ Package Body\Process StyTPrices.Paths[Row Count Output 11]"
+                  endId="Package\SEQ Package Body\Process StyTPrices\Update Rows - load Staging.Inputs[OLE DB Destination Input]"
+                  name="Row Count Output 1"
+                  startId="Package\SEQ Package Body\Process StyTPrices\Updates Row Count.Outputs[Row Count Output 1]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\SEQ Package Body\Truncate Staging"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Truncates Staging.GtransItems"
+          DTS:DTSID="{6F879538-901E-487F-88A9-54B96C4E4569}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Truncate Staging"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{915CBEE3-A847-43BD-A895-44946E73BA9B}"
+              SQLTask:SqlStatementSource="Truncate Table Staging.ShopTPrices" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\SEQ Package Body\Update Existing Records"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{0C8AE146-2030-4140-9E05-CD56A7DACA87}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Update Existing Records"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{915CBEE3-A847-43BD-A895-44946E73BA9B}"
+              SQLTask:SqlStatementSource="UPDATE stp&#xA;SET&#xA;stp.IN_DATE = stp2.IN_DATE,&#xA;stp.UP_DATE = stp2.UP_DATE,&#xA;stp.SEASON = stp2.SEASON,&#xA;stp.STY_NUM = stp2.STY_NUM,&#xA;stp.STY_QUAL = stp2.STY_QUAL,&#xA;stp.STY_RRPRICE = stp2.STY_RRPRICE,&#xA;stp.STY_OPRICE = stp2.STY_OPRICE,&#xA;stp.STY_TPRICE = stp2.STY_TPRICE,&#xA;stp.ACTIVE = stp2.ACTIVE,&#xA;stp.TPRICE_RUN = stp2.TPRICE_RUN,&#xA;stp.MONEY_SYMBOL = stp2.MONEY_SYMBOL,&#xA;stp.MDOWN_CODE = stp2.MDOWN_CODE,&#xA;stp.PRE_VAT_TPRICE = stp2.PRE_VAT_TPRICE,&#xA;stp.PRE_VAT_OPRICE = stp2.PRE_VAT_OPRICE&#xA;FROM Cims.StyTPrices stp&#xA;INNER JOIN Staging.StyTPrices stp2 ON stp2.STY_ID = stp.STY_ID AND stp2.PRICE_LIST = stp.PRICE_LIST" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\SEQ Package Body.PrecedenceConstraints[Constraint]"
+          DTS:CreationName=""
+          DTS:DTSID="{DC7BFFAE-0115-455A-9695-417A9AE27070}"
+          DTS:From="Package\SEQ Package Body\Process StyTPrices"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint"
+          DTS:To="Package\SEQ Package Body\Update Existing Records" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\SEQ Package Body.PrecedenceConstraints[Constraint 1]"
+          DTS:CreationName=""
+          DTS:DTSID="{4C3F2073-EAEC-42B5-9075-AE96EBDDFCA1}"
+          DTS:From="Package\SEQ Package Body\Truncate Staging"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 1"
+          DTS:To="Package\SEQ Package Body\Process StyTPrices" />
+      </DTS:PrecedenceConstraints>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SQL Log Package Complete"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{A040DB52-9784-4E1C-B7AB-09A0E2B52FFD}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL Log Package Complete"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 CTP2.1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{5527293B-F206-4C37-97DF-7AC6BC5D5D95}"
+          SQLTask:SqlStatementSource="EXEC logging.PackageExecutionLogUpdate ?, ?, ?, ?, ?, ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="User::PackageExecutionID"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="1"
+            SQLTask:DtsVariableName="User::InsertedRows"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="2"
+            SQLTask:DtsVariableName="User::UpdatedRows"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="3"
+            SQLTask:DtsVariableName="User::DeletedRows"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="4"
+            SQLTask:DtsVariableName="User::ErrorRows"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="5"
+            SQLTask:DtsVariableName="$Project::ExectutionStatusComplete"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SQL Log Package Start"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{60C154E6-BE6C-4ED5-8F70-EC43DB0E6AEE}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL Log Package Start"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 CTP2.1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{5527293B-F206-4C37-97DF-7AC6BC5D5D95}"
+          SQLTask:SqlStatementSource="EXEC logging.PackageExecutionLogInsert ?,?, ?, ? OUTPUT" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="1"
+            SQLTask:DtsVariableName="System::PackageName"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="2"
+            SQLTask:DtsVariableName="User::PackageDescription"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="3"
+            SQLTask:DtsVariableName="User::PackageExecutionID"
+            SQLTask:ParameterDirection="Output"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="$Package::LoadID"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{7C916957-71CD-4573-9FF0-D3725660AC20}"
+      DTS:From="Package\SQL Log Package Start"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\SEQ Package Body" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{E371F17B-AE1F-4A76-BC7D-89F5EAD2BA26}"
+      DTS:From="Package\SEQ Package Body"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\SQL Log Package Complete" />
+  </DTS:PrecedenceConstraints>
+  <DTS:EventHandlers>
+    <DTS:EventHandler
+      DTS:refId="Package.EventHandlers[OnError]"
+      DTS:CreationName="OnError"
+      DTS:DTSID="{FD84C85B-05A4-4757-9F6A-FA58A8E987BD}"
+      DTS:EventID="702871272"
+      DTS:EventName="OnError"
+      DTS:LocaleID="-1">
+      <DTS:Variables>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:Description="The propagate property of the event"
+          DTS:DTSID="{7913182A-D21A-4D8F-9733-F0E588B4533E}"
+          DTS:IncludeInDebugDump="6789"
+          DTS:Namespace="System"
+          DTS:ObjectName="Propagate">
+          <DTS:VariableValue
+            DTS:DataType="11">-1</DTS:VariableValue>
+        </DTS:Variable>
+      </DTS:Variables>
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package.EventHandlers[OnError]\SQL Log Package Complete"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{8D8F040F-0200-4161-BC1B-CF404EB964A2}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="SQL Log Package Complete"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 CTP2.1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{5527293B-F206-4C37-97DF-7AC6BC5D5D95}"
+              SQLTask:SqlStatementSource="EXEC logging.PackageExecutionLogUpdate ?, ?, ?, ?, ?, ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="User::PackageExecutionID"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="1"
+                SQLTask:DtsVariableName="User::InsertedRows"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="2"
+                SQLTask:DtsVariableName="User::UpdatedRows"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="3"
+                SQLTask:DtsVariableName="User::DeletedRows"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="4"
+                SQLTask:DtsVariableName="User::ErrorRows"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="5"
+                SQLTask:DtsVariableName="$Project::ExectutionStatusFailure"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="-1" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:EventHandler>
+  </DTS:EventHandlers>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="166,42"
+          Id="Package\SEQ Package Body\Process StyTPrices"
+          TopLeft="47.1666666666666,89.8333333333334" />
+        <NodeLayout
+          Size="164,42"
+          Id="Package\SEQ Package Body\Truncate Staging"
+          TopLeft="59.6666666666666,14.8333333333333" />
+        <NodeLayout
+          Size="193,42"
+          Id="Package\SEQ Package Body\Update Existing Records"
+          TopLeft="37.3333333333334,173.833333333333" />
+        <EdgeLayout
+          Id="Package\SEQ Package Body.PrecedenceConstraints[Constraint]"
+          TopLeft="132.125,131.833333333333">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,41.9999999999996"
+              Start="0,0"
+              End="0,34.4999999999996">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,34.4999999999996" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\SEQ Package Body.PrecedenceConstraints[Constraint 1]"
+          TopLeft="141.416666666667,56.8333333333333">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-11,33.0000000000001"
+              Start="0,0"
+              End="-11,25.5000000000001">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,12.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,12.5"
+                    Point2="0,16.5000000000001"
+                    Point3="-4,16.5000000000001" />
+                  <mssgle:LineSegment
+                    End="-7,16.5000000000001" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-7,16.5000000000001"
+                    Point2="-11,16.5000000000001"
+                    Point3="-11,20.5000000000001" />
+                  <mssgle:LineSegment
+                    End="-11,25.5000000000001" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="319,270"
+          Size="319,312"
+          Id="Package\SEQ Package Body"
+          TopLeft="249.583333333333,115.666666666667" />
+        <NodeLayout
+          Size="208,42"
+          Id="Package\SQL Log Package Complete"
+          TopLeft="299.5,466.666666666667" />
+        <NodeLayout
+          Size="186,42"
+          Id="Package\SQL Log Package Start"
+          TopLeft="308.916666666667,33.5833333333333" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="405.5,75.5833333333333">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,40.0833333333337"
+              Start="0,0"
+              End="0,32.5833333333337">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,32.5833333333337" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="406.291666666667,428.166666666667">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,38.5000000000001"
+              Start="0,0"
+              End="0,31.0000000000001">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,31.0000000000001" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <DtsEventHandler
+    design-time-name="Package.EventHandlers[OnError]">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="208,42"
+          Id="Package.EventHandlers[OnError]\SQL Log Package Complete"
+          TopLeft="118,60" />
+      </GraphLayout>
+    </LayoutInfo>
+  </DtsEventHandler>
+  <TaskHost
+    design-time-name="Package\SEQ Package Body\Process StyTPrices">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="172,42"
+          Id="Package\SEQ Package Body\Process StyTPrices\Updates Row Count"
+          TopLeft="419.833333333333,185.333333333333" />
+        <NodeLayout
+          Size="210,42"
+          Id="Package\SEQ Package Body\Process StyTPrices\Update Rows - load Staging"
+          TopLeft="403.190476190476,309.119047619047" />
+        <NodeLayout
+          Size="113,42"
+          Id="Package\SEQ Package Body\Process StyTPrices\Lookup"
+          TopLeft="268.5,107.5" />
+        <NodeLayout
+          Size="120,42"
+          Id="Package\SEQ Package Body\Process StyTPrices\Get Data"
+          TopLeft="264.75,5.5" />
+        <NodeLayout
+          Size="173,42"
+          Id="Package\SEQ Package Body\Process StyTPrices\Inserted Row Count"
+          TopLeft="5.50000000000003,209.5" />
+        <NodeLayout
+          Size="135,42"
+          Id="Package\SEQ Package Body\Process StyTPrices\Insert Rows"
+          TopLeft="24.5000000000001,311.5" />
+        <EdgeLayout
+          Id="Package\SEQ Package Body\Process StyTPrices.Paths[Row Count Output 11]"
+          TopLeft="507.011904761904,227.333333333333">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,81.7857142857142"
+              Start="0,0"
+              End="0,74.2857142857142">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,74.2857142857142" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\SEQ Package Body\Process StyTPrices.Paths[Row Count Output 1]"
+          TopLeft="92,251.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\SEQ Package Body\Process StyTPrices.Paths[OLE DB Source Output]"
+          TopLeft="325,47.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\SEQ Package Body\Process StyTPrices.Paths[Lookup No Match Output]"
+          TopLeft="307.5,149.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-215.5,60"
+              Start="0,0"
+              End="-215.5,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,20.5026178010471" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,20.5026178010471"
+                    Point2="0,24.5026178010471"
+                    Point3="-4,24.5026178010471" />
+                  <mssgle:LineSegment
+                    End="-211.5,24.5026178010471" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-211.5,24.5026178010471"
+                    Point2="-215.5,24.5026178010471"
+                    Point3="-215.5,28.5026178010471" />
+                  <mssgle:LineSegment
+                    End="-215.5,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-163.55638671875,29.5026178010471,111.6127734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\SEQ Package Body\Process StyTPrices.Paths[Lookup Match Output]"
+          TopLeft="342.5,149.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="163.333333333333,35.8333333333333"
+              Start="0,0"
+              End="163.333333333333,28.3333333333333">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,10.6335078534031" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,10.6335078534031"
+                    Point2="0,14.6335078534031"
+                    Point3="4,14.6335078534031" />
+                  <mssgle:LineSegment
+                    End="159.333333333333,14.6335078534031" />
+                  <mssgle:CubicBezierSegment
+                    Point1="159.333333333333,14.6335078534031"
+                    Point2="163.333333333333,14.6335078534031"
+                    Point3="163.333333333333,18.6335078534031" />
+                  <mssgle:LineSegment
+                    End="163.333333333333,28.3333333333333" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="33.4752799479167,19.6335078534031,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\SEQ Package Body\Process StyTPrices\Update Rows - load Staging">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\SEQ Package Body\Process StyTPrices\Lookup">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[Cims].[StyTPrices]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\SEQ Package Body\Process StyTPrices\Get Data">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\SEQ Package Body\Process StyTPrices\Insert Rows">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

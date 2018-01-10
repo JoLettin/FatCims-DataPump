@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="LoggingDB"
+  DTS:DTSID="{5527293B-F206-4C37-97DF-7AC6BC5D5D95}"
+  DTS:CreationName="OLEDB">
+  <DTS:PropertyExpression
+    DTS:Name="InitialCatalog">@[$Project::LoggingDatabaseName]</DTS:PropertyExpression>
+  <DTS:PropertyExpression
+    DTS:Name="Password">@[$Project::LoggingDatabasePassword]</DTS:PropertyExpression>
+  <DTS:PropertyExpression
+    DTS:Name="ServerName">@[$Project::LoggingDatabaseServer]</DTS:PropertyExpression>
+  <DTS:PropertyExpression
+    DTS:Name="UserName">@[$Project::LoggingDatabaseUserName]</DTS:PropertyExpression>
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:ConnectionString="Data Source=.\sql16;User ID=SSISuser;Initial Catalog=FatCims;Provider=SQLNCLI11.1;Persist Security Info=True;Auto Translate=False;">
+      <DTS:Password
+        DTS:Name="Password"
+        Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAjrR0TAX2VUCsAENNsjkzzQAAAAACAAAAAAADZgAAwAAAABAAAADZwpqtHEqPKQD07yxOGDOiAAAAAASAAACgAAAAEAAAADbmMHBmkEzeyMMi7gO3MzZwAAAAI4NI+Pl4edqFGR1FHteLVlEkfHvBHB9OrIMJSauylH9aO7QiVH7Hnf8TdMuPuL3v0g1U3Wtc1ngxS3Uv6tXflDffSazzDf1snbZsp+DweyDkCAPhgz6056GyTNcy+g7GmXhN/zS3yr7ZxfS/z7OUsBQAAADzb4+1tc++AKlEhIVpHPYZAH528A==</DTS:Password>
+    </DTS:ConnectionManager>
+  </DTS:ObjectData>
+</DTS:ConnectionManager>
